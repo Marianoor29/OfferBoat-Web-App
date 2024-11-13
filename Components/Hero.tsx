@@ -17,16 +17,16 @@ const Hero = () => {
         <div className="flex items-center justify-center flex-col w-[100%] h-[100%] ">
           <div data-aos="fade-right">
             <h1 className="text-[25px] mb-[1rem] md:mb-[0] text-center md:text-[35px] lg:text-[45px] tracking-[0.7rem] text-white font-bold uppercase">
-              Lets Enjoy The Journy
+            YOUR BUDGET, OUR BOATS
             </h1>
             <p className="md:text-[16px] text-center text-[18px] text-white font-normal [word-spacing:5px]">
-              Get the best prices on 2,000,000+ properties,worldwide
+            Wherever you go, the perfect yacht awaits. Start your adventure today.
             </p>
           </div>
           <SearchBox />
           <a
             href="#_"
-            className="rounded px-14 md:px-28 mt-[-1rem] py-2.5 overflow-hidden group bg-red-500 relative hover:bg-gradient-to-r hover:from-red-500 hover:to-red-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-red-400 transition-all ease-out duration-300"
+            className="rounded px-14 md:px-28 mt-[-1rem] py-2.5 overflow-hidden group bg-blue-900 relative hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-blue-400 transition-all ease-out duration-300"
           >
             <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
             <span className="relative font-bold">Search</span>

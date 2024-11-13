@@ -27,7 +27,7 @@ const DestinationSlider = () => {
       additionalTransfrom={0}
       arrows={true}
       autoPlay={true}
-      autoPlaySpeed={5000}
+      autoPlaySpeed={3000}
       centerMode={false}
       infinite
       responsive={responsive}
@@ -35,69 +35,102 @@ const DestinationSlider = () => {
     >
       <div>
         <Image
-          src="/images/d1.png"
+          src="/images/miami.jpg"
           alt="destination"
           width={200}
           height={200}
-          className="rounded-full mx-auto"
+          className="rounded-md mx-auto object-cover"
+        />
+        <h1 className="destination__h1">Miami</h1>
+        <p className="destination__p">7 Boats</p>
+      </div>
+      <div>
+        <Image
+          src="/images/miami-beach.jpg"
+          alt="destination"
+          width={200}
+          height={200}
+          className="rounded-md mx-auto object-cover"
+        />
+        <h1 className="destination__h1">Miami Beach</h1>
+        <p className="destination__p">17 Boats</p>
+      </div>
+      <div>
+        <Image
+          src="/images/tampa.jpg"
+          alt="destination"
+          width={200}
+          height={200}
+          className="rounded-md mx-auto object-cover"
+        />
+        <h1 className="destination__h1">Tampa</h1>
+        <p className="destination__p">3 Boats</p>
+      </div>
+      <div>
+        <Image
+          src="/images/los-angeles.jpg"
+          alt="destination"
+          width={200}
+          height={200}
+          className="rounded-md mx-auto object-cover"
+        />
+        <h1 className="destination__h1">Los Angeles</h1>
+        <p className="destination__p">27 Boats</p>
+      </div>
+      <div>
+        <Image
+          src="/images/seattle.jpg"
+          alt="destination"
+          width={200}
+          height={200}
+          className="rounded-md mx-auto object-cover"
+        />
+        <h1 className="destination__h1">Seattle</h1>
+        <p className="destination__p">37 Boats</p>
+      </div>
+      <div>
+        <Image
+          src="/images/washington-dc.jpg"
+          alt="destination"
+          width={200}
+          height={200}
+          className="rounded-md mx-auto object-cover"
+        />
+        <h1 className="destination__h1">Washington D.C.</h1>
+        <p className="destination__p">23 Boats</p>
+      </div>
+      <div>
+        <Image
+          src="/images/san-fransisco.jpg"
+          alt="destination"
+          width={200}
+          height={200}
+          className="rounded-md mx-auto object-cover"
+        />
+        <h1 className="destination__h1">San Francisco</h1>
+        <p className="destination__p">23 Boats</p>
+      </div>
+      <div>
+        <Image
+          src="/images/chicago.jpg"
+          alt="destination"
+          width={200}
+          height={200}
+          className="rounded-md mx-auto object-cover"
+        />
+        <h1 className="destination__h1">Chicago</h1>
+        <p className="destination__p">23 Boats</p>
+      </div>
+      <div>
+        <Image
+          src="/images/new-york.jpg"
+          alt="destination"
+          width={200}
+          height={200}
+          className="rounded-md mx-auto object-cover"
         />
         <h1 className="destination__h1">New York</h1>
-        <p className="destination__p">7 Hotels</p>
-      </div>
-      <div>
-        <Image
-          src="/images/d2.png"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-full mx-auto"
-        />
-        <h1 className="destination__h1">Japan</h1>
-        <p className="destination__p">17 Hotels</p>
-      </div>
-      <div>
-        <Image
-          src="/images/d3.png"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-full mx-auto"
-        />
-        <h1 className="destination__h1">Bangladesh</h1>
-        <p className="destination__p">3 Hotels</p>
-      </div>
-      <div>
-        <Image
-          src="/images/d4.png"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-full mx-auto"
-        />
-        <h1 className="destination__h1">India</h1>
-        <p className="destination__p">27 Hotels</p>
-      </div>
-      <div>
-        <Image
-          src="/images/d5.png"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-full mx-auto"
-        />
-        <h1 className="destination__h1">England</h1>
-        <p className="destination__p">37 Hotels</p>
-      </div>
-      <div>
-        <Image
-          src="/images/d6.png"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-full mx-auto"
-        />
-        <h1 className="destination__h1">Australia</h1>
-        <p className="destination__p">23 Hotels</p>
+        <p className="destination__p">23 Boats</p>
       </div>
     </Carousel>
   );

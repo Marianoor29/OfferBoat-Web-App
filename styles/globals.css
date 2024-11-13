@@ -6,7 +6,7 @@
 
 @layer components {
     .nav-link {
-        @apply relative text-black font-bold cursor-pointer text-[17px] w-fit lg:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-red-600 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center uppercase hidden
+        @apply relative text-black font-bold cursor-pointer text-[17px] w-fit lg:block after:block after:content-[''] after:absolute after:h-[3px] after:bg-blue-900 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center uppercase hidden
     }
 
     .nav-link-mobile {
@@ -30,7 +30,7 @@
     }
 
     .footer__link {
-        @apply block mb-[1rem] text-gray-600 text-[16px] hover:text-red-500 transition-all duration-100 w-fit
+        @apply block mb-[1rem] text-gray-600 text-[16px] hover:text-blue-900 transition-all duration-100 w-fit
     }
 
     .footer__icon {

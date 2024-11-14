@@ -4,7 +4,7 @@ import HotelCard from "./Helper/HotelCard";
 const Hotels = () => {
   return (
     <div className="pt-[5rem] bg-gray-200 pb-[4rem] ">
-      <h1 className="heading">Top Rated</h1>
+      <h1 className="heading">Latest Boats</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[3rem] items-center w-[80%] mx-auto mt-[4rem]">
         <div data-aos="fade-left">
           <HotelCard

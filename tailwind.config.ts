@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        primary: ["Lato"],
+        primary: ["Lato", "Cinzel"],
       },
     },
   },

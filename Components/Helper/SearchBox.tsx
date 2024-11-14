@@ -10,7 +10,7 @@ const SearchBox = () => {
       <div className="w-full">
         <p className="text-[18px] font-semibold mb-[0.2rem]">Location</p>
         <input
-          className="outline-none border-none w-full"
+         className="outline-none border-b-2 border-blue-900 w-full py-2 px-4 rounded-md"
           type="text"
           placeholder="Where would you like to sail?"
         />
@@ -22,8 +22,11 @@ const SearchBox = () => {
       <CalendarDaysIcon className="w-[2.5rem] h-[2.5rem] text-blue-900" />
       <div className="w-full">
         <p className="text-[18px] font-semibold mb-[0.2rem]">Date</p>
-        <input className="outline-none border-none w-full" type="date" />
-      </div>
+        <input
+            className="outline-none border-b-2 border-blue-900 w-full py-2 px-4 rounded-md"
+            type="date"
+          />
+       </div>
     </div>
   </div>
   

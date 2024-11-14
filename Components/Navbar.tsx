@@ -8,7 +8,7 @@ interface Props {
 
 const Navbar = ({ openNav }: Props) => {
   return (
-    <div className="w-[100%] bg-white">
+    <div className="w-[100%] bg-white fixed top-0 left-0 right-0 z-[2000] shadow-lg">
       <div className="flex w-[95%] mx-auto items-center justify-between h-[12vh">
          {/* Logo for large screens */}
          <div className="relative w-[70px] h-[70px] lg:w-[150px] lg:h-[40px] cursor-pointer object-contain mb-3 mt-3 lg:block hidden">
@@ -30,7 +30,7 @@ const Navbar = ({ openNav }: Props) => {
             Offers
           </a>
           <a href="#" className="nav-link">
-            Review
+            About Us
           </a>
           <a href="#" className="nav-link">
             Contact
@@ -41,7 +41,7 @@ const Navbar = ({ openNav }: Props) => {
           >
             <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-emerald-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
             <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-t from-transparent via-transparent to-blue-900"></span>
-            <span className="relative">Book Now</span>
+            <span className="relative">Sign up</span>
           </a>
           <Bars3Icon
             onClick={openNav}

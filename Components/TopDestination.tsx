@@ -3,9 +3,9 @@ import DestinationSlider from "./Helper/DestinationSlider";
 
 const TopDestination = () => {
   return (
-    <div className="mt-[6rem] mb-[4rem] ">
-      <h1 className="heading">Top Destination</h1>
-      <div className="mt-[4rem] w-[80%] mx-auto ">
+    <div className="mt-[2rem] mb-[2rem] ">
+      <h1 className="heading">Discover Our Top Destinations</h1>
+      <div className="mt-[2rem] w-[80%] mx-auto ">
         <DestinationSlider />
       </div>
     </div>

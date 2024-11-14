@@ -29,6 +29,9 @@ const Contact = () => {
             <button className="ml-[1rem] px-4 py-2 bg-blue-600 text-white font-bold rounded-lg h-[100%]">
               Subscribe
             </button>
+            <button className="ml-[1rem] px-4 py-2 bg-blue-600 text-white font-bold rounded-lg h-[100%]">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>

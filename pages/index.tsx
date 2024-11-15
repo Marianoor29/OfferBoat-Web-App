@@ -46,7 +46,7 @@ const HomePage = () => {
       <Hero />
       <TopDestination />
       {/* <Hotels /> */}
-      <Boats />
+      {/* <Boats /> */}
       <Reviews />
       <Contact />
       <Footer />

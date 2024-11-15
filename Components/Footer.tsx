@@ -8,31 +8,10 @@ const Footer = () => {
       <div className="w-[80%] mx-auto items-start grid grid-cols-1 border-b-2 pb-[2rem] md:grid-cols-2 lg:grid-cols-4 gap-[3rem] ">
         {/* First */}
         <div>
-          <h1 className="footer__heading">Support</h1>
-          <div>
-            <a className="footer__link" href="#">
-              Help Center
-            </a>
-            <a className="footer__link" href="#">
-              Safety Information
-            </a>
-            <a className="footer__link" href="#">
-              Cancellation options
-            </a>
-            <a className="footer__link" href="#">
-              Medical Doctor
-            </a>
-          </div>
-        </div>
-        {/* Second */}
-        <div>
           <h1 className="footer__heading">Company</h1>
           <div>
             <a className="footer__link" href="#">
               About Us
-            </a>
-            <a className="footer__link" href="#">
-              Community Blog
             </a>
             <a className="footer__link" href="#">
               Careers
@@ -45,13 +24,10 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        {/* 3rd */}
+        {/* Second */}
         <div>
           <h1 className="footer__heading">Contact</h1>
           <div>
-            <a className="footer__link" href="#">
-              Partnerships
-            </a>
             <a className="footer__link" href="#">
               FAQ
             </a>
@@ -60,6 +36,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
+          {/* 3rd */}
         <div>
           <h1 className="footer__heading">Social</h1>
           <div className="flex items-center space-x-4 text-white text-[1.3rem]">
@@ -69,26 +46,49 @@ const Footer = () => {
             <div className="footer__icon bg-[#cd486b]">
               <FaInstagram />
             </div>
-            <div className="footer__icon bg-[#1da1f2]">
-              <FaTwitter />
-            </div>
             <div className="footer__icon bg-[#cd201f]">
               <FaYoutube />
             </div>
           </div>
         </div>
+        {/* 4th */}
+        <div className="w-full ">
+        <div className="flex justify-between items-start">
+        <div>
+            <Image src="/images/logoHat.png" alt="logo hat" width={50} height={50} className="object-contain" />
+            </div>
+          <div className="">    
+          <h3 className="text-black text-[13px] font-bold">OfferBoat - Boat Rentals App</h3>
+          <p className="text-black text-[10px]">Download Our App Now!</p>
+          </div>
+          </div>
+          <div className="flex items-center">
+          <button>
+            <Image src="/images/appStore.png" alt="logo hat"     
+            width={132}
+            height={30}
+            className="object-contain mx-auto mr-3" />
+            </button>
+            <button >
+            <Image src="/images/googlePlay.png" alt="logo hat"    
+            width={117}
+            height={20}
+            className="object-contain  mx-auto" />
+            </button>
+          </div>
+        </div>
       </div>
       <div className="mt-[1rem] grid grid-cols-1 gap-[1.4rem] sm:grid-cols-2 justify-between w-[80%] mx-auto">
         <p className="text-[17px] text-black opacity-60 font-semibold">
-          &#169; Copyright webdevWarriors 2023
+          &#169; Copyright OfferBoat Partners LLC
         </p>
-        <Image
+        {/* <Image
           src="/images/pay.svg"
           alt="pay"
           width={230}
           height={230}
           className="object-contain sm:ml-auto"
-        />
+        /> */}
       </div>
     </div>
   );

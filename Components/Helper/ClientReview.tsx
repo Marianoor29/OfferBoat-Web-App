@@ -4,25 +4,27 @@ import Image from "next/image";
 import React from "react";
 
 interface Props {
-  image: string;
-  name: string;
+  profilePicture: string;
+  firstName: string;
+  lastName: string;
+  userType: string;
+  reviewText: string;
 }
 
-const ClientReview = ({ image, name }: Props) => {
+const ClientReview = ({ profilePicture, firstName ,lastName, userType, reviewText}: Props) => {
   return (
     <div className="p-4">
       <div>
         <Image
-          src={`${image}`}
-          alt={name}
+          src={`${profilePicture}`}
+          alt={firstName}
           width={80}
           height={80}
           className="rounded-full mx-auto"
         />
       </div>
       <p className="mt-[2rem] text-center text-[16px] text-black opacity-60">
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-        eligendi exercitationem asperiores eos hic sed illo modi velit maxime"
+        {reviewText}
       </p>
       <div className="mt-[2rem] ">
         <div className="flex w-[100%] text-center justify-center items-center space-x-1">
@@ -33,10 +35,10 @@ const ClientReview = ({ image, name }: Props) => {
           <StarIcon className="w-[1rem] h-[1rem] text-orange-500" />
         </div>
         <h1 className="mt-[0.5rem] font-bold text-center text-[18px] text-black mb-[0.3rem]">
-          {name}
+          {firstName} {lastName}
         </h1>
         <p className="text-center text-black text-[15px] opacity-70 ">
-          Traveler
+          {userType}
         </p>
       </div>
     </div>

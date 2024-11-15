@@ -22,6 +22,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cdn.pixabay.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'offerboat-app-images.s3.us-east-1.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
   reactStrictMode: true,

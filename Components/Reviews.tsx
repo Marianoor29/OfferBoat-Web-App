@@ -4,7 +4,7 @@ import ReviewSlider from "./Helper/ReviewSlider";
 const Reviews = () => {
   return (
     <div className="pt-[6rem] pb-[3rem] ">
-      <h1 className="heading">Client Review</h1>
+      <h1 className="heading">Genuine Reviews from Both Sides of the Boat</h1>
       <div className="mt-[4rem] w-[80%] mx-auto">
         <ReviewSlider />
       </div>

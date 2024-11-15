@@ -2,6 +2,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ClientReview from "./ClientReview";
+import { ReviewsList } from "@/dummyData";
 
 const responsive = {
   desktop: {
@@ -33,10 +34,16 @@ const ReviewSlider = () => {
       responsive={responsive}
       itemClass="item"
     >
-      <ClientReview image="/images/user1.jpg" name="Naruto" />
-      <ClientReview image="/images/user2.jpg" name="Kofune" />
-      <ClientReview image="/images/user3.jpg" name="Zoro" />
-      <ClientReview image="/images/user4.jpg" name="Temari" />
+      {ReviewsList.map((review: { profilePicture: string; firstName: string; lastName: string; userType: string; reviewText: string; }, index: React.Key | null | undefined) => (
+        <ClientReview
+          key={index}
+          profilePicture={review.profilePicture}
+          firstName={review.firstName}
+          lastName={review.lastName}
+          userType={review.userType}
+          reviewText={review.reviewText}
+        />
+      ))}
     </Carousel>
   );
 };

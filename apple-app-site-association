@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "35Z2S5794W.offerboat.app.com",
+        "paths": ["/offerdetails/*"]
+      }
+    ]
+  }
+}

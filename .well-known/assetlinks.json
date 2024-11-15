@@ -1,0 +1,11 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.OfferBoat", 
+      "sha256_cert_fingerprints": [
+        "5e:8f:16:06:2e:a3:cd:2c:4a:0d:54:78:76:ba:a6:f3:8c:ab:f6:25" 
+      ]
+    }
+  }]
+  

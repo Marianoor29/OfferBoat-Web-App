@@ -16,7 +16,7 @@
 
     @layer components {
         .heading {
-            @apply text-center text-[#333] text-[22px] sm:text-[30px] md:text-[38px] font-bold capitalize;
+            @apply text-center text-[#333] text-[15px] sm:text-[25px] md:text-[30px] font-bold capitalize;
             font-family: 'Cinzel', 'Lato',  sans-serif;
         }
     }

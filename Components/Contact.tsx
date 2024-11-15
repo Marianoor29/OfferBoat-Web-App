@@ -4,14 +4,14 @@ import React from "react";
 const Contact = () => {
   return (
     <div className="pt-[8rem] pb-[3rem] ">
-      <div className="w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[3rem]">
+      <div className="w-[90%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[2rem]">
         <div data-aos="fade-right" data-aos-delay="800">
           <Image
-            src="/images/01.png"
+            src="/images/mockup4.png"
             alt="fly"
-            width={300}
-            height={100}
-            className="object-contain  mx-auto p-[1rem]"
+            width={400}
+            height={200}
+            className="object-contain mx-auto "
           />
         </div>
         <div
@@ -25,12 +25,18 @@ const Contact = () => {
           <p className="mt-[0.7rem] w-[80%] xl:w-[60%] mx-auto text-center text-[15px] text-black opacity-70">
           Experience a smoother, faster, and more personalized boating adventure with our app!
           </p>
-          <div className="flex mt-[1.4rem] rounded-lg bg-gray-300 mb-[3rem] items-center space-x-2 w-[80%] h-[4vh] md:h-[6.3vh]">
-            <button className="ml-[1rem] px-4 py-2 bg-blue-600 text-white font-bold rounded-lg h-[100%]">
-              Subscribe
+          <div className="flex mt-[3.4rem] rounded-lg mb-[3rem] items-center space-x-2 w-[80%] h-[4vh] md:h-[6.3vh]">
+            <button className="ml-[1rem] px-4 py-2 rounded-lg">
+            <Image src="/images/appStore.png" alt="logo hat"     
+            width={300}
+            height={10}
+            className="object-contain  mx-auto " />
             </button>
-            <button className="ml-[1rem] px-4 py-2 bg-blue-600 text-white font-bold rounded-lg h-[100%]">
-              Subscribe
+            <button className="ml-[1rem] px-4 py-2 rounded-lg">
+            <Image src="/images/googlePlay.png" alt="logo hat"    
+            width={240}
+            height={10}
+            className="object-contain  mx-auto " />
             </button>
           </div>
         </div>

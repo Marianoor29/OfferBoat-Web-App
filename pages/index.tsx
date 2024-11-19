@@ -8,7 +8,7 @@ import Reviews from "@/Components/Reviews";
 import TopDestination from "@/Components/TopDestination";
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
-import "aos/dist/aos.css"; // You can also use <link> for styles
+import "aos/dist/aos.css"; 
 import Boats from "@/Components/Boats";
 
 const HomePage = () => {

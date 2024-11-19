@@ -4,7 +4,7 @@ import OfferCard from "./Helper/OfferCard";
 const Boats = () => {
   return (
     <div className="pt-[5rem] bg-blue-100 pb-[4rem] ">
-      <h1 className="heading">Latest Boats</h1>
+      <h1 className="heading">Boats</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem] items-center w-[85%] mx-auto mt-[2rem]">
         <div data-aos="fade-left">
         <OfferCard

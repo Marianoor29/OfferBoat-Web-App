@@ -1,5 +1,6 @@
 import { Bars3Icon } from "@heroicons/react/16/solid";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -20,29 +21,29 @@ const Navbar = ({ openNav }: Props) => {
           <Image src="/images/logoHat.png" alt="logo hat" layout="fill" />
         </div>
         <div className="flex items-center space-x-12">
-          <a href="#" className="nav-link">
+        <Link href="/" className="nav-link">
             Home
-          </a>
-          <a href="#" className="nav-link">
+          </Link>
+          <Link href="/boats" className="nav-link">
             Boats
-          </a>
-          <a href="#" className="nav-link">
+          </Link>
+          <Link href="/offers" className="nav-link">
             Offers
-          </a>
-          <a href="#" className="nav-link">
+          </Link>
+          <Link href="/about-us" className="nav-link">
             About Us
-          </a>
-          <a href="#" className="nav-link">
+          </Link>
+          <Link href="/contact" className="nav-link">
             Contact
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="relative hidden lg:inline-flex items-center justify-center px-10 py-3 overflow-hidden font-medium tracking-tighter text-white bg-blue-900 rounded-lg group"
           >
             <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-emerald-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
             <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-t from-transparent via-transparent to-blue-900"></span>
             <span className="relative">Sign up</span>
-          </a>
+            </Link>
           <Bars3Icon
             onClick={openNav}
             className="w-[2rem] lg:hidden h-[2rem] text-blue-800 font-bold"

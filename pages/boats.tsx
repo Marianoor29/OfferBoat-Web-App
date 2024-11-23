@@ -88,15 +88,6 @@ const BoatsPage = () => {
     setTriggerSearch(true); 
   };
 
-  if (error) {
-    console.error("Error fetching data:", error);
-    return <div>Error loading data: {error.message || "Unknown error"}</div>;
-  }
-
-  if (!offersData) {
-    return <Loader />;
-  }
-
   const totalBoats = offersData?.totalCount || 0;
   const BoatsData = offersData?.listings || [];
 
@@ -128,6 +119,16 @@ const BoatsPage = () => {
   return (
    <div id="scrollable-container" className="overflow-x-hidden h-screen">
      <LocationSearchBox setAddress={setAddress} onSearch={handleSearch} />
+      {/* Loader / Error / No Results message */}
+      <div className="mt-4 text-center">
+        {(!offersData && !error) ? (
+          <Loader />
+        ) : error ? (
+          <div className="text-red-500">Error loading data: {error.message || "Unknown error"}</div>
+        ) : BoatsData.length === 0 ? (
+          <div className="text-red-500">No Boats Found in {address}</div>
+        ) : null}
+      </div>
       <div className="pb-[1rem]">
         <div className="w-[96%] mx-auto mt-[1rem]">
           <Grid

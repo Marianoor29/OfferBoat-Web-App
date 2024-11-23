@@ -36,7 +36,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
     };
   
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden w-full md:w-90 lg:w-96 mx-auto my-4 relative">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-[96%] md:w-[98%] lg:w-[98%] mx-auto my-2 relative">
       {/* Slider and Members Badge Container */}
       <div className="relative">
         <PhotosSlider images={images} />

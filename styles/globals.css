@@ -41,4 +41,15 @@
     .footer__icon {
         @apply w-[2.3rem] h-[2.3rem] flex cursor-pointer items-center justify-center rounded-full hover:opacity-60 transition-all duration-200
     }
+    /* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+  }
+  
+  /* For Firefox */
+  .scrollbar-hidden {
+    scrollbar-width: none; /* Hides the scrollbar */
+  }
+  
+      
 }

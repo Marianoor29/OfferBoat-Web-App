@@ -1,10 +1,9 @@
 import Image from "next/image";
-import React from "react";
-import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="pb-[2rem] pt-[7rem] bg-gray-100 ">
+    <div className="pb-[2rem] pt-[7rem] bg-gray-100">
       <div className="w-[80%] mx-auto items-start grid grid-cols-1 border-b-2 pb-[2rem] md:grid-cols-2 lg:grid-cols-4 gap-[3rem] ">
         {/* First */}
         <div>
@@ -57,9 +56,9 @@ const Footer = () => {
         <div>
             <Image src="/images/logoHat.png" alt="logo hat" width={50} height={50} className="object-contain" />
             </div>
-          <div className="">    
-          <h3 className="text-black text-[13px] font-bold">OfferBoat - Boat Rentals App</h3>
-          <p className="text-black text-[10px]">Download Our App Now!</p>
+          <div className="w-full">    
+          <h3 className="text-black text-[13px] font-bold ml-5">OfferBoat - Boat Rentals App</h3>
+          <p className="text-black text-[10px] ml-5">Download Our App Now!</p>
           </div>
           </div>
           <div className="flex items-center">

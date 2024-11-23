@@ -10,7 +10,7 @@ interface Props {
 const Navbar = ({ openNav }: Props) => {
   return (
     <div className="w-[100%] bg-white fixed top-0 left-0 right-0 z-[2000] shadow-lg">
-      <div className="flex w-[95%] mx-auto items-center justify-between h-[12vh">
+      <div className="flex w-[95%] mx-auto items-center justify-between h-[12vh]">
          {/* Logo for large screens */}
          <div className="relative w-[70px] h-[70px] lg:w-[150px] lg:h-[40px] cursor-pointer object-contain mb-3 mt-3 lg:block hidden">
           <Image src="/images/logo.png" alt="logo" layout="fill" />
@@ -22,7 +22,7 @@ const Navbar = ({ openNav }: Props) => {
         </div>
         <div className="flex items-center space-x-12">
         <Link href="/" className="nav-link">
-            Home
+            Explore
           </Link>
           <Link href="/boats" className="nav-link">
             Boats

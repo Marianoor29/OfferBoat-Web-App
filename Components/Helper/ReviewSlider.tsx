@@ -22,7 +22,7 @@ const responsive = {
   },
 };
 
-const ReviewSlider = () => {
+const ReviewSlider = ({Reviews = ReviewsList}) => {
   return (
     <Carousel
       additionalTransfrom={0}
@@ -34,7 +34,7 @@ const ReviewSlider = () => {
       responsive={responsive}
       itemClass="item"
     >
-      {ReviewsList.map((review: { profilePicture: string; firstName: string; lastName: string; userType: string; reviewText: string; }, index: React.Key | null | undefined) => (
+      {Reviews.map((review: { profilePicture: string; firstName: string; lastName: string; userType: string; reviewText: string; }, index: React.Key | null | undefined) => (
         <ClientReview
           key={index}
           profilePicture={review.profilePicture}

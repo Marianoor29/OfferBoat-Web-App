@@ -1,0 +1,17 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Allow full height scrolling */
+  }
+  
+  .scrollable-container {
+    height: 100vh; /* Full viewport height */
+    overflow-y: auto; /* Ensure vertical scrolling */
+  }
+  .overflow-x-hidden {
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    height: 100vh;   
+    position: relative;
+  }
+    

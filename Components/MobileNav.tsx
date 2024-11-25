@@ -1,4 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -14,11 +15,21 @@ const MobileNav = ({ nav, closeNav }: Props) => {
       className={`fixed ${navAnimation} transform transition-all duration-300 top-0 left-0 right-0 bottom-0 z-[10000] bg-[#324e8b]`}
     >
       <div className="w-[100vw] h-[100vh] flex flex-col items-center justify-center">
-        <div className="nav-link-mobile">Explore</div>
-        <div className="nav-link-mobile">Boat</div>
-        <div className="nav-link-mobile">Offers</div>
-        <div className="nav-link-mobile">Review</div>
-        <div className="nav-link-mobile">Contact</div>
+      <Link href="/" className="nav-link">
+            Explore
+          </Link>
+          <Link href="/boats" className="nav-link">
+            Boats
+          </Link>
+          <Link href="/offers" className="nav-link">
+            Offers
+          </Link>
+          <Link href="/about-us" className="nav-link">
+            About Us
+          </Link>
+          <Link href="/contact" className="nav-link">
+            Contact
+          </Link>
         <a
           href="#"
           className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-medium tracking-tighter text-white bg-blue-900 rounded-lg group"

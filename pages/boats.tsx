@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
 import { useRouter } from "next/router";
-import apiUrl from "@/pages/config";
 import axios from "axios";
 import useSWR from "swr";
 import LocationSearchBox from "@/Components/Helper/LocationSearch";
@@ -33,7 +32,7 @@ const BoatsPage = () => {
   });
 
   const swrKey = triggerSearch
-    ? `${apiUrl}/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`
+    ? `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`
     : null;
 
      const { data: offersData, error } = useSWR(swrKey, fetcher, {

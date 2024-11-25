@@ -2,8 +2,6 @@ import OwnerProfile from '@/Components/Helper/OwnerProfile';
 import PackageCard from '@/Components/Helper/PackageCard';
 import PhotosSlider from '@/Components/Helper/PhotosSlider';
 import Head from 'next/head';
-import { IoCheckmarkCircleOutline } from "react-icons/io5";
-import apiUrl from '../config';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import FeaturesSection from '@/Components/Helper/FeaturesBox';
@@ -12,7 +10,7 @@ export async function getServerSideProps(context: { params: { offerId: any; }; }
   const { offerId } = context.params;
 
   // Fetch offer data from your backend API
-  const response = await fetch(`${apiUrl}/listing/getListingById/${offerId}`);
+  const response = await fetch(`https://www.offerboats.com/listing/getListingById/${offerId}`);
   if (!response.ok) {
     return { notFound: true };
   }
@@ -29,7 +27,7 @@ export default function OfferPage({ offer }: any) {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/rating/getReviews`, {
+        const response = await axios.get(`https://www.offerboats.com/rating/getReviews`, {
           params: { userId: offer.ownerId._id, userType: 'BoatOwner' }
         });
 

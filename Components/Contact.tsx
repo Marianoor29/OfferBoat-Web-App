@@ -27,13 +27,13 @@ const Contact = () => {
           </p>
           <div className="flex mt-[3.4rem] rounded-lg mb-[3rem] items-center space-x-2 w-[80%] h-[4vh] md:h-[6.3vh]">
             <button className="ml-[1rem] px-4 py-2 rounded-lg">
-            <Image src="/images/appStore.png" alt="logo hat"     
+            <Image src="/images/appStore.png" alt="appStore"     
             width={300}
             height={10}
             className="object-contain  mx-auto " />
             </button>
             <button className="ml-[1rem] px-4 py-2 rounded-lg">
-            <Image src="/images/googlePlay.png" alt="logo hat"    
+            <Image src="/images/googlePlay.png" alt="googlePlay"    
             width={240}
             height={10}
             className="object-contain  mx-auto " />

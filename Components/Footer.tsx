@@ -54,7 +54,7 @@ const Footer = () => {
         <div className="w-full ">
         <div className="flex justify-between items-start">
         <div>
-            <Image src="/images/logoHat.png" alt="logo hat" width={50} height={50} className="object-contain" />
+            <Image src="/images/logoHat.png" alt="Offerboat - Boat Rentals & Yacht Charters" width={50} height={50} className="object-contain" />
             </div>
           <div className="w-full">    
           <h3 className="text-black text-[13px] font-bold ml-5">OfferBoat - Boat Rentals App</h3>
@@ -63,13 +63,13 @@ const Footer = () => {
           </div>
           <div className="flex items-center">
           <button>
-            <Image src="/images/appStore.png" alt="logo hat"     
+            <Image src="/images/appStore.png" alt="Offerboat - Boat Rentals & Yacht Charters"     
             width={132}
             height={30}
             className="object-contain mx-auto mr-3" />
             </button>
             <button >
-            <Image src="/images/googlePlay.png" alt="logo hat"    
+            <Image src="/images/googlePlay.png" alt="Offerboat - Boat Rentals & Yacht Charters"    
             width={117}
             height={20}
             className="object-contain  mx-auto" />

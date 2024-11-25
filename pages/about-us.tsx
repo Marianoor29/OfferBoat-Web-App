@@ -31,7 +31,7 @@ const AboutUsPage = () => {
             <div className="absolute w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] top-10 right-10 animate-pulse">
               <Image
                 src="/images/logoHat.png"
-                alt="Hero Animation 2"
+                alt="Offerboat - Boat Rentals & Yacht Charters"
                 layout="fill"
                 className="rounded-lg shadow-lg object-cover"
               />

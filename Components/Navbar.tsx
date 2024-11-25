@@ -13,12 +13,12 @@ const Navbar = ({ openNav }: Props) => {
       <div className="flex w-[95%] mx-auto items-center justify-between h-[12vh]">
          {/* Logo for large screens */}
          <div className="relative w-[70px] h-[70px] lg:w-[150px] lg:h-[40px] cursor-pointer object-contain mb-3 mt-3 lg:block hidden">
-          <Image src="/images/logo.png" alt="logo" layout="fill" />
+          <Image src="/images/logo.png" alt="Offerboat - Boat Rentals & Yacht Charters" layout="fill" />
         </div>
         
         {/* Logo for small screens */}
         <div className="relative w-[70px] h-[70px] cursor-pointer object-contain mb-3 mt-3 lg:hidden">
-          <Image src="/images/logoHat.png" alt="logo hat" layout="fill" />
+          <Image src="/images/logoHat.png" alt="Offerboat - Boat Rentals & Yacht Charters" layout="fill" />
         </div>
         <div className="flex items-center space-x-12">
         <Link href="/" className="nav-link">

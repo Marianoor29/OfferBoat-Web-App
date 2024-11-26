@@ -13,13 +13,13 @@ export default function App({ Component, pageProps }: AppProps) {
   const closeNavHandler = () => setNav(false);
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="flex flex-col min-h-screen">
       {/* Persistent Navbar */}
       <MobileNav nav={nav} closeNav={closeNavHandler} />
       <Navbar openNav={openNavHandler} />
       
       {/* Page-specific content */}
-      <main className="pt-[12vh]">
+      <main className="flex-grow pt-[12vh]">
         <Component {...pageProps} />
       </main>
       

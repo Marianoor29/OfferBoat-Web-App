@@ -29,13 +29,13 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="">
       <Hero />
       <TopDestination />
       {/* <Hotels /> */}
       {/* <Boats /> */}
-      <Reviews />
-      <Contact />
+      {/* <Reviews />
+      <Contact /> */}
     </div>
   );
 };

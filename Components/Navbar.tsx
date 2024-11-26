@@ -1,49 +1,94 @@
-import { Bars3Icon } from "@heroicons/react/16/solid";
+import { Bars3Icon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface Props {
   openNav: () => void;
 }
 
 const Navbar = ({ openNav }: Props) => {
+  const [open, setOpen] = useState(false);
+  const handleToggle = () => {
+    setOpen((prev) => !prev);
+  };
+
   return (
     <div className="w-[100%] bg-white fixed top-0 left-0 right-0 z-[2000] shadow-lg">
       <div className="flex w-[95%] mx-auto items-center justify-between h-[12vh]">
-         {/* Logo for large screens */}
-         <div className="relative w-[70px] h-[70px] lg:w-[150px] lg:h-[40px] cursor-pointer object-contain mb-3 mt-3 lg:block hidden">
-          <Image src="/images/logo.png" alt="Offerboat - Boat Rentals & Yacht Charters" layout="fill" />
-        </div>
-        
+        {/* Logo for large screens */}
+        <Link  href="/" className="relative w-[70px] h-[70px] lg:w-[150px] lg:h-[40px] cursor-pointer object-contain mb-3 mt-3 lg:block hidden">
+          <Image
+            src="/images/logo.png"
+            alt="Offerboat - Boat Rentals & Yacht Charters"
+            layout="fill"
+          />
+        </Link>
+
         {/* Logo for small screens */}
-        <div className="relative w-[70px] h-[70px] cursor-pointer object-contain mb-3 mt-3 lg:hidden">
-          <Image src="/images/logoHat.png" alt="Offerboat - Boat Rentals & Yacht Charters" layout="fill" />
-        </div>
-        <div className="flex items-center space-x-12">
-        <Link href="/" className="nav-link">
-            Explore
-          </Link>
-          <Link href="/boats" className="nav-link">
-            Boats
-          </Link>
-          <Link href="/offers" className="nav-link">
-            Offers
-          </Link>
+        <Link  href="/"className="relative w-[70px] h-[70px] cursor-pointer object-contain mb-3 mt-3 lg:hidden">
+          <Image
+            src="/images/logoHat.png"
+            alt="Offerboat - Boat Rentals & Yacht Charters"
+            layout="fill"
+          />
+        </Link>
+
+        <div className="flex justify-between space-x-12 relative">
+          {/* Explore with Dropdown */}
+          <div className="relative">
+            <button
+              type="button"
+              className="drop-nav-link lg:flex lg:flex-row justify-between items-center"
+              onClick={handleToggle}
+            >
+              Explore
+              <span className="ml-2 ">
+                {open ? <FaChevronUp /> : <FaChevronDown />}
+              </span>
+            </button>
+            {/* Dropdown */}
+            {open && (
+              <div
+                className="absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-md rounded-lg w-48" >
+                <ul className="py-2">
+                  <li>
+                    <Link
+                      href="/boats"
+                      className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                      onClick={() => setOpen(false)} 
+                    >
+                      Boats
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/offers"
+                      className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                      onClick={() => setOpen(false)} 
+                    >
+                      Offers
+                    </Link>
+                  </li>
+                 
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Other links */}
           <Link href="/about-us" className="nav-link">
-            About Us
+            About Offerboat
           </Link>
           <Link href="/contact" className="nav-link">
             Contact
           </Link>
-          <Link
-            href="#"
-            className="relative hidden lg:inline-flex items-center justify-center px-10 py-3 overflow-hidden font-medium tracking-tighter text-white bg-blue-900 rounded-lg group"
-          >
-            <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-emerald-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
-            <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-t from-transparent via-transparent to-blue-900"></span>
-            <span className="relative">Sign up</span>
-            </Link>
+          <Link href="/auth/login" className="nav-link">
+            SignIn
+          </Link>
+
+          {/* Hamburger Icon */}
           <Bars3Icon
             onClick={openNav}
             className="w-[2rem] lg:hidden h-[2rem] text-blue-800 font-bold"

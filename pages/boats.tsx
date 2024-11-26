@@ -48,21 +48,21 @@ const BoatsPage = () => {
     }
   }, []);
 
-    useEffect(() => {
-      const handleRouteChange = () => {
-        const scrollableDiv = document.getElementById('scrollable-container');
-        if (scrollableDiv) {
-          scrollableDiv.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      };
-      router.events.on('routeChangeComplete', handleRouteChange);
+    // useEffect(() => {
+    //   const handleRouteChange = () => {
+    //     const scrollableDiv = document.getElementById('scrollable-container');
+    //     if (scrollableDiv) {
+    //       scrollableDiv.scrollTo({ top: 0, behavior: 'smooth' });
+    //     } else {
+    //       window.scrollTo({ top: 0, behavior: 'smooth' });
+    //     }
+    //   };
+    //   router.events.on('routeChangeComplete', handleRouteChange);
   
-      return () => {
-        router.events.off('routeChangeComplete', handleRouteChange);
-      };
-    }, [router.events]); 
+    //   return () => {
+    //     router.events.off('routeChangeComplete', handleRouteChange);
+    //   };
+    // }, [router.events]); 
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -116,7 +116,7 @@ const BoatsPage = () => {
   };
 
   return (
-   <div id="scrollable-container" className="overflow-x-hidden h-screen">
+   <div >
      <LocationSearchBox setAddress={setAddress} onSearch={handleSearch} />
       {/* Loader / Error / No Results message */}
       <div className="mt-4 text-center">
@@ -159,6 +159,7 @@ const BoatsPage = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };

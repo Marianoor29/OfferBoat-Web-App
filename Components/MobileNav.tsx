@@ -2,6 +2,7 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import React from "react";
 
+
 interface Props {
   nav: boolean;
   closeNav: () => void;
@@ -15,29 +16,13 @@ const MobileNav = ({ nav, closeNav }: Props) => {
       className={`fixed ${navAnimation} transform transition-all duration-300 top-0 left-0 right-0 bottom-0 z-[10000] bg-[#324e8b]`}
     >
       <div className="w-[100vw] h-[100vh] flex flex-col items-center justify-center">
-      <Link href="/" className="nav-link">
-            Explore
-          </Link>
-          <Link href="/boats" className="nav-link">
-            Boats
-          </Link>
-          <Link href="/offers" className="nav-link">
-            Offers
-          </Link>
-          <Link href="/about-us" className="nav-link">
-            About Us
-          </Link>
-          <Link href="/contact" className="nav-link">
-            Contact
-          </Link>
-        <a
-          href="#"
-          className="relative inline-flex items-center justify-center px-10 py-3 overflow-hidden font-medium tracking-tighter text-white bg-blue-900 rounded-lg group"
-        >
-          <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-emerald-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
-          <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-t from-transparent via-transparent to-blue-900"></span>
-          <span className="relative">Sign up</span>
-        </a>
+        <Link href="/" className="nav-link-mobile">Explore</Link>
+        <Link href="/boats" className="nav-link-mobile">Boat</Link>
+        <Link href="/offers" className="nav-link-mobile">Offers</Link>
+        <Link href="/about-us" className="nav-link-mobile">Review</Link>
+        <Link href="/contact" className="nav-link-mobile">Contact</Link>
+        <Link href="/auth/login" className="nav-link-mobile">SignIn</Link>
+      
       </div>
       <div
         onClick={closeNav}

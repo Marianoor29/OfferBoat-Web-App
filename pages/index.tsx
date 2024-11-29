@@ -5,7 +5,7 @@ import TopDestination from "@/Components/TopDestination";
 import { BoatsList } from "@/dummyData";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import axios from "axios"; // Ensure axios is installed and imported
+import axios from "axios"; 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -39,6 +39,7 @@ const fetchOffers = async (ownerId?: string, location?: string) => {
 const HomePage = () => {
   const router = useRouter();
   const [offers, setOffers] = useState<[]>([]);
+  const [address, setAddress] = useState<string>(""); 
 
   useEffect(() => {
     AOS.init({
@@ -78,9 +79,15 @@ const HomePage = () => {
     router.push("/offers");
   };
 
+  const handleSearch = () => {
+    if (address.trim()) {
+      router.push(`/boats?address=${encodeURIComponent(address)}`);
+    }
+  };
+
   return (
     <div className="">
-      <Hero />
+      <Hero  handleSearch={handleSearch}  setAddress={setAddress} />
       <TopDestination />
       <LatestBoats boats={BoatsList} onSeeMore={handleSeeMoreBoats} />
       <LatestOffers offers={[...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers]} onSeeMore={handleSeeMoreOffers} />

@@ -28,11 +28,6 @@ const BoatsPage = ({ address, setAddress, }: {
   const { address: queryAddress } = router.query;
   const [triggerSearch, setTriggerSearch] = useState(true);
   const itemsPerPage = 20;
-  const [priceRange, setPriceRange] = useState([0, 2000]);
-  const [hours, setHours] = useState(1);
-  const [captain, setCaptain] = useState("include");
-  const [passengers, setPassengers] = useState(1);
-  const [rating, setRating] = useState(0);
 
   const [dimensions, setDimensions] = useState({
     width: 0,

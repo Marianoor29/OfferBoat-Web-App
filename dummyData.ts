@@ -43,7 +43,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -52,7 +52,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -61,7 +61,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -70,7 +70,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -79,7 +79,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -88,7 +88,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -97,7 +97,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -106,7 +106,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -115,7 +115,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -124,7 +124,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -133,7 +133,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -142,7 +142,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -151,7 +151,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -160,7 +160,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -169,7 +169,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -178,7 +178,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -187,7 +187,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -196,7 +196,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -205,7 +205,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -214,7 +214,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -223,7 +223,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages
@@ -232,7 +232,7 @@ export const BoatsList = [
     _id: '6718f38c3f27a6f9665fe030',
     title: "Luxury Yacht",
     boatOwnerImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    passengers: 10,
+    numberOfPassengers: 10,
     location: "Marina Bay",
     description: "Experience the ultimate luxury",
     images: sliderImages

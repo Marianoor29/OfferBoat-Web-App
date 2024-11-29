@@ -4,6 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 interface LatestBoatsProps {
   boats: {
+    numberOfPassengers: number | undefined;
     title: string;
     boatOwnerImage?: string;
     ButtonColor?: string;
@@ -33,7 +34,7 @@ const LatestBoats = ({
             boatOwnerImage={boat.boatOwnerImage}
             ButtonColor={boat.ButtonColor}
             buttonTitle={boat.buttonTitle}
-            members={boat.members}
+            members={boat.numberOfPassengers}
             location={boat.location}
             description={boat.description}
             images={boat.images}

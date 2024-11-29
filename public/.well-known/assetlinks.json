@@ -4,7 +4,8 @@
       "namespace": "android_app",
       "package_name": "com.OfferBoat", 
       "sha256_cert_fingerprints": [
-        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C" 
+        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C",
+        "3E:E9:51:38:B1:8B:E9:0E:6A:C7:DA:37:ED:4F:30:C6:A9:C2:7C:D6:95:C2:84:A4:E4:ED:38:8B:72:24:6E:6A"
       ]
     }
   }]

@@ -3,6 +3,16 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+type Destination = {
+  name: string;
+  image: string;
+};
+
+type SliderProps = {
+  destinations: Destination[]; 
+  onDestinationClick: (destinationName: string) => void; 
+};
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1300 },
@@ -21,7 +31,7 @@ const responsive = {
   },
 };
 
-const DestinationSlider = () => {
+const DestinationSlider = ({ destinations, onDestinationClick }: SliderProps) => {
   return (
     <Carousel
       additionalTransfrom={0}
@@ -33,105 +43,22 @@ const DestinationSlider = () => {
       responsive={responsive}
       itemClass="item"
     >
-      <div>
-        <Image
-          src="/images/miami.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">Miami</h1>
-        <p className="destination__p">7 Boats</p>
-      </div>
-      <div>
-        <Image
-          src="/images/miami-beach.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">Miami Beach</h1>
-        <p className="destination__p">17 Boats</p>
-      </div>
-      <div>
-        <Image
-          src="/images/tampa.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">Tampa</h1>
-        <p className="destination__p">3 Boats</p>
-      </div>
-      <div>
-        <Image
-          src="/images/los-angeles.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">Los Angeles</h1>
-        <p className="destination__p">27 Boats</p>
-      </div>
-      <div>
-        <Image
-          src="/images/seattle.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">Seattle</h1>
-        <p className="destination__p">37 Boats</p>
-      </div>
-      <div>
-        <Image
-          src="/images/washington-dc.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">Washington D.C.</h1>
-        <p className="destination__p">23 Boats</p>
-      </div>
-      <div>
-        <Image
-          src="/images/san-fransisco.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">San Francisco</h1>
-        <p className="destination__p">23 Boats</p>
-      </div>
-      <div>
-        <Image
-          src="/images/chicago.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">Chicago</h1>
-        <p className="destination__p">23 Boats</p>
-      </div>
-      <div>
-        <Image
-          src="/images/new-york.jpg"
-          alt="destination"
-          width={200}
-          height={200}
-          className="rounded-md mx-auto object-cover"
-        />
-        <h1 className="destination__h1">New York</h1>
-        <p className="destination__p">23 Boats</p>
-      </div>
+      {destinations.map((destination) => (
+        <div
+          key={destination.name}
+          onClick={() => onDestinationClick(destination.name)}
+          className="cursor-pointer"
+        >
+          <Image
+            src={destination.image}
+            alt={destination.name}
+            width={200}
+            height={200}
+            className="rounded-md mx-auto object-cover"
+          />
+          <h1 className="destination__h1 text-center">{destination.name}</h1>
+        </div>
+      ))}
     </Carousel>
   );
 };

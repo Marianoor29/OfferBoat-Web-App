@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { FixedSizeGrid as Grid } from "react-window";
-import { useRouter } from "next/router";
-import axios from "axios";
-import useSWR from "swr";
-import LocationSearchBox from "@/Components/Helper/LocationSearch";
+import FilterBox from "@/Components/Helper/FilterBox";
 import OfferCard from "@/Components/Helper/OfferCard";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { FixedSizeGrid as Grid } from "react-window";
+import useSWR from "swr";
 
 // Fetch function for SWR
 const fetcher = async (url: string) => {
@@ -18,12 +18,21 @@ const Loader = () => (
   </div>
 );
 
-const BoatsPage = () => {
+const BoatsPage = ({ address, setAddress, handleSearch }: { 
+  address: string; 
+  setAddress: (value: string) => void; 
+  handleSearch: () => void; 
+}) => {
   const router = useRouter();
   const [page, setPage] = useState(1);
-  const [address, setAddress] = useState("Miami"); 
-  const [triggerSearch, setTriggerSearch] = useState(true); 
+  const { address: queryAddress } = router.query;
+  const [triggerSearch, setTriggerSearch] = useState(true);
   const itemsPerPage = 20;
+  const [priceRange, setPriceRange] = useState([0, 2000]);
+  const [hours, setHours] = useState(1);
+  const [captain, setCaptain] = useState("include");
+  const [passengers, setPassengers] = useState(1);
+  const [rating, setRating] = useState(0);
 
   const [dimensions, setDimensions] = useState({
     width: 0,
@@ -35,34 +44,21 @@ const BoatsPage = () => {
     ? `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`
     : null;
 
-     const { data: offersData, error } = useSWR(swrKey, fetcher, {
+  const { data: offersData, error } = useSWR(swrKey, fetcher, {
     revalidateOnFocus: true,
     refreshInterval: 10000,
     revalidateOnReconnect: true,
-    shouldRetryOnError: false, 
+    shouldRetryOnError: false,
   });
-      
-  useEffect(() => {
-    if (address) {
-      setTriggerSearch(true); 
-    }
-  }, []);
 
-    // useEffect(() => {
-    //   const handleRouteChange = () => {
-    //     const scrollableDiv = document.getElementById('scrollable-container');
-    //     if (scrollableDiv) {
-    //       scrollableDiv.scrollTo({ top: 0, behavior: 'smooth' });
-    //     } else {
-    //       window.scrollTo({ top: 0, behavior: 'smooth' });
-    //     }
-    //   };
-    //   router.events.on('routeChangeComplete', handleRouteChange);
-  
-    //   return () => {
-    //     router.events.off('routeChangeComplete', handleRouteChange);
-    //   };
-    // }, [router.events]); 
+  useEffect(() => {
+    if (queryAddress) {
+      setAddress(queryAddress as string); 
+    } else {
+      setAddress("Miami"); 
+    }
+    setTriggerSearch(true); 
+  }, [queryAddress]);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -82,10 +78,6 @@ const BoatsPage = () => {
 
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
-
-  const handleSearch = () => {
-    setTriggerSearch(true); 
-  };
 
   const totalBoats = offersData?.totalCount || 0;
   const BoatsData = offersData?.listings || [];
@@ -115,10 +107,42 @@ const BoatsPage = () => {
     );
   };
 
+  // Filter functions
+  const handleRemoveFilters = () => {
+    setPriceRange([0, 2000]);
+    setHours(1);
+    setCaptain("include");
+    setPassengers(1);
+    setRating(0);
+  };
+
+  const handleApplyFilters = () => {
+    console.log({
+      priceRange,
+      hours,
+      captain,
+      passengers,
+      rating,
+    });
+    alert("Filters applied!");
+  };
+
   return (
-   <div >
-     <LocationSearchBox setAddress={setAddress} onSearch={handleSearch} />
-      {/* Loader / Error / No Results message */}
+    <div >
+      <FilterBox
+        priceRange={priceRange}
+        onPriceChange={setPriceRange}
+        hours={hours}
+        onHoursChange={setHours}
+        captain={captain}
+        onCaptainChange={setCaptain}
+        passengers={passengers}
+        onPassengersChange={setPassengers}
+        rating={rating}
+        onRatingChange={setRating}
+        onApplyFilters={handleApplyFilters}
+        onRemoveFilters={handleRemoveFilters}
+      />
       <div className="mt-4 text-center">
         {(!offersData && !error) ? (
           <Loader />
@@ -146,11 +170,10 @@ const BoatsPage = () => {
             {Array.from({ length: Math.ceil(totalBoats / itemsPerPage) }).map((_, index) => (
               <button
                 key={index}
-                className={`px-4 py-2 rounded-md ${
-                  page === index + 1
+                className={`px-4 py-2 rounded-md ${page === index + 1
                     ? "bg-blue-900 text-white"
                     : "bg-gray-200 text-blue-900"
-                }`}
+                  }`}
                 onClick={() => setPage(index + 1)}
               >
                 {index + 1}
@@ -159,7 +182,6 @@ const BoatsPage = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

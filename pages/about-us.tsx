@@ -37,15 +37,15 @@ const AboutUsPage = () => {
           </div>
         </div>
       </header>
-      <main className="container mx-auto px-4 py-10">
+      <main className="container mx-auto px-4 py-5">
         {/* Section 1 */}
         <section className="flex flex-col md:flex-row items-center gap-6 my-10">
           <div className="md:w-1/2 lg:mr-10">
             <h2 className="heading text-start mb-3 text-[20px]">
               Our Vision
             </h2>
-            <p className="text-lg text-justify">
-              We connect boat owners and renters directly, cutting out the middleman, so you can focus on what matters—experiencing unforgettable moments on the water. Whether you’re planning a day of adventure, relaxation, or celebration, Offerboat is here to make your dream a reality.
+            <p className="lg:text-lg md:text-md text-md ">
+              We connect boat owners and renters directly, cutting out the middleman, so you can focus on what matters, experiencing unforgettable moments on the water. Whether you’re planning a day of adventure, relaxation, or celebration, Offerboat is here to make your dream a reality.
             </p>
           </div>
           <div className="md:w-1/2 lg:ml-10">
@@ -59,7 +59,7 @@ const AboutUsPage = () => {
           </div>
         </section>
         {/* Mission Section */}
-        <section className="flex flex-col py-16 px-8 lg:px-16 bg-blue-200 my-20">
+        <section className="flex flex-col py-16 px-8 lg:px-16 bg-blue-200 my-10">
           <div className="w-full space-y-8">
             <h2 className="text-lg leading-relaxed text-blue-900 font-semibold text-center">
               Our Mission
@@ -74,12 +74,12 @@ const AboutUsPage = () => {
         </section>
 
         {/* Section 2 */}
-        <section className="flex flex-col md:flex-row-reverse items-center gap-6 my-10 bg-secondary bg-opacity-10 p-6 rounded-lg">
+        <section className="flex flex-col md:flex-row-reverse items-center gap-6 my-7 bg-secondary bg-opacity-10 p-6 rounded-lg">
           <div className="md:w-1/2">
             <h2 className="heading text-start mb-3 text-[20px]">
               A Reliable Platform for Seamless Boat Rentals
             </h2>
-            <p className="text-lg text-justify">
+            <p className="lg:text-lg md:text-md text-md">
               For boat owners, Offerboat offers a transparent platform with no hidden fees, instant payments, and the freedom to negotiate directly with renters. For renters, we bring you the best deals, real-time listings, and the chance to explore the seas on your terms.
             </p>
           </div>
@@ -95,7 +95,7 @@ const AboutUsPage = () => {
         </section>
         
         {/* Image Grid */}
-        <section className="mt-20 mb-10">
+        <section className="mt-20 mb-7">
           <h2 className="heading mb-10 text-[20px]">
           Celebrating the thrill of discovery and the beauty of togetherness, wherever your journey takes you
           </h2>
@@ -124,7 +124,7 @@ const AboutUsPage = () => {
         </section>
 
       {/* User Experience Section */}
-        <section className="py-16 mb-10">
+        <section className="py-16 mb-1">
           <div className="container mx-auto text-center space-y-12">
             <h2 className="heading text-[20px]">
             Genuine Reviews from Both Sides of the Boat
@@ -135,7 +135,7 @@ const AboutUsPage = () => {
 
         {/* Mobile App Section */}
         <section>
-          <div className="container mx-auto flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col lg:flex-row items-center">
           <div className="lg:w-1/1 relative">
               <div className="w-[300px] h-[600px] mx-auto relative">
                 <Image

@@ -3,12 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import LocationSearchBox from "./Helper/LocationSearch";
 
 interface Props {
   openNav: () => void;
+  location: boolean;
+  setAddress?: (address: string) => void;
+  handleSearch?: () => void;
 }
 
-const Navbar = ({ openNav }: Props) => {
+const Navbar = ({ openNav , location = false, setAddress, handleSearch}: Props) => {
   const [open, setOpen] = useState(false);
   const handleToggle = () => {
     setOpen((prev) => !prev);
@@ -34,7 +38,9 @@ const Navbar = ({ openNav }: Props) => {
             layout="fill"
           />
         </Link>
-
+      {location && (
+     <LocationSearchBox setAddress={setAddress} onSearch={handleSearch} />
+      )}
         <div className="flex justify-between space-x-12 relative">
           {/* Explore with Dropdown */}
           <div className="relative">
@@ -79,7 +85,7 @@ const Navbar = ({ openNav }: Props) => {
 
           {/* Other links */}
           <Link href="/about-us" className="nav-link">
-            About Offerboat
+            AboutUs
           </Link>
           <Link href="/contact" className="nav-link">
             Contact

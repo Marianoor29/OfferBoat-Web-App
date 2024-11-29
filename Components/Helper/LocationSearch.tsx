@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { MapIcon } from "@heroicons/react/16/solid";
 import PlacesAutocomplete from "react-places-autocomplete";
+import { IoMdSearch } from "react-icons/io";
 
 // LocationSearchBox component now accepts `setAddress` and `onSearch` as props
-const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: (address: string) => void, onSearch: () => void }) => {
+const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: any, onSearch: any}) => {
   const [address, setLocalAddress] = useState("");
 
   const handleChange = (value: string) => {
@@ -12,19 +13,17 @@ const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: (address: str
   };
 
   const handleSearch = () => {
-    setAddress(address); // Only set the address when search button is clicked
-    onSearch(); // Trigger the search function passed from parent
+    setAddress(address); 
+    onSearch(); 
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-4 flex items-center gap-[1rem] my-4 mx-6 w-[96%] justify-between">
+    <div className="flex items-center gap-[1rem] lg:w-[50%] md:w-[50%] w-[66%] pl-5 justify-between">
       <div className="flex items-center space-x-6 w-full">
-        <MapIcon className="w-[2.5rem] h-[2.5rem] text-blue-900" />
         <div className="w-full">
-          <p className="text-[18px] font-semibold mb-[0.2rem]">Location</p>
           <PlacesAutocomplete
             value={address}
-            onChange={handleChange} // Handle input change but no immediate search
+            onChange={handleChange} 
             searchOptions={{
               types: ["(cities)"],
             }}
@@ -67,11 +66,9 @@ const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: (address: str
       </div>
       <button
         onClick={handleSearch} // Handle click to trigger search
-        className="relative rounded-lg lg:inline-flex items-center justify-center px-10 py-4 overflow-hidden font-medium group bg-blue-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-blue-400 transition-all ease-out duration-300"
+        className="relative rounded-lg lg:inline-flex items-center justify-center px-4 py-4 overflow-hidden font-medium group bg-blue-900 hover:opacity-70 text-white "
       >
-        <span className="absolute w-0 h-0 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-        <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-t from-transparent via-transparent to-blue-900"></span>
-        <span className="relative">Search</span>
+     <IoMdSearch />
       </button>
     </div>
   );

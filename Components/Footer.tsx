@@ -84,7 +84,7 @@ const Footer = () => {
             className="object-contain mx-auto mr-3" />
             </button>
             </a>
-            <a href="https://apps.apple.com/gb/app/offerboat-boat-rentals/id6737234901">
+            <a href="https://play.google.com/store/apps/details?id=com.OfferBoat">
             <button >
             <Image src="/images/googlePlay.png" alt="Offerboat - Boat Rentals & Yacht Charters"    
             width={117}

@@ -1,10 +1,11 @@
-import FilterBox from "@/Components/Helper/FilterBox";
-import OfferCard from "@/Components/Helper/OfferCard";
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
+import { useRouter } from "next/router";
+import axios from "axios";
 import useSWR from "swr";
+import LocationSearchBox from "@/Components/Helper/LocationSearch";
+import OfferCard from "@/Components/Helper/OfferCard";
+import FilterBox from "@/Components/Helper/FilterBox";
 
 // Fetch function for SWR
 const fetcher = async (url: string) => {
@@ -18,10 +19,9 @@ const Loader = () => (
   </div>
 );
 
-const BoatsPage = ({ address, setAddress, handleSearch }: { 
+const BoatsPage = ({ address, setAddress, }: { 
   address: string; 
-  setAddress: (value: string) => void; 
-  handleSearch: () => void; 
+  setAddress: (value: string) => void;  
 }) => {
   const router = useRouter();
   const [page, setPage] = useState(1);
@@ -97,7 +97,7 @@ const BoatsPage = ({ address, setAddress, handleSearch }: {
         <OfferCard
           title={item.title}
           boatOwnerImage={item.boatOwnerImage}
-          members={item.passengers}
+          members={item.numberOfPassengers}
           location={item.location}
           description={item.description}
           images={item.images}
@@ -107,42 +107,8 @@ const BoatsPage = ({ address, setAddress, handleSearch }: {
     );
   };
 
-  // Filter functions
-  const handleRemoveFilters = () => {
-    setPriceRange([0, 2000]);
-    setHours(1);
-    setCaptain("include");
-    setPassengers(1);
-    setRating(0);
-  };
-
-  const handleApplyFilters = () => {
-    console.log({
-      priceRange,
-      hours,
-      captain,
-      passengers,
-      rating,
-    });
-    alert("Filters applied!");
-  };
-
   return (
     <div >
-      <FilterBox
-        priceRange={priceRange}
-        onPriceChange={setPriceRange}
-        hours={hours}
-        onHoursChange={setHours}
-        captain={captain}
-        onCaptainChange={setCaptain}
-        passengers={passengers}
-        onPassengersChange={setPassengers}
-        rating={rating}
-        onRatingChange={setRating}
-        onApplyFilters={handleApplyFilters}
-        onRemoveFilters={handleRemoveFilters}
-      />
       <div className="mt-4 text-center">
         {(!offersData && !error) ? (
           <Loader />

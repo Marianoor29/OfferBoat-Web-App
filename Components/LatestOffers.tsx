@@ -1,7 +1,5 @@
-import React from "react";
-import OfferCard from "./Helper/OfferCard";
-import ListCard from "./ListCard";
 import { FaArrowRightLong } from "react-icons/fa6";
+import ListCard from "./ListCard";
 
 interface LatestOffersProps {
   offers: {
@@ -34,13 +32,14 @@ const LatestOffers = ({
   onSeeMore
 }:LatestOffersProps) => {
   return (
-    <div className="pt-[2rem] pb-[2rem] ">
+    <div className="pt-[2rem] pb-[2rem] bg-gray-200 ">
       <h1 className="heading lg:text-[25px] md:text-[21px] text-[15px]">Latest Offers in Miami</h1>
-      <p className="text-center">Boat owners can find relevant offers and send their boats that meet the conditions, along with a proposed price for consideration.</p>
+      <p className="text-center font-serif">Boat owners can find relevant offers and send their boats that meet the conditions, along with a proposed price for consideration.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem] items-center w-[96%] mx-auto mt-[2rem]">
       {offers.slice(0, 9).map((offer, index) => (
            <ListCard
            key={index}
+           userImage={offer.userId.profilePicture}
            renterName={`${offer.userId.firstName} ${offer.userId.lastName}`}
            date={offer.date}
            time={offer.time}
@@ -60,7 +59,7 @@ const LatestOffers = ({
       <div className="flex justify-center mt-[2rem]">
         <button
           onClick={onSeeMore}
-          className="flex items-center justify-between py-3 w-[12%] text-green-600 font-semibold hover:opacity-70 transition"
+          className="flex items-center justify-between py-3 w-[30%] lg:w-[12%] md:w-[20%] text-emerald-600 font-serif text-sm md:text-base lg:text-lg hover:opacity-70 transition"
         >
           See More Offers <FaArrowRightLong size={28} />
         </button>

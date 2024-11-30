@@ -60,7 +60,7 @@ const ListCard: React.FC<ListCardProps> = ({
       return (
         <div>
           <p className="text-sm text-gray-600 mb-2">{displayText}</p>
-          <button onClick={toggleExpand} className={`text-sm font-semibold ${seeMoreTextColor}`}>
+          <button onClick={toggleExpand} className={`text-sm font-serif ${seeMoreTextColor}`}>
             {isExpanded ? "See Less" : "See More"}
           </button>
         </div>
@@ -79,12 +79,12 @@ const ListCard: React.FC<ListCardProps> = ({
             <Image src={userImage} alt="User Image" width={48} height={48} className="object-cover" />
           </div>
           <div>
-            <p className="text-lg font-semibold text-gray-800">{renterName}</p>
+            <p className="text-lg font-serif text-gray-800">{renterName}</p>
             <p className="text-sm text-gray-500">Rating: {rating} ⭐</p>
           </div>
         </div>
         <div className="text-right">
-          {status && <p className="text-sm font-semibold text-red-500 mb-1">{status}</p>}
+          {status && <p className="text-sm font-serif text-red-500 mb-1">{status}</p>}
           {price && <p className="text-lg font-bold text-black">{price}</p>}
         </div>
       </div>
@@ -132,8 +132,8 @@ const ListCard: React.FC<ListCardProps> = ({
       <div className="mt-6 flex flex-col space-y-2">
         <button
           onClick={onPress}
-          className={`py-2 px-4 text-white font-semibold rounded-md ${
-            buttonDisable ? "bg-gray-400 cursor-not-allowed" : "bg-green-600 hover:bg-green-500"
+          className={`py-2 px-4 text-white font-serif rounded-md ${
+            buttonDisable ? "bg-gray-400 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-500"
           }`}
           disabled={buttonDisable}
         >
@@ -142,7 +142,7 @@ const ListCard: React.FC<ListCardProps> = ({
         {deleteRequest && (
           <button
             onClick={onDeletePress}
-            className="py-2 px-4 text-white font-semibold bg-red-600 hover:bg-red-700 rounded-md"
+            className="py-2 px-4 text-white font-serif bg-red-600 hover:bg-red-700 rounded-md"
           >
             Delete Request
           </button>

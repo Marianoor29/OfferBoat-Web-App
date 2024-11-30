@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { StarIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import React from "react";
@@ -23,7 +22,7 @@ const ClientReview = ({ profilePicture, firstName ,lastName, userType, reviewTex
           className="rounded-full mx-auto"
         />
       </div>
-      <p className="mt-[2rem] text-center text-[16px] text-black opacity-60">
+      <p className="mt-[2rem] text-center text-[16px] text-black opacity-60 font-serif">
         {reviewText}
       </p>
       <div className="mt-[2rem] ">

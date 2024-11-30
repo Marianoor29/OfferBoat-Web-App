@@ -57,7 +57,7 @@ const Navbar = ({ openNav , location = false, setAddress, handleSearch}: Props) 
             {/* Dropdown */}
             {open && (
               <div
-                className="absolute top-full left-0 mt-2 bg-white border border-gray-200 shadow-md rounded-lg w-48" >
+                className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-lg w-48" >
                 <ul className="py-2">
                   <li>
                     <Link

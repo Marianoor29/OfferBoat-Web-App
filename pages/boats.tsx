@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
-import { FixedSizeGrid as Grid } from "react-window";
-import { useRouter } from "next/router";
-import axios from "axios";
-import useSWR from "swr";
-import LocationSearchBox from "@/Components/Helper/LocationSearch";
 import OfferCard from "@/Components/Helper/OfferCard";
-import FilterBox from "@/Components/Helper/FilterBox";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { FixedSizeGrid as Grid } from "react-window";
+import useSWR from "swr";
 
 // Fetch function for SWR
 const fetcher = async (url: string) => {

@@ -12,7 +12,7 @@ const SearchBox = ({date = true}) => {
       <div className="flex items-center space-x-6 w-full">
         <MapIcon className="w-[2.5rem] h-[2.5rem] text-blue-900" />
         <div className="w-full">
-          <p className="text-[18px] font-semibold mb-[0.2rem]">Location</p>
+          <p className="text-[18px] font-serif mb-[0.2rem]">Location</p>
           <input
             className="outline-none border-b-2 border-blue-900 w-full py-2 px-4 rounded-md"
             type="text"
@@ -24,7 +24,7 @@ const SearchBox = ({date = true}) => {
         <div className="flex items-center space-x-6 w-full">
       <CalendarDaysIcon className="w-[2.5rem] h-[2.5rem] text-blue-900" />
       <div className="w-full">
-        <p className="text-[18px] font-semibold mb-[0.2rem]">Date</p>
+        <p className="text-[18px] font-serif mb-[0.2rem]">Date</p>
         <input
           className="outline-none border-b-2 border-blue-900 w-full py-2 px-4 rounded-md"
           type="date"

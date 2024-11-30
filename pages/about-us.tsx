@@ -32,7 +32,7 @@ const AboutUsPage = () => {
             <h1 className="heading text-[35px]">
               Welcome to Offerboat
             </h1>
-            <p className="text-lg leading-relaxed text-center">
+            <p className="text-lg leading-relaxed text-center font-serif">
               Offerboat – The Marketplace for Boat Rentals</p>
           </div>
         </div>
@@ -44,7 +44,7 @@ const AboutUsPage = () => {
             <h2 className="heading text-start mb-3 text-[20px]">
               Our Vision
             </h2>
-            <p className="lg:text-lg md:text-md text-md ">
+            <p className="lg:text-lg md:text-md text-md font-serif">
               We connect boat owners and renters directly, cutting out the middleman, so you can focus on what matters, experiencing unforgettable moments on the water. Whether you’re planning a day of adventure, relaxation, or celebration, Offerboat is here to make your dream a reality.
             </p>
           </div>
@@ -61,7 +61,7 @@ const AboutUsPage = () => {
         {/* Mission Section */}
         <section className="flex flex-col py-16 px-8 lg:px-16 bg-blue-200 my-10">
           <div className="w-full space-y-8">
-            <h2 className="text-lg leading-relaxed text-blue-900 font-semibold text-center">
+            <h2 className="text-lg leading-relaxed text-blue-900 text-center font-serif">
               Our Mission
             </h2>
             <RiDoubleQuotesL size={40} color="#1e3a8a" />
@@ -79,7 +79,7 @@ const AboutUsPage = () => {
             <h2 className="heading text-start mb-3 text-[20px]">
               A Reliable Platform for Seamless Boat Rentals
             </h2>
-            <p className="lg:text-lg md:text-md text-md">
+            <p className="lg:text-lg md:text-md text-md font-serif">
               For boat owners, Offerboat offers a transparent platform with no hidden fees, instant payments, and the freedom to negotiate directly with renters. For renters, we bring you the best deals, real-time listings, and the chance to explore the seas on your terms.
             </p>
           </div>
@@ -150,19 +150,19 @@ const AboutUsPage = () => {
               <h2 className="heading text-[20px] text-start">
               On-the-Go Boating Made Easy – Get Our App!
               </h2>
-              <p className="text-lg leading-relaxed text-black">
+              <p className="text-lg leading-relaxed text-black font-serif">
               Experience a smoother, faster, and more personalized boating adventure with our app!
               </p>
               <div className="flex justify-center lg:justify-start gap-4">
                 <a
                   href="https://play.google.com/store/apps/details?id=com.OfferBoat"
-                  className="bg-blue-800 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-900"
+                  className="bg-blue-800 text-white font-serif px-6 py-3 rounded-lg shadow-md hover:bg-blue-900"
                 >
                   Get on Google Play
                 </a>
                 <a
                   href="https://apps.apple.com/gb/app/offerboat-boat-rentals/id6737234901"
-                  className="bg-gray-700 text-white px-6 py-3 rounded-lg shadow-md hover:bg-gray-800"
+                  className="bg-gray-700 text-white font-serif px-6 py-3 rounded-lg shadow-md hover:bg-gray-800"
                 >
                   Download on App Store
                 </a>

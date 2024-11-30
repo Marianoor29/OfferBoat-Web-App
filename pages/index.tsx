@@ -1,3 +1,6 @@
+import AddBoatBanner from "@/Components/Helper/AddBoatBanner";
+import MakeOfferBanner from "@/Components/Helper/MakeOfferBanner";
+import ReviewSlider from "@/Components/Helper/ReviewSlider";
 import Hero from "@/Components/Hero";
 import LatestBoats from "@/Components/LatestBoats";
 import LatestOffers from "@/Components/LatestOffers";
@@ -5,13 +8,12 @@ import TopDestination from "@/Components/TopDestination";
 import { BoatsList } from "@/dummyData";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import axios from "axios"; 
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const fetchOffers = async (ownerId?: string, location?: string) => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     let response;
 
     if (ownerId) {
@@ -61,7 +63,6 @@ const HomePage = () => {
     });
   }, []);
 
-  // Fetch Offers on Component Mount
   useEffect(() => {
     const loadOffers = async () => {
       const fetchedOffers = await fetchOffers(undefined, "Miami, FL, USA"); 
@@ -90,7 +91,13 @@ const HomePage = () => {
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} />
       <TopDestination />
       <LatestBoats boats={BoatsList} onSeeMore={handleSeeMoreBoats} />
-      <LatestOffers offers={[...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ...offers]} onSeeMore={handleSeeMoreOffers} />
+      <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
+      <MakeOfferBanner />
+      </div>
+      <LatestOffers offers={[...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ]} onSeeMore={handleSeeMoreOffers} />
+      <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
+      <AddBoatBanner />
+      </div>
     </div>
   );
 };

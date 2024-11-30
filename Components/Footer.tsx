@@ -96,7 +96,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="mt-[1rem] grid grid-cols-1 gap-[1.4rem] sm:grid-cols-2 justify-between w-[80%] mx-auto">
-        <p className="text-[17px] text-black opacity-60 font-semibold">
+        <p className="text-[17px] text-black opacity-60 font-serif">
           &#169; Copyright OfferBoat Partners LLC
         </p>
         {/* <Image

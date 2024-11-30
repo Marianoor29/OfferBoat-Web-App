@@ -26,11 +26,11 @@
     
 
     .destination__h1 {
-        @apply text-black mt-[1rem] text-[20px] text-center font-semibold
+        @apply text-black mt-[1rem] text-[20px] text-center font-serif
     }
 
     .destination__p {
-        @apply text-black text-[17px] text-center opacity-70 font-semibold
+        @apply text-black text-[17px] text-center opacity-70 font-serif
     }
 
     .footer__heading {

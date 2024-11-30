@@ -26,7 +26,7 @@ const Hero = ({ setAddress, handleSearch }: Props) => {
             <h1 className="heading text-white">
               YOUR BUDGET, OUR BOATS
             </h1>
-            <p className="md:text-[16px] text-center text-[18px] text-white font-normal [word-spacing:5px]">
+            <p className="md:text-[16px] text-center text-[18px] text-white font-normal [word-spacing:5px] font-serif">
               Wherever you go, the perfect yacht awaits. Start your adventure today.
             </p>
           </div>

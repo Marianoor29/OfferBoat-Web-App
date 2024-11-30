@@ -49,7 +49,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
         )}
 
         {blockedView && (
-          <div className="absolute top-2 right-2 bg-white text-red-600 text-sm font-semibold py-1 px-3 rounded-md shadow-md z-10">
+          <div className="absolute top-2 right-2 bg-white text-red-600 text-sm font-serif py-1 px-3 rounded-md shadow-md z-10">
             Blocked
           </div>
         )}
@@ -73,7 +73,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
 
             {/* Title and Description */}
             <div className="flex-1">
-              <h4 className="text-m font-semibold text-black truncate">
+              <h4 className="text-m font-serif text-black truncate">
                 {truncateText(title || '', 4)} {/* Limit title to 5 words */}
               </h4>
               <p className="text-black text-sm truncate ">

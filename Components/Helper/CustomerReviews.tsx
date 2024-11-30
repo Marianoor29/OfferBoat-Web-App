@@ -46,7 +46,7 @@ const CustomerReviews = () => {
                   <FaChevronRight size={20} color="white" />
                 </button>
               </div>
-              <p className="text-md text-black">
+              <p className="text-md text-black font-serif">
                 {ReviewsList[currentReview].reviewText}
               </p>
               <div className="mt-6">

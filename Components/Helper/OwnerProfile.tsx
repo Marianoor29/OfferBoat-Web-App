@@ -22,7 +22,7 @@ const OwnerProfile = ({ offer , reviews, errorMessage} : any) => {
           {/* Owner Details */}
           <div className="ml-4">
           <h1 className="heading text-[15px] text-start">Owned By</h1>
-            <h2 className="text-lg font-semibold">{offer.ownerId.firstName} {offer.ownerId.lastName}</h2>
+            <h2 className="text-lg font-serif">{offer.ownerId.firstName} {offer.ownerId.lastName}</h2>
             {/* Rating Stars */}
             <div>
 
@@ -39,7 +39,7 @@ const OwnerProfile = ({ offer , reviews, errorMessage} : any) => {
       </div>
     </div>
     {errorMessage ? (
-      <h2 className="text-md font-semibold">{errorMessage}</h2>
+      <h2 className="text-md font-serif">{errorMessage}</h2>
     ) : (
       <ReviewSlider Reviews={reviews} />
     )}

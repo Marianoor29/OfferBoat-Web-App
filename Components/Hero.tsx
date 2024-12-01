@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SearchBox from "./Helper/SearchBox";
 import LocationSearchBox from "./Helper/LocationSearch";
+import Image from "next/image";
 
 interface Props {
   setAddress?: (address: string) => void;
@@ -11,14 +12,22 @@ const Hero = ({ setAddress, handleSearch }: Props) => {
 
   return (
     <div className="w-[100%] h-[96vh] relative">
-      <div className="absolute top-0 left-0 w-[100%] h-[100%] bg-blue-800 opacity-40"></div>
+      <div className="absolute top-0 left-0 w-[100%] h-[100%] bg-blue-800 opacity-40 z-10"></div>
       <video
         src="/images/hero.mp4"
         autoPlay
         muted
         loop
         preload="metadata"
-        className="w-[100%] h-[100%] object-fill"
+        className="w-[100%] h-[100%] object-fill hidden lg:block"
+      />
+        {/* Image for small and medium screens */}
+        <Image
+        src="/images/a8.jpeg"
+        alt="Offerboat - Boat Rentals & Yacht Charters"
+        className="w-[100%] h-[100%] object-fill block lg:hidden"
+        layout="fill"
+        objectFit="cover"
       />
       <div className="absolute z-[100] w-[100%] h-[100%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
         <div className="flex items-center justify-center flex-col w-[100%] h-[100%]">

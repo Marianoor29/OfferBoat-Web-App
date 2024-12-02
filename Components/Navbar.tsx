@@ -48,7 +48,8 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
             src="/images/logo.png"
             alt="Offerboat - Boat Rentals & Yacht Charters"
             layout="fill"
-          />
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
         </Link>
 
         {/* Logo for small screens */}
@@ -60,6 +61,8 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
             src="/images/logoHat.png"
             alt="Offerboat - Boat Rentals & Yacht Charters"
             layout="fill"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+
           />
         </Link>
 

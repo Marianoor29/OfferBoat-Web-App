@@ -1,13 +1,12 @@
+import Footer from "@/Components/Footer";
+import MobileNav from "@/Components/MobileNav";
+import Navbar from "@/Components/Navbar";
 import "@/styles/globals.css";
 import "@/styles/styles.css";
-import type { AppProps } from "next/app";
-import Navbar from "@/Components/Navbar"; 
-import MobileNav from "@/Components/MobileNav"; 
-import Footer from "@/Components/Footer";
-import React, { useState } from "react";
-import { useRouter } from "next/router";
 import { GoogleOAuthProvider, } from '@react-oauth/google';
-
+import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [nav, setNav] = useState(false);

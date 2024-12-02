@@ -2,6 +2,8 @@ import { FaGoogle, FaApple } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+import { auth } from '@/firebaseConfig';
 
 const Login = () => {
   const [isMac, setIsMac] = useState(false);
@@ -34,9 +36,16 @@ const Login = () => {
       const { credential } = credentialResponse;
       if (!credential) throw new Error("No credential received");
 
+      const googleCredential = GoogleAuthProvider.credential(credential);
+      console.log(googleCredential, 'googleCredential')
+    const userCredential = await signInWithCredential(auth, googleCredential);
+    console.log(userCredential, 'userCredential')
+    const firebaseIdToken = await userCredential.user.getIdToken();
+    console.log(firebaseIdToken, 'firebaseIdToken')
+
       // Send the credential to the backend
       const response = await axios.post('https://www.offerboats.com/google', {
-        token: credential,
+          token: firebaseIdToken,
       });
       console.log("Backend Response:", response.data);
 

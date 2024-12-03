@@ -1,11 +1,16 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-export default function Document() {
+export default function  Document() {
   return (
     <Html lang="en">
       <Head>
-      <meta httpEquiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups" />
+      {/* <meta
+          httpEquiv="Content-Security-Policy-Report-Only"
+          content="script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/;"
+        /> */}
+        <meta httpEquiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups" />
         <meta httpEquiv="Cross-Origin-Embedder-Policy" content="unsafe-none" />
+        
          {/* Google Maps API Script */}
         <script
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}

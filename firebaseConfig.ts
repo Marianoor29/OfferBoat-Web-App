@@ -1,4 +1,4 @@
-import { initializeApp, getApps } from "firebase/app";
+import { initializeApp,} from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -11,7 +11,10 @@ const firebaseConfig = {
   measurementId: "G-TNZJEY2DJZ"
 };
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+console.log("Firebase App Initialized:", app);
+console.log("Auth Initialized:", auth);
 
 export { auth };

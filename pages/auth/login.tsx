@@ -1,9 +1,25 @@
-import { FaGoogle, FaApple } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+// import { auth } from '../../firebaseConfig';
+import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-import { auth } from '@/firebaseConfig';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { FaApple, FaGoogle } from 'react-icons/fa';
+import { initializeApp,} from "firebase/app";
+import { getAuth } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyARDiLS2HWcnvPB15M87l-8uLgu2KqKdNk",
+  authDomain: "offerboat-54082.firebaseapp.com",
+  projectId: "offerboat-54082",
+  storageBucket: "offerboat-54082.appspot.com",
+  messagingSenderId: "455920054389",
+  appId: "1:455920054389:web:42412f8348439d2ac6083c",
+  measurementId: "G-TNZJEY2DJZ"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
 
 const Login = () => {
   const [isMac, setIsMac] = useState(false);
@@ -31,21 +47,20 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLoginSuccess = async (credentialResponse: any) => {
+  const handleGoogleLogin = async () => {
     try {
-      const { credential } = credentialResponse;
-      if (!credential) throw new Error("No credential received");
+      const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
 
-      const googleCredential = GoogleAuthProvider.credential(credential);
-      console.log(googleCredential, 'googleCredential')
-    const userCredential = await signInWithCredential(auth, googleCredential);
-    console.log(userCredential, 'userCredential')
-    const firebaseIdToken = await userCredential.user.getIdToken();
-    console.log(firebaseIdToken, 'firebaseIdToken')
+    // Retrieve the user's credential
+    // Retrieve the Firebase ID token
+    const firebaseUser = result.user;
+    const firebaseIdToken = await firebaseUser.getIdToken();
 
+    console.log('Firebase Token:', firebaseIdToken);
       // Send the credential to the backend
-      const response = await axios.post('https://www.offerboats.com/google', {
-          token: firebaseIdToken,
+      const response = await axios.post('http://www.offerboats.com/google', {
+        token: firebaseIdToken,
       });
       console.log("Backend Response:", response.data);
 
@@ -60,13 +75,11 @@ const Login = () => {
         window.location.href = "/";
       }
     } catch (error:any) {
-      setErrorMessage(error.response?.data?.error || 'An error occurred during Google Sign-In');
-    }
+      console.error("Error during Google Sign-In:", error);
+      setErrorMessage(error.response?.data?.error || error.message || 'An error occurred during Google Sign-In');
+       }
   };
 
-  const handleGoogleLoginError = () => {
-    setErrorMessage('An error occurred during Google Sign-In');
-  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -119,13 +132,14 @@ const Login = () => {
 
         {/* Social Login */}
         <div className="space-y-4">
-       <div  className="flex items-center justify-center w-full px-4 py-2 space-x-2 border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500">
-        <GoogleLogin
-          onSuccess={handleGoogleLoginSuccess}
-          onError={handleGoogleLoginError}
-          
-        />
-        </div>
+        <button
+              type="button"
+              className="flex items-center justify-center w-full px-4 py-2 space-x-2 border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              onClick={handleGoogleLogin}
+            >
+              <FaGoogle className="text-black" />
+              <span>Sign in with Google</span>
+            </button>
      
           {isMac && (
             <button

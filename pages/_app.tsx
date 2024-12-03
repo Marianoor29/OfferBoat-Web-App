@@ -3,7 +3,6 @@ import MobileNav from "@/Components/MobileNav";
 import Navbar from "@/Components/Navbar";
 import "@/styles/globals.css";
 import "@/styles/styles.css";
-import { GoogleOAuthProvider, } from '@react-oauth/google';
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -24,7 +23,6 @@ export default function App({ Component, pageProps }: AppProps) {
     const showLocationSearch = locationRoutes.includes(router.pathname); // Show LocationSearchBox only on these pages
   
   return (
-    // <GoogleOAuthProvider clientId="455920054389-u3k16vjv6kus9bja2gj9cl0lb01rhmon.apps.googleusercontent.com">
     <div className="flex flex-col min-h-screen">
       {/* Persistent Navbar */}
       <MobileNav nav={nav} closeNav={closeNavHandler} />
@@ -48,6 +46,5 @@ export default function App({ Component, pageProps }: AppProps) {
       {/* Persistent Footer */}
       <Footer />
     </div>
-    // </GoogleOAuthProvider>
   );
 }

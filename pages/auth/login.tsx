@@ -1,11 +1,8 @@
-// import { auth } from '../../firebaseConfig';
-import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { initializeApp, } from "firebase/app";
+import { GoogleAuthProvider, getAuth, getRedirectResult, signInWithRedirect } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FaApple, FaGoogle } from 'react-icons/fa';
-import { initializeApp,} from "firebase/app";
-import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyARDiLS2HWcnvPB15M87l-8uLgu2KqKdNk",
@@ -46,39 +43,50 @@ const Login = () => {
       setErrorMessage(error.response?.data?.error || 'An error occurred');
     }
   };
-
-  const handleGoogleLogin = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-
-    // Retrieve the user's credential
-    // Retrieve the Firebase ID token
-    const firebaseUser = result.user;
-    const firebaseIdToken = await firebaseUser.getIdToken();
-
-    console.log('Firebase Token:', firebaseIdToken);
-      // Send the credential to the backend
-      const response = await axios.post('http://www.offerboats.com/google', {
-        token: firebaseIdToken,
-      });
-      console.log("Backend Response:", response.data);
-
-      const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;
-
-      if (isNewUser) {
-        alert('new user successfull')
-        window.location.href = `/choose-user-type?firstName=${firstName}&lastName=${lastName}&email=${email}&profilePicture=${profilePicture}`;
-      } else {
-        localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
-        alert('login successfull')
-        window.location.href = "/";
-      }
-    } catch (error:any) {
-      console.error("Error during Google Sign-In:", error);
-      setErrorMessage(error.response?.data?.error || error.message || 'An error occurred during Google Sign-In');
-       }
+  const handleGoogleLogin = async () => {  
+    try {  
+     const provider = new GoogleAuthProvider();  
+     await signInWithRedirect(auth, provider);  
+    } catch (error) {  
+     console.error("Error during Google Sign-In:", error);  
+    }  
   };
+  
+  useEffect(() => {  
+    const handleRedirectResult = async () => {  
+     try {  
+      const result = await getRedirectResult(auth);  
+      console.log('Authentication Result:', result); 
+      if (result) {  
+        // Retrieve the user's credential  
+        const firebaseUser = result.user;  
+        const firebaseIdToken = await firebaseUser.getIdToken();  
+    
+        // Send the credential to the backend  
+        const response = await axios.post('http://www.offerboats.com/google', {  
+         token: firebaseIdToken,  
+        });  
+        console.log("Backend Response:", response.data);  
+    
+        const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;  
+    
+        if (isNewUser) {  
+         alert('new user successfull')  
+         window.location.href = `/choose-user-type?firstName=${firstName}&lastName=${lastName}&email=${email}&profilePicture=${profilePicture}`;  
+        } else {  
+         localStorage.setItem('userInfo', JSON.stringify({ token, userType }));  
+         alert('login successfull')  
+         window.location.href = "/";  
+        }  
+      }  
+     } catch (error) {  
+      console.error("Error during Google Sign-In:", error);  
+     }  
+    };  
+    
+    handleRedirectResult();  
+  }, []);
+  
 
 
   return (

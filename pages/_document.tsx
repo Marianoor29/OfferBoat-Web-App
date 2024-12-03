@@ -4,10 +4,6 @@ export default function  Document() {
   return (
     <Html lang="en">
       <Head>
-      {/* <meta
-          httpEquiv="Content-Security-Policy-Report-Only"
-          content="script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/;"
-        /> */}
         <meta httpEquiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups" />
         <meta httpEquiv="Cross-Origin-Embedder-Policy" content="unsafe-none" />
         
@@ -17,13 +13,6 @@ export default function  Document() {
           async
           defer
         ></script>
-          {/* Google Sign-In Script */}
-          {/* <script
-          src="https://accounts.google.com/gsi/client"
-          async
-          defer
-          crossOrigin="anonymous"
-        ></script> */}
       </Head>
       <body className="font-primary">
         <Main />

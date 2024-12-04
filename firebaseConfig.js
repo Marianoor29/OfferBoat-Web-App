@@ -1,25 +1,18 @@
-// firebaseConfig.js
-import { initializeApp } from 'firebase/app';
-import { getMessaging } from 'firebase/messaging';
+import { initializeApp,} from "firebase/app";
+import { getAuth } from "firebase/auth";
 
-// Your Firebase config object
 const firebaseConfig = {
-    apiKey: "AIzaSyARDiLS2HWcnvPB15M87l-8uLgu2KqKdNk",
-    authDomain: "offerboat-54082.firebaseapp.com",
-    projectId: "offerboat-54082",
-    storageBucket: "offerboat-54082.appspot.com",
-    messagingSenderId: "455920054389",
-    appId: "1:455920054389:web:42412f8348439d2ac6083c",
-    measurementId: "G-TNZJEY2DJZ"
+  apiKey: "AIzaSyARDiLS2HWcnvPB15M87l-8uLgu2KqKdNk",
+  authDomain: "offerboat-54082.firebaseapp.com",
+  projectId: "offerboat-54082",
+  storageBucket: "offerboat-54082.appspot.com",
+  messagingSenderId: "455920054389",
+  appId: "1:455920054389:web:42412f8348439d2ac6083c",
+  measurementId: "G-TNZJEY2DJZ"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Only initialize messaging if running in a browser
-let messaging;
-if (typeof window !== 'undefined') {
-    messaging = getMessaging(app);
-}
 
-export { app, messaging };
+export { app, auth };

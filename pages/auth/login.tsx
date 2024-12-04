@@ -1,22 +1,8 @@
 import axios from 'axios';
-import { initializeApp, } from "firebase/app";
-import { GoogleAuthProvider, getAuth, getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, getRedirectResult, signInWithPopup, signInWithRedirect ,signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FaApple, FaGoogle } from 'react-icons/fa';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyARDiLS2HWcnvPB15M87l-8uLgu2KqKdNk",
-  authDomain: "offerboat-54082.firebaseapp.com",
-  projectId: "offerboat-54082",
-  storageBucket: "offerboat-54082.appspot.com",
-  messagingSenderId: "455920054389",
-  appId: "1:455920054389:web:42412f8348439d2ac6083c",
-  measurementId: "G-TNZJEY2DJZ"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
+import {app, auth} from '@/firebaseConfig' 
 
 const Login = () => {
   const [isMac, setIsMac] = useState(false);
@@ -37,55 +23,108 @@ const Login = () => {
       const { token, userType } = response.data;
       localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
       window.location.href ='/';
-      alert('login successfull')
       // window.location.href = userType === 'BoatRenter' ? '/renter/dashboard' : '/owner/dashboard';
     } catch (error:any) {
       setErrorMessage(error.response?.data?.error || 'An error occurred');
     }
   };
-  const handleGoogleLogin = async () => {  
-    try {  
-     const provider = new GoogleAuthProvider();  
-     await signInWithRedirect(auth, provider);  
-    } catch (error) {  
-     console.error("Error during Google Sign-In:", error);  
-    }  
+
+  // const handleGoogleLogin = async () => {
+  //   const provider = new GoogleAuthProvider();
+  //   try {
+  //     const result = await signInWithPopup(auth, provider);
+  //     const user = result.user;
+  //     console.log("Logged in user:", user);
+
+  //     // Example: Get the ID token
+  //     const idToken = await user.getIdToken();
+  //     console.log("ID Token:", idToken);
+
+  //     // Pass the token to your backend for further processing
+  //   } catch (error) {
+  //     console.error("Error during Google Sign-In:", error);
+  //   }
+  // };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      if (auth.currentUser) {
+        console.log("User already signed in:", auth.currentUser);
+       alert('current user active')
+      } else {
+        await signInWithRedirect(auth, provider);
+      }
+    } catch (error) {
+      console.error("Error during Google Sign-In redirect:", error);
+    }
   };
+
+  useEffect(() => {
+    const handleRedirect = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          console.log("User signed in:", result.user);
+          const idToken = await result.user.getIdToken();
+          console.log("ID Token:", idToken);
+          localStorage.setItem('userInfo', JSON.stringify({ token: idToken, }));
+        } else {
+          console.log("No redirect result found.");
+        }
+      } catch (error) {
+        console.error("Error during redirect result processing:", error);
+      }
+    };
   
-  useEffect(() => {  
-    const handleRedirectResult = async () => {  
-     try {  
-      const result = await getRedirectResult(auth);  
-      console.log('Authentication Result:', result); 
-      if (result) {  
-        // Retrieve the user's credential  
-        const firebaseUser = result.user;  
-        const firebaseIdToken = await firebaseUser.getIdToken();  
-    
-        // Send the credential to the backend  
-        const response = await axios.post('http://www.offerboats.com/google', {  
-         token: firebaseIdToken,  
-        });  
-        console.log("Backend Response:", response.data);  
-    
-        const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;  
-    
-        if (isNewUser) {  
-         alert('new user successfull')  
-         window.location.href = `/choose-user-type?firstName=${firstName}&lastName=${lastName}&email=${email}&profilePicture=${profilePicture}`;  
-        } else {  
-         localStorage.setItem('userInfo', JSON.stringify({ token, userType }));  
-         alert('login successfull')  
-         window.location.href = "/";  
-        }  
-      }  
-     } catch (error) {  
-      console.error("Error during Google Sign-In:", error);  
-     }  
-    };  
-    
-    handleRedirectResult();  
+    handleRedirect();
   }, []);
+  
+  useEffect(() => {
+    console.log("Auth currentUser:", auth.currentUser);
+  }, []);
+
+
+  // useEffect(() => {
+  //   const fetchRedirectResult = async () => {
+  //     try {
+  
+  //      await getRedirectResult(auth)
+       
+  //       .then((result:any) => {
+  //          // This gives you a Google Access Token. You can use it to access Google APIs.
+  //   // const credential = GoogleAuthProvider.credentialFromResult(result);
+  //   // const token = credential.accessToken;
+  //         console.log('Firebase Token:', result);
+  //       }).catch((error) => {
+  //         console.log('Firebase error:', error);
+  //       });
+
+  //       //   // Send token to your backend
+  //       //   const response = await axios.post('https://www.offerboats.com/google', {
+  //       //     token: firebaseIdToken,
+  //       //   });
+  
+  //       //   console.log("Backend Response:", response.data);
+  //       //   const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;
+  
+  //       //   if (isNewUser) {
+  //       //     alert('New user successfully signed up');
+  //       //     window.location.href = `/choose-user-type?firstName=${firstName}&lastName=${lastName}&email=${email}&profilePicture=${profilePicture}`;
+  //       //   } else {
+  //       //     localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
+  //       //     alert('Login successful');
+  //       //     window.location.href = "/";
+  //       //   }
+  //       // }
+  //     } catch (error) {
+  //       console.error("Error during Google Sign-In:", error);
+  //       // Handle errors gracefully
+  //     }
+  //   };
+  
+  //   fetchRedirectResult();
+  // }, []);
   
 
 
@@ -106,6 +145,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              autoComplete='email'
             />
           </div>
           <div>
@@ -119,6 +159,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              autoComplete='current-password'
             />
           </div>
           <button

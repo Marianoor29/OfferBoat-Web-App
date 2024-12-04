@@ -1,8 +1,8 @@
+import { auth } from '@/firebaseConfig';
 import axios from 'axios';
-import { GoogleAuthProvider, getAuth, getRedirectResult, signInWithPopup, signInWithRedirect ,signOut } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FaApple, FaGoogle } from 'react-icons/fa';
-import {app, auth} from '@/firebaseConfig' 
 
 const Login = () => {
   const [isMac, setIsMac] = useState(false);
@@ -23,110 +23,54 @@ const Login = () => {
       const { token, userType } = response.data;
       localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
       window.location.href ='/';
+      alert('login successfull')
       // window.location.href = userType === 'BoatRenter' ? '/renter/dashboard' : '/owner/dashboard';
     } catch (error:any) {
       setErrorMessage(error.response?.data?.error || 'An error occurred');
     }
   };
 
-  // const handleGoogleLogin = async () => {
-  //   const provider = new GoogleAuthProvider();
-  //   try {
-  //     const result = await signInWithPopup(auth, provider);
-  //     const user = result.user;
-  //     console.log("Logged in user:", user);
-
-  //     // Example: Get the ID token
-  //     const idToken = await user.getIdToken();
-  //     console.log("ID Token:", idToken);
-
-  //     // Pass the token to your backend for further processing
-  //   } catch (error) {
-  //     console.error("Error during Google Sign-In:", error);
-  //   }
-  // };
-
   const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      if (auth.currentUser) {
-        console.log("User already signed in:", auth.currentUser);
-       alert('current user active')
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    console.log('Result:', result);
+
+    // Retrieve the user's credential
+    const firebaseUser = result.user;
+    const firebaseIdToken = await firebaseUser.getIdToken();
+
+    console.log('Firebase Token:', firebaseIdToken);
+      // Send the credential to the backend
+      const response = await axios.post('https://www.offerboats.com/google', {
+        token: firebaseIdToken,
+      });
+      console.log("Backend Response:", response.data);
+
+      // const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;
+      // if (isNewUser) {
+      //   alert('new user successfull')
+      //   window.location.href = `/choose-user-type?firstName=${firstName}&lastName=${lastName}&email=${email}&profilePicture=${profilePicture}`;
+      // } else {
+      //   localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
+      //   alert('login successfull')
+      //   window.location.href = "/";
+      // }
+    } catch (error:any) {
+      console.error('Error during Google Sign-In:', error);
+      if (error.code === 'auth/popup-closed-by-user') {
+        console.log('The popup was closed by the user before completing the authentication.');
       } else {
-        await signInWithRedirect(auth, provider);
+        console.error('Other error:', error);
       }
-    } catch (error) {
-      console.error("Error during Google Sign-In redirect:", error);
+      setErrorMessage(error.response?.data?.error || error.message || 'An error occurred during Google Sign-In');
     }
   };
 
   useEffect(() => {
-    const handleRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result) {
-          console.log("User signed in:", result.user);
-          const idToken = await result.user.getIdToken();
-          console.log("ID Token:", idToken);
-          localStorage.setItem('userInfo', JSON.stringify({ token: idToken, }));
-        } else {
-          console.log("No redirect result found.");
-        }
-      } catch (error) {
-        console.error("Error during redirect result processing:", error);
-      }
-    };
-  
-    handleRedirect();
+    console.log("Auth after redirect:", auth.currentUser);
   }, []);
   
-  useEffect(() => {
-    console.log("Auth currentUser:", auth.currentUser);
-  }, []);
-
-
-  // useEffect(() => {
-  //   const fetchRedirectResult = async () => {
-  //     try {
-  
-  //      await getRedirectResult(auth)
-       
-  //       .then((result:any) => {
-  //          // This gives you a Google Access Token. You can use it to access Google APIs.
-  //   // const credential = GoogleAuthProvider.credentialFromResult(result);
-  //   // const token = credential.accessToken;
-  //         console.log('Firebase Token:', result);
-  //       }).catch((error) => {
-  //         console.log('Firebase error:', error);
-  //       });
-
-  //       //   // Send token to your backend
-  //       //   const response = await axios.post('https://www.offerboats.com/google', {
-  //       //     token: firebaseIdToken,
-  //       //   });
-  
-  //       //   console.log("Backend Response:", response.data);
-  //       //   const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;
-  
-  //       //   if (isNewUser) {
-  //       //     alert('New user successfully signed up');
-  //       //     window.location.href = `/choose-user-type?firstName=${firstName}&lastName=${lastName}&email=${email}&profilePicture=${profilePicture}`;
-  //       //   } else {
-  //       //     localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
-  //       //     alert('Login successful');
-  //       //     window.location.href = "/";
-  //       //   }
-  //       // }
-  //     } catch (error) {
-  //       console.error("Error during Google Sign-In:", error);
-  //       // Handle errors gracefully
-  //     }
-  //   };
-  
-  //   fetchRedirectResult();
-  // }, []);
-  
-
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -145,7 +89,6 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              autoComplete='email'
             />
           </div>
           <div>
@@ -159,7 +102,6 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              autoComplete='current-password'
             />
           </div>
           <button

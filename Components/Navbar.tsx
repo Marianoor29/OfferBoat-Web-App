@@ -70,7 +70,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
           <LocationSearchBox setAddress={setAddress} onSearch={handleSearch} />
         )}
 
-        <div className="flex justify-between items-center space-x-12 relative">
+        <div className="flex justify-between items-center lg:space-x-12 md:space-x-12 relative">
           {/* Explore with Dropdown */}
           <div className="relative ">
             <button
@@ -186,12 +186,12 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
             </li>
           </ul>
           {/* Render different menus based on authentication */}
-          {token ? (
+          {token && !location ? (
             <div className="relative">
               {/* Profile Picture */}
               <button
                 onClick={() => setProfileMenuOpen((prev) => !prev)}
-                className="flex items-center focus:outline-none"
+                className="flex items-center focus:outline-none mr-5"
               >
                 <Image
                   src="/images/a4.jpeg"

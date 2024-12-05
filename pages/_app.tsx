@@ -18,13 +18,24 @@ export default function App({ Component, pageProps }: AppProps) {
   const handleSearch = () => {
     console.log(`Searching for: ${address}`);
   };
+
+   // Define routes where the Navbar should not appear
+   const noNavbarRoutes = ["/auth/email-verification", "/auth/choose-user-type"]; 
+   const showNavbar = !noNavbarRoutes.includes(router.pathname);
+ 
     // Define routes where location search should be visible
-    const locationRoutes = ["/boats", "/offers"]; // Add any routes where LocationSearchBox is required
-    const showLocationSearch = locationRoutes.includes(router.pathname); // Show LocationSearchBox only on these pages
+    const locationRoutes = ["/boats", "/offers"];
+    const showLocationSearch = locationRoutes.includes(router.pathname); 
   
+     // Define routes where the Navbar should not appear
+   const noFooterRoutes = ["/auth/email-verification", "/auth/choose-user-type"]; 
+   const showFooter = !noFooterRoutes.includes(router.pathname);
+ 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Persistent Navbar */}
+   {/* Conditional Navbar Rendering */}
+   {showNavbar && (
+        <>
       <MobileNav nav={nav} closeNav={closeNavHandler} />
       <Navbar 
         openNav={openNavHandler} 
@@ -32,6 +43,8 @@ export default function App({ Component, pageProps }: AppProps) {
         setAddress={setAddress} 
         handleSearch={handleSearch} 
       />
+        </>
+      )}
 
       {/* Page-specific content */}
       <main className="flex-grow pt-[12vh]">
@@ -43,8 +56,11 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </main>
       
-      {/* Persistent Footer */}
-      <Footer />
+      {/* Conditional Footer Rendering*/}
+    {  showFooter && (
+        <Footer />
+      )
+  }
     </div>
   );
 }

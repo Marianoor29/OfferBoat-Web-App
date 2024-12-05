@@ -13,7 +13,7 @@ export default function  Document() {
           async
           defer
         ></script>
-        
+        {/* <script src="https://appleid.apple.com/appleid/auth/apple.js"></script> */}
       </Head>
       <body className="font-primary">
         <Main />

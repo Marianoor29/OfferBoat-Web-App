@@ -1,6 +1,5 @@
 import AddBoatBanner from "@/Components/Helper/AddBoatBanner";
 import MakeOfferBanner from "@/Components/Helper/MakeOfferBanner";
-import ReviewSlider from "@/Components/Helper/ReviewSlider";
 import Hero from "@/Components/Hero";
 import LatestBoats from "@/Components/LatestBoats";
 import LatestOffers from "@/Components/LatestOffers";
@@ -86,17 +85,25 @@ const HomePage = () => {
     }
   };
 
+  const handleAddBoat = () => {
+    router.push("/owner/add-boat");
+  };
+  
+  const handleMakeOffer = () => {
+    router.push("/renter/make-offer");
+  };
+
   return (
     <div className="">
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} />
       <TopDestination />
       <LatestBoats boats={BoatsList} onSeeMore={handleSeeMoreBoats} />
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
-      <MakeOfferBanner />
+      <MakeOfferBanner onClick={handleMakeOffer}/>
       </div>
       <LatestOffers offers={[...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ]} onSeeMore={handleSeeMoreOffers} />
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
-      <AddBoatBanner />
+      <AddBoatBanner onClick={handleAddBoat}/>
       </div>
     </div>
   );

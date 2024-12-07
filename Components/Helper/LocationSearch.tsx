@@ -64,7 +64,7 @@ const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: any, onSearch
       </div>
       <button
         onClick={handleSearch} // Handle click to trigger search
-        className="relative rounded-lg lg:inline-flex items-center justify-center px-4 py-4 overflow-hidden font-medium group bg-blue-900 hover:opacity-70 text-white "
+        className="relative rounded-lg lg:inline-flex items-center justify-center px-4 py-4 overflow-hidden font-medium group bg-renterBlue hover:opacity-70 text-white "
       >
      <IoMdSearch />
       </button>

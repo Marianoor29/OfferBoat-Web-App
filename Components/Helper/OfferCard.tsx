@@ -25,7 +25,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
   buttonTitle = 'View Deal',
   images,
   onPress = () => {},
-  ButtonColor = 'bg-blue-900',
+  ButtonColor = 'bg-renterBlue',
   blockedView = false,
 }) => {
     // Helper function to truncate text after a given word limit

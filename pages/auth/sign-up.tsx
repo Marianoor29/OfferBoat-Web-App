@@ -55,7 +55,7 @@ const SignUp = () => {
         password: password,
       });
       localStorage.setItem('userData', JSON.stringify(response.data.userdata));
-      router.push('/email-verification');
+      router.push('/auth/email-verification');
     } catch (error: any) {
       const errorMessage = error.response?.data?.error || 'An error occurred';
       setErrorMessage(errorMessage);
@@ -77,7 +77,7 @@ const SignUp = () => {
 
       const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;
       if (isNewUser) {
-        localStorage.setItem('userData', JSON.stringify({firstName: firstName, lastName : lastName, email: email, profilePicture: profilePicture}));
+        localStorage.setItem('userData', JSON.stringify({firstName: firstName, lastName : lastName, email: email, profilePicture: profilePicture, type: 'googleSignup'}));
         router.push('/auth/choose-user-type');
       } else {
         localStorage.setItem('userInfo', JSON.stringify({ token, userType }));

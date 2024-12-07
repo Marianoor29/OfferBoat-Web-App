@@ -88,7 +88,7 @@ const ContactPage = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="px-6 py-3 bg-blue-800 text-white font-serif rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="px-6 py-3 bg-blue-800 text-white font-serif rounded-lg shadow-md hover:bg-renterBlue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Send Message
             </button>

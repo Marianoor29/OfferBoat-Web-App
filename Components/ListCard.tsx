@@ -133,7 +133,7 @@ const ListCard: React.FC<ListCardProps> = ({
         <button
           onClick={onPress}
           className={`py-2 px-4 text-white font-serif rounded-md ${
-            buttonDisable ? "bg-gray-400 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-500"
+            buttonDisable ? "bg-gray-400 cursor-not-allowed" : "bg-ownerGreen hover:bg-emerald-500"
           }`}
           disabled={buttonDisable}
         >

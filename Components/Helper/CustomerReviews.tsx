@@ -35,13 +35,13 @@ const CustomerReviews = () => {
               <div className="flex gap-2 mb-5 justify-end">
                 <button
                   onClick={handlePrev}
-                  className="bg-blue-900 text-white px-2 py-2 rounded-full shadow-md hover:bg-blue-700"
+                  className="bg-renterBlue text-white px-2 py-2 rounded-full shadow-md hover:bg-blue-700"
                 >
                   <FaChevronLeft size={20} color="white" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="bg-blue-900 text-white px-2 py-2 rounded-full shadow-md hover:bg-blue-700"
+                  className="bg-renterBlue text-white px-2 py-2 rounded-full shadow-md hover:bg-blue-700"
                 >
                   <FaChevronRight size={20} color="white" />
                 </button>

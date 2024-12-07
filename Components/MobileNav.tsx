@@ -97,7 +97,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
                           <>
                             <li>
                               <Link
-                                href="/make-offer"
+                                href="/renter/make-offer"
                                 className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
                                 onClick={handleLinkClick}
                               >
@@ -106,7 +106,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
                             </li>
                             <li>
                               <Link
-                                href="/my-offers"
+                                href="/renter/my-offers"
                                 className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
                                 onClick={handleLinkClick}
                               >

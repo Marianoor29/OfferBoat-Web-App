@@ -11,6 +11,13 @@ const config: Config = {
       fontFamily: {
         primary: ["Lato", "Cinzel"],
       },
+      colors: {
+        black50: '#00000050', 
+        ownerGreen: '#90bb8e',
+        renterBlue:'#1f8aba',
+        renterBlue50:'#1f8aba70',
+        inputWhite: '#F7F7F7',
+      },
     },
   },
   plugins: [],

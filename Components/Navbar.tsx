@@ -133,7 +133,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                           <>
                             <li>
                               <Link
-                                href="/make-offer"
+                                href="/renter/make-offer"
                                 className="block px-4 py-2 hover:bg-gray-100 text-sm"
                                 onClick={() => setOpen(false)}
                               >
@@ -142,7 +142,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                             </li>
                             <li>
                               <Link
-                                href="/my-offers"
+                                href="/renter/my-offers"
                                 className="block px-4 py-2 hover:bg-gray-100 text-sm"
                                 onClick={() => setOpen(false)}
                               >

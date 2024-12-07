@@ -1,10 +1,12 @@
 import { auth } from '@/firebaseConfig';
 import axios from 'axios';
 import { GoogleAuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FaApple, FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
+  const router = useRouter();
   const [isMac, setIsMac] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,11 +50,10 @@ const Login = () => {
 
       const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;
       if (isNewUser) {
-        alert('new user successfull')
-        window.location.href = `/choose-user-type?firstName=${firstName}&lastName=${lastName}&email=${email}&profilePicture=${profilePicture}`;
+        localStorage.setItem('userData', JSON.stringify({firstName: firstName, lastName : lastName, email: email, profilePicture: profilePicture, type: 'googleSignup'}));
+        router.push('/auth/choose-user-type')
       } else {
         localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
-        alert('login successfull')
         window.location.href = "/";
       }
     } catch (error: any) {

@@ -130,7 +130,7 @@ const BoatsPage = ({ address, setAddress, }: {
               <button
                 key={index}
                 className={`px-4 py-2 rounded-md ${page === index + 1
-                    ? "bg-blue-900 text-white"
+                    ? "bg-renterBlue text-white"
                     : "bg-gray-200 text-blue-900"
                   }`}
                 onClick={() => setPage(index + 1)}

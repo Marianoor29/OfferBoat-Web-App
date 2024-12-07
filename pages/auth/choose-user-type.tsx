@@ -1,18 +1,32 @@
 import Location from '@/Components/Helper/Location';
-import React, { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css'; 
+import 'react-phone-number-input/style.css';
 
 const ChooseUserType = () => {
+  const router = useRouter();
   const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [frontImage, setFrontImage] = useState<string | null>(null);
-  const [backImage, setBackImage] = useState<string | null>(null);
+  const [frontImage, setFrontImage] = useState<string | null>('');
+  const [backImage, setBackImage] = useState<string | null>('');
   const [termsConditions, setTermsConditions] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | undefined>(undefined); // State for phone number
+  const [userData, setUserData] = useState<any>(null);
 
+  // Retrieve user data from localStorage when the component mounts
+  useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      const parsedData = JSON.parse(storedUserData);
+      setUserData(parsedData);
+    } else {
+      router.push('/auth/sign-up');
+    }
+  }, []);
 
   const userTypes = [
     { name: 'Boat Renter', value: 'BoatRenter' },
@@ -32,7 +46,8 @@ const ChooseUserType = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setErrorMessage(null);
     if (!selectedType) {
       setErrorMessage('Please select a user type');
       return;
@@ -49,9 +64,80 @@ const ChooseUserType = () => {
       setErrorMessage('Please enter a valid phone number');
       return;
     }
+    if (!selectedAddress) {
+      setErrorMessage('Please select your location');
+      return;
+    }
 
-    // Proceed with the signup logic
-    console.log('Submitting form with:', { selectedType, frontImage, backImage, termsConditions, selectedAddress });
+    // SingUp Logic
+    try {
+      if (selectedType === 'BoatOwner') {
+        const formData = new FormData();
+        // Convert Base64 to Blob
+      const dataURLtoBlob = (dataUrl: string): Blob => {
+        const arr = dataUrl.split(',');
+        const mime = arr[0].match(/:(.*?);/)?.[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+      };
+
+          // Append the frontImage as a Blob
+    if (frontImage) {
+      formData.append('frontImage', dataURLtoBlob(frontImage), 'frontImage.jpg');
+    }
+
+    // Append the backImage as a Blob
+    if (backImage) {
+      formData.append('backImage', dataURLtoBlob(backImage), 'backImage.jpg');
+    }
+
+      formData.append('email', userData?.email);
+  
+        const uploadResponse = await axios.post(`https://www.offerboats.com/uploadDocuments`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+  
+        if (uploadResponse.status !== 200) {
+          throw new Error('Failed to upload documents');
+        }
+      }
+  
+      const payload = {
+        email: userData?.email,
+        userType: selectedType,
+        phoneNumber,
+        firstName: userData?.firstName,
+        lastName: userData?.lastName,
+        password: userData?.password,
+        rating: 0,
+        termsAndPolicies: termsConditions,
+        profilePicture: userData?.type === 'googleSignup' ? userData?.profilePicture : undefined,
+        location: selectedAddress
+      };
+  
+      const endpoint = userData?.type === 'googleSignup' ? '/web-googleSignup' : '/web-signup';
+      const response = await axios.post(`https://www.offerboats.com${endpoint}`, payload);
+      
+      const { token } = response.data;
+      const userInfo = {
+        ...payload, 
+        token,   
+      };
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      localStorage.removeItem("userData");
+      router.push({
+        pathname: `/`,
+      });
+    } catch (error:any) {
+      setErrorMessage(error.message || 'Something went wrong. Please try again.');
+    } 
   };
 
   return (
@@ -107,7 +193,7 @@ const ChooseUserType = () => {
 
         {/* Enter PhoneNumeber */}
         <div className="mt-6">
-        <h1 className="mb-4">Phone Number</h1>
+          <h1 className="mb-4">Phone Number</h1>
           <PhoneInput
             value={phoneNumber}
             onChange={setPhoneNumber}
@@ -146,10 +232,10 @@ const ChooseUserType = () => {
 
         <button
           onClick={handleSubmit}
-          disabled={!selectedType || (selectedType === 'BoatOwner' && (!frontImage || !backImage)) || !termsConditions}
-          className={`mt-6 w-full py-2 px-4 text-white font-bold rounded-lg ${selectedType && termsConditions && (selectedType === 'BoatRenter' || (frontImage && backImage))
-              ? 'bg-blue-500 hover:bg-blue-600'
-              : 'bg-gray-400 cursor-not-allowed'
+          disabled={!selectedType || (selectedType === 'BoatOwner' && (!frontImage || !backImage)) || !termsConditions || !selectedAddress}
+          className={`mt-6 w-full py-2 px-4 text-white font-bold rounded-lg ${selectedType && termsConditions && selectedAddress && (selectedType === 'BoatRenter' || (frontImage && backImage))
+            ? 'bg-blue-500 hover:bg-blue-600'
+            : 'bg-gray-400 cursor-not-allowed'
             }`}
         >
           Sign Up

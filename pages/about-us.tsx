@@ -156,7 +156,7 @@ const AboutUsPage = () => {
               <div className="flex justify-center lg:justify-start gap-4">
                 <a
                   href="https://play.google.com/store/apps/details?id=com.OfferBoat"
-                  className="bg-blue-800 text-white font-serif px-6 py-3 rounded-lg shadow-md hover:bg-blue-900"
+                  className="bg-blue-800 text-white font-serif px-6 py-3 rounded-lg shadow-md hover:bg-renterBlue"
                 >
                   Get on Google Play
                 </a>

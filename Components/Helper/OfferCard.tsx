@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import PhotosSlider from './PhotosSlider';
 
@@ -24,17 +24,36 @@ const OfferCard: React.FC<OfferCardProps> = ({
   description,
   buttonTitle = 'View Deal',
   images,
-  onPress = () => {},
+  onPress = () => { },
   ButtonColor = 'bg-renterBlue',
   blockedView = false,
 }) => {
-    // Helper function to truncate text after a given word limit
-    const truncateText = (text: string, wordLimit: number) => {
-      const words = text.split(' ');
-      if (words.length <= wordLimit) return text;
-      return words.slice(0, wordLimit).join(' ') + '...';
+  const [wordLimit, setWordLimit] = useState(4);
+  // Helper function to truncate text after a given word limit
+  const truncateText = (text: string, wordLimit: number) => {
+    const words = text.split(' ');
+    if (words.length <= wordLimit) return text;
+    return words.slice(0, wordLimit).join(' ') + '...';
+  };
+
+  useEffect(() => {
+    const updateWordLimit = () => {
+      const width = window.innerWidth;
+      if (width >= 1024) setWordLimit(6);
+      else if (width >= 768) setWordLimit(6);
+      else setWordLimit(8);
     };
-  
+
+    // Initial check
+    updateWordLimit();
+
+    // Add resize listener
+    window.addEventListener('resize', updateWordLimit);
+
+    // Cleanup listener
+    return () => window.removeEventListener('resize', updateWordLimit);
+  }, []);
+
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden w-[96%] md:w-[98%] lg:w-[98%] mx-auto my-2 relative">
       {/* Slider and Members Badge Container */}
@@ -43,7 +62,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
 
         {members && (
           <div className="absolute bottom-4 right-4 text-white text-sm py-1 px-3 rounded-full z-10"
-          style={{ backgroundColor: '#00000050' }} >
+            style={{ backgroundColor: '#00000050' }} >
             {members} Passengers
           </div>
         )}
@@ -59,12 +78,12 @@ const OfferCard: React.FC<OfferCardProps> = ({
       <div className="p-2  items-center">
         {/* Left Section: Owner Image, Title, Description, Location */}
         <div className="flex-1">
-          <div className="flex items-center space-x-3 mb-4">
+          <div className="flex items-center space-x-2 mb-4">
             {/* Boat Owner Image */}
             <div className="relative w-12 h-12 rounded-full overflow-hidden">
               <Image
                 src={boatOwnerImage || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
-                alt="Boat Owner"
+                alt="Offerboat - Your Budget, Our Boats"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-full"
@@ -72,15 +91,15 @@ const OfferCard: React.FC<OfferCardProps> = ({
             </div>
 
             {/* Title and Description */}
-            <div className="flex-1">
+            <div className="flex-1 ">
               <h4 className="text-m font-serif text-black truncate">
-                {truncateText(title || '', 4)} {/* Limit title to 5 words */}
+                {truncateText(title || '', wordLimit)}
               </h4>
               <p className="text-black text-sm truncate ">
-                {truncateText(description || '', 4)} {/* Limit description to 10 words */}
+                {truncateText(description || '', wordLimit)}
               </p>
               <p className="text-gray-400 text-sm">
-                {truncateText(location || '', 4)} {/* Limit location to 5 words */}
+                {truncateText(location || '', wordLimit)}
               </p>
             </div>
           </div>

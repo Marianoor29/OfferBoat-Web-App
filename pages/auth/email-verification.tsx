@@ -9,9 +9,7 @@ const EmailVerification = () => {
   const [code, setCode] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [resendMessage, setResendMessage] = useState<string>('');
-console.log(verificationCode, 'verificationCode')
-console.log(verificationCode, 'verificationCode')
-   // Retrieve user data from localStorage when the component mounts
+
    useEffect(() => {
     const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
@@ -23,11 +21,9 @@ console.log(verificationCode, 'verificationCode')
     }
   }, []);
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (code === verificationCode.toString()) {
-      // Successful verification, navigate to the next page
       router.push( '/auth/choose-user-type')
     } else {
       setErrorMessage('Incorrect verification code');

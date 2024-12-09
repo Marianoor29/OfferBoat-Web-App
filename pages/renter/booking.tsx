@@ -1,3 +1,4 @@
+import WelcomeCard from "@/Components/Helper/WelcomeCard";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
@@ -16,6 +17,8 @@ const Booking = () => {
   const router = useRouter();
   const { offer } = router.query; 
   const [BoatDetail, setBoatDetail] = useState<Offer | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [userType, setuserType] = useState('');
 
   useEffect(() => {
     if (offer) {
@@ -49,7 +52,16 @@ const Booking = () => {
     console.log("Form Submitted!", { date, time, selectedPackage });
   };
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    setToken(userInfo?.token || null);
+    setuserType(userInfo?.userType || null);
+  }, []);
+
   return (
+    <>
+    {token ? (
+      userType === 'BoatRenter' ? 
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
         <h1 className="heading mb-5">Send Booking Request</h1>
@@ -112,6 +124,15 @@ const Booking = () => {
         )}
       </div>
     </div>
+      : 
+      <WelcomeCard 
+      title ='Please create a renter account to book this boat'
+      />
+    ) :
+      (
+        <WelcomeCard />
+      )}
+  </>
   );
 };
 

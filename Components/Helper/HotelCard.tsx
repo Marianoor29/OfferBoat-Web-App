@@ -16,7 +16,7 @@ const HotelCard = ({ name, city, image, price, reviewNum }: Props) => {
       <div className="relative overflow-hidden w-[100%] h-[20rem]">
         <Image
           src={`${image}`}
-          alt={name}
+          alt="Offerboat - Your Budget, Our Boats"
           className="transform object-cover transition-all duration-700 scale-100 hover:scale-125"
           layout="fill"
         />

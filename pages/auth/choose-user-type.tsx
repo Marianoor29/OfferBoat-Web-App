@@ -11,10 +11,9 @@ const ChooseUserType = () => {
   const [frontImage, setFrontImage] = useState<string | null>('');
   const [backImage, setBackImage] = useState<string | null>('');
   const [termsConditions, setTermsConditions] = useState(false);
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
-  const [phoneNumber, setPhoneNumber] = useState<string | undefined>(undefined); // State for phone number
+  const [phoneNumber, setPhoneNumber] = useState<string | undefined>(undefined); 
   const [userData, setUserData] = useState<any>(null);
 
   // Retrieve user data from localStorage when the component mounts
@@ -132,9 +131,10 @@ const ChooseUserType = () => {
       };
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
       localStorage.removeItem("userData");
-      router.push({
-        pathname: `/`,
-      });
+      // router.push({
+      //   pathname: `/`,
+      // });
+      window.location.href = "/";
     } catch (error:any) {
       setErrorMessage(error.message || 'Something went wrong. Please try again.');
     } 
@@ -175,7 +175,7 @@ const ChooseUserType = () => {
                 onChange={(e) => handleFileUpload(e, setFrontImage)}
                 className="mt-2 py-4 px-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
               />
-              {frontImage && <img src={frontImage} alt="Front ID" className="mt-4 w-50 h-32 object-cover rounded-lg" />}
+              {frontImage && <img src={frontImage} alt="Offerboat - Your Budget, Our Boats" className="mt-4 w-50 h-32 object-cover rounded-lg" />}
             </div>
 
             <div>
@@ -186,7 +186,7 @@ const ChooseUserType = () => {
                 onChange={(e) => handleFileUpload(e, setBackImage)}
                 className="mt-2 py-4 px-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
               />
-              {backImage && <img src={backImage} alt="Back ID" className="mt-4 w-50 h-32 object-cover rounded-lg" />}
+              {backImage && <img src={backImage} alt="Offerboat - Your Budget, Our Boats" className="mt-4 w-50 h-32 object-cover rounded-lg" />}
             </div>
           </div>
         )}

@@ -2,6 +2,7 @@ import AddFeatures from "@/Components/Helper/AddFeatures";
 import ImagesSelector from "@/Components/Helper/ImagesSelector";
 import Location from "@/Components/Helper/Location";
 import PackageSelection from "@/Components/Helper/PackageSelection";
+import WelcomeCard from "@/Components/Helper/WelcomeCard";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,8 @@ const AddBoats = () => {
   const [rule, setRule] = useState<string[]>([]);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [userType, setuserType] = useState('');
   const [packages, setPackages] = useState([
     { id: 1, price: "$0.00", hours: "" },
   ]);
@@ -73,7 +76,16 @@ const AddBoats = () => {
     console.log("Form Submitted!");
   };
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    setToken(userInfo?.token || null);
+    setuserType(userInfo?.userType || null);
+  }, []);
+
   return (
+    <>
+    {token ? (
+      userType === 'BoatOwner' ? 
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
         <h1 className="heading mb-5">Add Your Boat</h1>
@@ -132,7 +144,7 @@ const AddBoats = () => {
           </button>
 
           {/* Number of Passengers */}
-          <p className="text-lg font-semibold">{numberOfPassenger} Passengers</p>
+          <p className="text-sm font-semibold">{numberOfPassenger} Passengers</p>
 
           {/* Plus Button */}
           <button
@@ -160,6 +172,18 @@ const AddBoats = () => {
         </button>
       </div>
     </div>
+    : 
+    <WelcomeCard
+    title ='Please create a owner account to add a boat'
+    subTitle='Create an account or sign in to showcase your boat, reach more customers, and start earning today!'
+    />
+  ) :
+    (
+      <WelcomeCard 
+      subTitle='Create an account or sign in to showcase your boat, reach more customers, and start earning today!'
+      />
+    )}
+</>
   )
 }
 

@@ -13,7 +13,7 @@ const OwnerProfile = ({ offer , reviews, errorMessage} : any) => {
           <div className="flex justify-center items-center rounded-full w-[100px] h-[100px] mx-auto ">
             <Image
               src={offer.ownerId.profilePicture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
-              alt="Customer 1"
+              alt="Offerboat - Boat Rentals & Yacht Charters"
               width={100}
               height={100}
               className="rounded-full"

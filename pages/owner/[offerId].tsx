@@ -1,77 +1,48 @@
-import OwnerProfile from '@/Components/Helper/OwnerProfile';
+import FeaturesSection from '@/Components/Helper/FeaturesBox';
+import ImagesSelector from '@/Components/Helper/ImagesSelector';
 import PackageCard from '@/Components/Helper/PackageCard';
 import PhotosSlider from '@/Components/Helper/PhotosSlider';
-import Head from 'next/head';
-import axios from 'axios';
-import { useEffect, useState } from "react";
-import FeaturesSection from '@/Components/Helper/FeaturesBox';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from "react";
 import { FaEdit, FaShare } from 'react-icons/fa';
 
 export async function getServerSideProps(context: { params: { offerId: any; }; }) {
   const { offerId } = context.params;
-
   // Fetch offer data from your backend API
   const response = await fetch(`https://www.offerboats.com/listing/getListingById/${offerId}`);
   if (!response.ok) {
     return { notFound: true };
   }
   const offer = await response.json();
-
   return { props: { offer } };
 }
 
 export default function OfferPage({ offer }: any) {
-  const [reviews, setReviews] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
   const [showFullDescription, setShowFullDescription] = useState(false);
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get(`https://www.offerboats.com/rating/getReviews`, {
-          params: { userId: offer.ownerId._id, userType: 'BoatOwner' }
-        });
-
-        if (response.data.length > 0) {
-          setReviews(response.data);
-        } else {
-          setErrorMessage('This owner has no reviews yet!')
-        }
-      } catch (error) {
-        setErrorMessage('This owner has no reviews yet!')
-      }
-    };
-
-    fetchReviews();
-  }, [offer.ownerId._id]);
-
-  // Slice the description if it's not fully expanded
   const descriptionToShow = showFullDescription
     ? offer.description
     : offer.description.slice(0, 1000);
 
+  const handleOnUpdateBoat = () => {
+    router.push(`/owner/update-boat?offer=${encodeURIComponent(JSON.stringify(offer))}`);
+  };
+
   return (
-    <>
-      <Head>
-        <title>{offer.title}</title>
-        <meta property="og:title" content={offer.title} />
-        <meta property="og:description" content={offer.description} />
-        <meta property="og:image" content={offer.images[0]} />
-        <meta property="og:url" content={`https://www.offerboat.com/app/${offer._id}`} />
-        <meta property="og:type" content="website" />
-      </Head>
       <div className="pt-[1rem] p-[3rem]">
-      <div className="flex relative justify-end">
+        <div className="flex relative justify-end">
           {/* PhotosSlider */}
-          <PhotosSlider images={offer.images} height="h-[20rem] sm:h-[24rem] md:h-[28rem] lg:h-[36rem]" />
+              <PhotosSlider images={offer.images}
+                height="h-[20rem] sm:h-[24rem] md:h-[28rem] lg:h-[36rem]" />
           <div className="absolute flex flex-row w-[8rem] p-[1rem] justify-between ">
-          <div className="flex items-center justify-center border-b border-gray-500 text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl">
-            <FaShare />
-          </div>
-          <div className="flex items-center justify-center border-b border-gray-500 text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl">
-            <FaEdit />
-          </div>
+            <button className="flex items-center justify-center border-b border-gray-500 text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl">
+              <FaShare />
+            </button>
+            <button className="flex items-center justify-center border-b border-gray-500 text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
+              onClick={() => {}}>
+              <FaEdit />
+            </button>
           </div>
         </div>
         {/* Main Content */}
@@ -104,11 +75,10 @@ export default function OfferPage({ offer }: any) {
                   </h2>
                 </a>
               </div>
-              <Link 
-              href={`https://www.google.com/maps?q=${encodeURIComponent(offer.location)}`}
-              className="cursor-pointer hover:underline ">
+              <button className="cursor-pointer hover:underline"
+                onClick={handleOnUpdateBoat}>
                 <FaEdit className="w-[1.5rem] h-[1.5rem] text-blue-900" />
-          </Link>
+              </button>
             </div>
 
             {/* Features and Rules */}
@@ -117,12 +87,9 @@ export default function OfferPage({ offer }: any) {
               <FeaturesSection features={offer.rules} title='Things To Know' />
             </div>
           </div>
-        
           {/* Right Content */}
-          {/* Don't Scroll */}
-          <PackageCard offer={offer} buttons={false}/>
+          <PackageCard offer={offer} buttons={false} />
         </div>
       </div>
-    </>
   );
 }

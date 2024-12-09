@@ -16,7 +16,7 @@ const ClientReview = ({ profilePicture, firstName ,lastName, userType, reviewTex
       <div>
         <Image
           src={`${profilePicture}`}
-          alt={firstName}
+          alt='Offerboat - Your Budget, Our Boats'
           width={80}
           height={80}
           className="rounded-full mx-auto"

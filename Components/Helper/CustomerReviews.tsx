@@ -24,7 +24,7 @@ const CustomerReviews = () => {
           {/* Image */}
           <Image
             src="/images/a7.jpeg"
-            alt="Reviews"
+            alt="Offerboat - Your Budget, Our Boats"
             layout="fill"
             objectFit="cover" // Ensures image scales properly
             className="rounded-lg"
@@ -53,7 +53,7 @@ const CustomerReviews = () => {
                 <div className="flex justify-center items-center rounded-full w-[100px] h-[100px] mx-auto">
                   <Image
                     src={ReviewsList[currentReview].profilePicture}
-                    alt="Customer 1"
+                    alt="Offerboat - Your Budget, Our Boats"
                     width={80}
                     height={80}
                     className="rounded-full border-4 border-white shadow-lg"

@@ -75,7 +75,7 @@ const OffersPage = ({
     if (queryAddress) {
       setAddress(queryAddress as string);
     } else {
-      setAddress("Miami, FL, USA");
+      setAddress("Miami");
     }
   }, [queryAddress, setAddress]);
 

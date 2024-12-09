@@ -51,7 +51,7 @@ const AboutUsPage = () => {
           <div className="md:w-1/2 lg:ml-10">
             <Image
               src="/images/a1.jpeg"
-              alt="Vision"
+              alt="Offerboat - Your Budget, Our Boats"
               width={500}
               height={300}
               className="rounded-lg shadow-lg"
@@ -86,7 +86,7 @@ const AboutUsPage = () => {
           <div className="md:w-1/2">
             <Image
               src="/images/a2.jpeg"
-              alt="Mission"
+              alt="Offerboat - Your Budget, Our Boats"
               width={500}
               height={300}
               className="rounded-lg shadow-lg"
@@ -112,7 +112,7 @@ const AboutUsPage = () => {
             <div key={index} className="relative">
               <Image
                 src={`/images/${img}`}
-                alt={`Journey image ${index + 1}`}
+                alt="Offerboat - Your Budget, Our Boats"
                 width={400}
                 height={200}
                 className="rounded-lg object-cover" 
@@ -140,7 +140,7 @@ const AboutUsPage = () => {
               <div className="w-[300px] h-[600px] mx-auto relative">
                 <Image
                   src="/images/mockup1.png"
-                  alt="Mobile App"
+                  alt="OfferBoat Mobile App"
                   layout="fill"
                   className="object-cover"
                 />

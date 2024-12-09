@@ -40,7 +40,7 @@ const PhotosSlider: React.FC<PhotosSliderProps> = ({ images , height = "h-64", w
          <div key={index} className={`${width} relative ${height}`}>
             <Image
               src={src}
-              alt={`Slide ${index + 1}`}
+              alt="Offerboat - Boat Rentals & Yacht Charters"
               layout="fill"
               objectFit="cover"
               className="rounded-md"

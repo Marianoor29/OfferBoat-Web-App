@@ -4,44 +4,20 @@ import Hero from "@/Components/Hero";
 import LatestBoats from "@/Components/LatestBoats";
 import LatestOffers from "@/Components/LatestOffers";
 import TopDestination from "@/Components/TopDestination";
-import { BoatsList } from "@/dummyData";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const fetchOffers = async (ownerId?: string, location?: string) => {
-  try {
-    let response;
-
-    if (ownerId) {
-      response = await axios.get(`https://www.offerboats.com/getAllOffers?ownerId=${ownerId}&location=${location}`);
-    } else {
-      response = await axios.get(`https://www.offerboats.com/customOffersByLocation?location=${location}`);
-    }
-
-    const offers = response.data.offers || response.data;
-
-    // Sort Offers by Creation Date (Newest First)
-    const sortedOffers = offers.sort((a: any, b: any) => {
-      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-      return dateB - dateA;
-    });
-
-    return sortedOffers;
-  } catch (error) {
-    console.error("Error fetching offers:", error);
-    return [];
-  }
-};
-
 const HomePage = () => {
   const router = useRouter();
   const [offers, setOffers] = useState<[]>([]);
+  const [listing, setListing] = useState<[]>([]);
   const [address, setAddress] = useState<string>(""); 
-
+  const [token, setToken] = useState<string | null>(null);
+  const [userId, setUserId] = useState('');
+  
   useEffect(() => {
     AOS.init({
       disable: false,
@@ -63,12 +39,52 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    const loadOffers = async () => {
-      const fetchedOffers = await fetchOffers(undefined, "Miami, FL, USA"); 
-      setOffers(fetchedOffers);
-    };
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    setToken(userInfo?.token || null);
+  }, []);
 
-    loadOffers();
+  useEffect(() => {
+      const fetchOffers = async () => {
+        try {
+         const response = await axios.get(`https://www.offerboats.com/latest-customOffers`);
+      
+          const offers = response.data.offers;
+          const sortedOffers = offers.sort((a: any, b: any) => {
+            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return dateB - dateA;
+          });
+      
+          setOffers(sortedOffers);
+        } catch (error) {
+          console.error("Error fetching offers:", error);
+          return [];
+        }
+      };
+
+    fetchOffers();
+  }, []);
+
+  useEffect(() => {
+      const fetchListings = async () => {
+        try {
+        const response = await axios.get(`https://www.offerboats.com/listing/latest-listings`);
+      
+          const offers = response.data.modifiedListings;
+          const sortedOffers = offers.sort((a: any, b: any) => {
+            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return dateB - dateA;
+          });
+      
+          setListing(sortedOffers);
+        } catch (error) {
+          console.error("Error fetching offers:", error);
+          return [];
+        }
+      };
+
+      fetchListings();
   }, []);
 
   const handleSeeMoreBoats = () => {
@@ -93,15 +109,40 @@ const HomePage = () => {
     router.push("/renter/make-offer");
   };
 
+  useEffect(() => {
+    const fetchOwnerData = async () => {
+      try {
+        if (!token) return;
+        const userResponse = await axios.get(`https://www.offerboats.com/userData`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const existingUserInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+        const updatedUserInfo = {
+          ...existingUserInfo, 
+          ...userResponse.data, 
+        };
+        localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
+        const { _id,} = userResponse.data;
+        setUserId(_id);
+      } catch (error) {
+        console.log("Error fetching user data", error);
+      }
+    };
+
+    if (token) fetchOwnerData();
+  }, [token]);
+
   return (
     <div className="">
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} />
       <TopDestination />
-      <LatestBoats boats={BoatsList} onSeeMore={handleSeeMoreBoats} />
+      <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/>
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <MakeOfferBanner onClick={handleMakeOffer}/>
       </div>
-      <LatestOffers offers={[...offers, ...offers, ...offers, ...offers, ...offers, ...offers, ]} onSeeMore={handleSeeMoreOffers} />
+      <LatestOffers offers={[...offers, ]} onSeeMore={handleSeeMoreOffers} />
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <AddBoatBanner onClick={handleAddBoat}/>
       </div>

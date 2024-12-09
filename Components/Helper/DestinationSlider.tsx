@@ -51,7 +51,7 @@ const DestinationSlider = ({ destinations, onDestinationClick }: SliderProps) =>
         >
           <Image
             src={destination.image}
-            alt={destination.name}
+            alt='Offerboat - Your Budget, Our Boats'
             width={200}
             height={200}
             className="rounded-md mx-auto object-cover"

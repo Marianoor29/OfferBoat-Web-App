@@ -3,9 +3,10 @@ import PlacesAutocomplete from "react-places-autocomplete";
 
 interface LocationProps {
   onAddressSelect: (address: string) => void;
+  placeholder?: string
 }
 
-const Location = ({ onAddressSelect }: LocationProps) => {
+const Location = ({ onAddressSelect , placeholder = "Please select your location"}: LocationProps) => {
   const [address, setLocalAddress] = useState("");
 
   const handleChange = (value: string) => {
@@ -32,7 +33,7 @@ const Location = ({ onAddressSelect }: LocationProps) => {
               <div className="relative">
                 <input
                   {...getInputProps({
-                    placeholder: "Please select your location",
+                    placeholder: placeholder,
                     className: "outline-none w-full rounded-md",
                   })}
                 />

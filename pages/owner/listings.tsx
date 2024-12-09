@@ -13,7 +13,7 @@ type Listing = {
   description: string;
   images: string[];
   numberOfPassengers: number;
-  createdAt: string; // Add this property to sort by date
+  createdAt: string;
 };
 
 const fetcher = async (url: string) => {
@@ -50,11 +50,9 @@ const Listings = () => {
     shouldRetryOnError: false,
   });
 
-  console.log('Fetched Listings:', allListing); // Log fetched data
-
   // Ensure you access the listings properly and sort them by `createdAt`
   const listings = allListing?.listings || [];
-  
+
   // Sort listings by createdAt in descending order (new listings first)
   const sortedListings = listings.sort((a: Listing, b: Listing) => {
     const dateA = new Date(a.createdAt).getTime();
@@ -71,13 +69,10 @@ const Listings = () => {
       if (window.innerWidth >= 1024) columnCount = 3;
       else if (window.innerWidth >= 768) columnCount = 2;
       else columnCount = 1;
-
       setDimensions({ width, height, columnCount });
     };
-
     window.addEventListener("resize", updateDimensions);
     updateDimensions();
-
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
@@ -88,12 +83,11 @@ const Listings = () => {
   return (
     <div className="bg-white">
       {error && <p className="text-red-500 text-center mt-4">Failed to load listings. Please try again.</p>}
-      
       {/* Render message if no listings */}
       {sortedListings.length === 0 ? (
         <div className="flex flex-col items-center">
           <p className="text-gray-800 text-center mt-4">You Don't Have Any Listings Yet!</p>
-          <button 
+          <button
             className="bg-white text-emerald-600 px-3 py-2 rounded-lg shadow-lg hover:bg-gray-100 my-5 mx-7 font-serif">
             Add Your Boats
           </button>

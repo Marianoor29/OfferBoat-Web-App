@@ -8,7 +8,7 @@ const Contact = () => {
         <div data-aos="fade-right" data-aos-delay="800">
           <Image
             src="/images/mockup4.png"
-            alt="fly"
+            alt="Offerboat - Boat Rentals & Yacht Charters"
             width={400}
             height={200}
             className="object-contain mx-auto "
@@ -27,13 +27,13 @@ const Contact = () => {
           </p>
           <div className="flex mt-[3.4rem] rounded-lg mb-[3rem] items-center space-x-2 w-[80%] h-[4vh] md:h-[6.3vh]">
             <button className="ml-[1rem] px-4 py-2 rounded-lg">
-            <Image src="/images/appStore.png" alt="appStore"     
+            <Image src="/images/appStore.png" alt="Offerboat - appStore"     
             width={300}
             height={10}
             className="object-contain  mx-auto " />
             </button>
             <button className="ml-[1rem] px-4 py-2 rounded-lg">
-            <Image src="/images/googlePlay.png" alt="googlePlay"    
+            <Image src="/images/googlePlay.png" alt="Offerboat - googlePlay"    
             width={240}
             height={10}
             className="object-contain  mx-auto " />

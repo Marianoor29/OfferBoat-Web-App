@@ -16,7 +16,7 @@ const MakeOfferBanner = ({onClick}: any) => {
             <div className=" md:w-[60%] pr-2 ">
             <Image
                     src="/images/offerBanner.png"
-                    alt="Vision"
+                    alt="Offerboat - Your Budget, Our Boats"
                     width={900}
                     height={780}
                     className="rounded-xl"

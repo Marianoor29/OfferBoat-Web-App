@@ -25,6 +25,7 @@ const BoatsPage = ({ address, setAddress, }: {
   const [page, setPage] = useState(1);
   const { address: queryAddress } = router.query;
   const [triggerSearch, setTriggerSearch] = useState(true);
+  const [userId, setUserId] = useState<string | null>(null);
   const itemsPerPage = 20;
 
   const [dimensions, setDimensions] = useState({
@@ -34,7 +35,7 @@ const BoatsPage = ({ address, setAddress, }: {
   });
 
   const swrKey = triggerSearch
-    ? `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`
+    ? `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}&userId=${userId}`
     : null;
 
   const { data: offersData, error } = useSWR(swrKey, fetcher, {
@@ -89,7 +90,7 @@ const BoatsPage = ({ address, setAddress, }: {
       <div style={style} key={item._id}>
         <OfferCard
           title={item.title}
-          boatOwnerImage={item.boatOwnerImage}
+          boatOwnerImage={item.ownerId.profilePicture}
           members={item.numberOfPassengers}
           location={item.location}
           description={item.description}
@@ -99,6 +100,11 @@ const BoatsPage = ({ address, setAddress, }: {
       </div>
     );
   };
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    setUserId(userInfo?._id || null);
+  }, []);
 
   return (
     <div >

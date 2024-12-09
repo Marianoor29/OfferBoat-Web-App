@@ -19,7 +19,6 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Retrieve user info from localStorage
     const userInfo = localStorage.getItem("userInfo");
     if (userInfo) {
       const parsedInfo = JSON.parse(userInfo);
@@ -32,7 +31,6 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
     localStorage.removeItem("userInfo");
     setUserType(null);
     setToken(null);
-    // Optionally redirect to login
     window.location.href = "/auth/login";
   };
 
@@ -195,7 +193,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
               >
                 <Image
                   src="/images/a4.jpeg"
-                  alt="Profile"
+                  alt="Offerboat - Your Budget, Our Boats"
                   className="w-8 h-8 rounded-full"
                   width={32}
                   height={32}

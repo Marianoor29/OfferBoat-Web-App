@@ -76,7 +76,7 @@ const ListCard: React.FC<ListCardProps> = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <div className="w-12 h-12 rounded-full overflow-hidden mr-4 cursor-pointer" onClick={onPressImage}>
-            <Image src={userImage} alt="User Image" width={48} height={48} className="object-cover" />
+            <Image src={userImage} alt="Offerboat - Your Budget, Our Boats" width={48} height={48} className="object-cover" />
           </div>
           <div>
             <p className="text-lg font-serif text-gray-800">{renterName}</p>

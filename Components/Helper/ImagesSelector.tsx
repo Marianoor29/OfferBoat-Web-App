@@ -84,7 +84,7 @@ const ImagesSelector: React.FC<ImagesSelectorProps> = ({
                 <div key={index} className="relative lg:h-24 md:h-24 h-20 w-30">
                   <Image
                     src={image}
-                    alt={`Selected Image ${index}`}
+                    alt="Offerboat - Your Budget, Our Boats"
                     layout="fill"
                     objectFit="cover"
                     className="rounded-md"

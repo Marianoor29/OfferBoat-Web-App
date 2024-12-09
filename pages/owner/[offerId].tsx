@@ -1,5 +1,4 @@
 import FeaturesSection from '@/Components/Helper/FeaturesBox';
-import ImagesSelector from '@/Components/Helper/ImagesSelector';
 import PackageCard from '@/Components/Helper/PackageCard';
 import PhotosSlider from '@/Components/Helper/PhotosSlider';
 import { useRouter } from 'next/router';

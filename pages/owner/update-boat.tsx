@@ -6,18 +6,29 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+interface Offer {
+  title: string;
+  description: string;
+  numberOfPassengers: number;
+  features: string[];
+  rules: string[];
+  images: string[];
+  location: string;
+  packages: { id: number; price: string; hours: string }[];
+}
+
 const UpdateBoat = () => {
   const router = useRouter();
-  const offer = JSON?.parse(decodeURIComponent(router.query.offer as string));
+  const [offer, setOffer] = useState<Offer | undefined>();
   const [selectedAddress, setSelectedAddress] = useState<string | null>();
-  const [title, setTile] = useState<string>(offer.title)
-  const [description, setDescription] = useState<string>(offer.description)
-  const [numberOfPassenger, setNumberOfPassenger] = useState<number>(offer.numberOfPassengers);
-  const [features, setFeatures] = useState<string[]>(offer.features);
-  const [rule, setRule] = useState<string[]>(offer.rules);
-  const [selectedImages, setSelectedImages] = useState<string[]>(offer.images);
+  const [title, setTitle] = useState<string>(offer?.title || "");
+  const [description, setDescription] = useState<string>(offer?.description || "");
+  const [numberOfPassenger, setNumberOfPassenger] = useState<number>(offer?.numberOfPassengers || 0);
+  const [features, setFeatures] = useState<string[]>(offer?.features || []);
+  const [rule, setRule] = useState<string[]>(offer?.rules || []);
+  const [selectedImages, setSelectedImages] = useState<string[]>(offer?.images || []);
+  const [packages, setPackages] = useState<Offer['packages']>(offer?.packages || [{ id: 1, price: "$0.00", hours: "" }]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [packages, setPackages] = useState(offer.packages || [{ id: 1, price: "$0.00", hours: "" }]);
 
   const decreaseMembers = () => {
     if (numberOfPassenger > 0) {
@@ -74,93 +85,97 @@ const UpdateBoat = () => {
     console.log("Form Submitted!");
   };
 
+  useEffect(() => {
+    const offer = JSON?.parse(decodeURIComponent(router.query.offer as string));
+    setOffer(offer)
+  }, [router.query.offer])
   return (
-          <div className="flex items-center justify-center min-h-screen bg-white">
-            <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
-              <h1 className="heading mb-5">Update Your Boat Details</h1>
-              <div className="mb-7">
-                <h1 className="mb-2">Select Your Location</h1>
-                <Location onAddressSelect={(address: string) => setSelectedAddress( address )} placeholder={offer.location}/>
-              </div>
-              <div className="mb-7">
-                <h1 className="mb-2">Enter Your Listing Title</h1>
-                <input
-                  type="text"
-                  id="title"
-                  value={title}
-                  onChange={(e) => setTile(e.target.value)}
-                  placeholder="Enter a Descriptive and Engaging Title"
-                  className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-              <div className="mb-7">
-                <h1 className="mb-2">Enter Your Listing Description</h1>
-                <textarea
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Enter a Clear and Detailed Description"
-                  rows={5}
-                  className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                ></textarea>
-              </div>
-              <div className="mb-7">
-                <h1 className="mb-2">Add Packages</h1>
-                <PackageSelection
-                  packages={packages}
-                  setPackages={setPackages}
-                  onPriceChange={handlePriceChange}
-                  onHoursChange={handleHoursChange}
-                  hoursOptions={["2", "3", "4", "6", "8", "10"]}
-                />
-              </div>
-              <div className="mb-7">
-                <h1 className="mb-2">Add Features</h1>
-                <AddFeatures features={features} setFeatures={setFeatures} />
-              </div>
-              <div className="mb-7">
-                <h1 className="mb-2">Add Rules</h1>
-                <AddFeatures features={rule} setFeatures={setRule} placeholder="Add Rules" />
-              </div>
-              <div className="flex items-center justify-center space-x-12 mb-7">
-                {/* Minus Button */}
-                <button
-                  onClick={decreaseMembers}
-                  className="py-3 px-10 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
-                  aria-label="Decrease Members"
-                >
-                  <MinusIcon className="w-5" />
-                </button>
+    <div className="flex items-center justify-center min-h-screen bg-white">
+      <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
+        <h1 className="heading mb-5">Update Your Boat Details</h1>
+        <div className="mb-7">
+          <h1 className="mb-2">Select Your Location</h1>
+          <Location onAddressSelect={(address: string) => setSelectedAddress(address)} placeholder={offer?.location || 'Select Your Location'} />
+        </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Enter Your Listing Title</h1>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter a Descriptive and Engaging Title"
+            className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Enter Your Listing Description</h1>
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter a Clear and Detailed Description"
+            rows={5}
+            className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          ></textarea>
+        </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Add Packages</h1>
+          <PackageSelection
+            packages={packages}
+            setPackages={setPackages}
+            onPriceChange={handlePriceChange}
+            onHoursChange={handleHoursChange}
+            hoursOptions={["2", "3", "4", "6", "8", "10"]}
+          />
+        </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Add Features</h1>
+          <AddFeatures features={features} setFeatures={setFeatures} />
+        </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Add Rules</h1>
+          <AddFeatures features={rule} setFeatures={setRule} placeholder="Add Rules" />
+        </div>
+        <div className="flex items-center justify-center space-x-12 mb-7">
+          {/* Minus Button */}
+          <button
+            onClick={decreaseMembers}
+            className="py-3 px-10 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
+            aria-label="Decrease Members"
+          >
+            <MinusIcon className="w-5" />
+          </button>
 
-                {/* Number of Passengers */}
-                <p className="text-sm font-semibold">{numberOfPassenger} Passengers</p>
+          {/* Number of Passengers */}
+          <p className="text-sm font-semibold">{numberOfPassenger} Passengers</p>
 
-                {/* Plus Button */}
-                <button
-                  onClick={() => setNumberOfPassenger(numberOfPassenger + 1)}
-                  className="py-3 px-10 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
-                  aria-label="Increase Members"
-                >
-                  <PlusIcon className="w-5" />
-                </button>
-              </div>
-              <div className="mb-7">
-                <h1 className="mb-2">Select Your Boat Images</h1>
-                <ImagesSelector
-                  images={selectedImages}
-                  onImagesChange={handleImagesChange}
-                />
-              </div>
-              <p className="mb-7 text-red-600 text-center"> {errorMessage}</p>
-              <button
-                onClick={handleSubmit}
-                className="mb-7 p-4 bg-ownerGreen text-white rounded-md hover:bg-emerald-500 focus:outline-none"
-                disabled={!validateForm}
-              >
-                Update Lisitng
-              </button>
-            </div>
-          </div>
+          {/* Plus Button */}
+          <button
+            onClick={() => setNumberOfPassenger(numberOfPassenger + 1)}
+            className="py-3 px-10 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
+            aria-label="Increase Members"
+          >
+            <PlusIcon className="w-5" />
+          </button>
+        </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Select Your Boat Images</h1>
+          <ImagesSelector
+            images={selectedImages}
+            onImagesChange={handleImagesChange}
+          />
+        </div>
+        <p className="mb-7 text-red-600 text-center"> {errorMessage}</p>
+        <button
+          onClick={handleSubmit}
+          className="mb-7 p-4 bg-ownerGreen text-white rounded-md hover:bg-emerald-500 focus:outline-none"
+          disabled={!validateForm}
+        >
+          Update Lisitng
+        </button>
+      </div>
+    </div>
   )
 }
 

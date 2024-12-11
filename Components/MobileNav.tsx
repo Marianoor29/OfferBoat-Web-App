@@ -1,5 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
+import { parseCookies } from "nookies";
 import React, { useEffect, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
@@ -20,12 +21,11 @@ const MobileNav = ({ nav, closeNav }: Props) => {
   };
 
   useEffect(() => {
-    // Retrieve user info from localStorage
-    const userInfo = localStorage.getItem("userInfo");
+    const { userInfo } = parseCookies();
     if (userInfo) {
-      const parsedInfo = JSON.parse(userInfo);
-      setUserType(parsedInfo.userType);
-      setToken(parsedInfo.token);
+      const parsedData = JSON.parse(userInfo);
+      setToken(parsedData.token);
+      setUserType(parsedData.userType);
     }
   }, []);
 

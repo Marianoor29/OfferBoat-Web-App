@@ -8,15 +8,18 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import { UserContext } from "@/context/UserContext";
 
 const HomePage = () => {
   const router = useRouter();
   const [offers, setOffers] = useState<[]>([]);
   const [listing, setListing] = useState<[]>([]);
   const [address, setAddress] = useState<string>(""); 
-  const [token, setToken] = useState<string | null>(null);
   const [userId, setUserId] = useState('');
+  const { updateUser } = useContext(UserContext)!;
+
   
   useEffect(() => {
     AOS.init({
@@ -36,11 +39,6 @@ const HomePage = () => {
       mirror: false,
       anchorPlacement: "top-bottom",
     });
-  }, []);
-
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-    setToken(userInfo?.token || null);
   }, []);
 
   useEffect(() => {
@@ -112,28 +110,38 @@ const HomePage = () => {
   useEffect(() => {
     const fetchOwnerData = async () => {
       try {
-        if (!token) return;
+        const { userInfo } = parseCookies();
+        if (!userInfo) {
+          console.log("No userInfo cookie found.");
+          return;
+        }
+  
+        const parsedData = JSON.parse(userInfo);
+        const tokenFromCookie = parsedData.token;
+  
+        if (!tokenFromCookie) {
+          console.log("No token found in userInfo cookie.");
+          return;
+        }
+  
         const userResponse = await axios.get(`https://www.offerboats.com/userData`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenFromCookie}`,
           },
         });
-        const existingUserInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-        const updatedUserInfo = {
-          ...existingUserInfo, 
-          ...userResponse.data, 
-        };
-        localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
-        const { _id,} = userResponse.data;
-        setUserId(_id);
+  
+        // Include the token explicitly when updating the user
+        updateUser({ ...userResponse.data, token: tokenFromCookie });
+        setUserId(userResponse.data._id);
       } catch (error) {
-        console.log("Error fetching user data", error);
+        console.error("Error fetching user data:", error);
       }
     };
-
-    if (token) fetchOwnerData();
-  }, [token]);
-
+  
+    fetchOwnerData();
+  }, []);
+  
+  
   return (
     <div className="">
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} />

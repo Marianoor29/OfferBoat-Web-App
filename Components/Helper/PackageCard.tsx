@@ -4,9 +4,9 @@ const PackageCard = ({ offer, buttons = true , onClickBookNow, onClickMakeOffer}
   return (
     <div className="bg-white shadow-xl rounded-xl overflow-hidden md:w-[50%] lg:w-[40%] p-4 mt-10 h-fit ">
       <h1 className="heading text-[20px] mb-5 mt-5">PACKAGES</h1>
-      {offer.packages.map((item: any) => {
+      {offer.packages.map((item: any, index:any) => {
         return (
-          <div className="flex items-center justify-between mb-6 border-b border-gray-200 pb-6">
+          <div  key={index} className="flex items-center justify-between mb-6 border-b border-gray-200 pb-6">
             <h2 className="text-lg font-serif">{item.price}</h2>
             <h2 className="text-lg font-serif">{item.hours} Hours</h2>
           </div>

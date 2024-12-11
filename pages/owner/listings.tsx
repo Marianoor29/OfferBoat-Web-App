@@ -82,7 +82,6 @@ const Listings = () => {
 
   return (
     <div className="bg-white">
-      {error && <p className="text-red-500 text-center mt-4">Failed to load listings. Please try again.</p>}
       {/* Render message if no listings */}
       {sortedListings.length === 0 ? (
         <div className="flex flex-col items-center">

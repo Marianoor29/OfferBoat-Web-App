@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { parseCookies } from 'nookies';
 import axios from 'axios';
 
 const EmailVerification = () => {
   const router = useRouter();
-  const [userData, setUserData] = useState<any>(null);
+  const [userdata, setUserData] = useState<any>(null);
   const [verificationCode, setVerificationCode] = useState<string>('');
   const [code, setCode] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [resendMessage, setResendMessage] = useState<string>('');
+  const { userData } = parseCookies();
 
    useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      const parsedData = JSON.parse(storedUserData);
+    if (userData) {
+      const parsedData = JSON.parse(userData);
       setUserData(parsedData);
       setVerificationCode(parsedData?.VerificationCode); 
     } else {
@@ -24,7 +25,7 @@ const EmailVerification = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (code === verificationCode.toString()) {
-      router.push( '/auth/choose-user-type')
+      router.push('/auth/choose-user-type')
     } else {
       setErrorMessage('Incorrect verification code');
       setTimeout(() => {
@@ -35,7 +36,7 @@ const EmailVerification = () => {
 
   const resendCode = async () => {
     try {
-      const response = await axios.post('https://www.offerboats.com/resendCode', { email: userData?.email });
+      const response = await axios.post('https://www.offerboats.com/resendCode', { email: userdata?.email });
       setVerificationCode(response.data.verificationCode);  
       setResendMessage('Verification code resent successfully.');
     } catch (error) {

@@ -9,11 +9,10 @@ export default function  Document() {
         
          {/* Google Maps API Script */}
         <script
-          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
+          src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig&libraries=places`}
           async
           defer
         ></script>
-        {/* <script src="https://appleid.apple.com/appleid/auth/apple.js"></script> */}
       </Head>
       <body className="font-primary">
         <Main />

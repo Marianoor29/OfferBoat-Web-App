@@ -2,8 +2,10 @@ import CurrencyInput from "@/Components/Helper/CurrencyInput";
 import HourSelector from "@/Components/Helper/HourSelector";
 import Location from "@/Components/Helper/Location";
 import WelcomeCard from "@/Components/Helper/WelcomeCard";
+import { UserContext } from "@/context/UserContext";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
-import { useEffect, useState } from "react";
+import { parseCookies } from "nookies";
+import { useContext, useEffect, useState } from "react";
 
 const MakeOffer = () => {
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
@@ -15,8 +17,7 @@ const MakeOffer = () => {
   const [time, setTime] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [captainSelected, setCaptainSelected] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-  const [userType, setuserType] = useState('');
+  const { user } = useContext(UserContext)!;
 
   const decreaseMembers = () => {
     if (numberOfPassenger > 0) {
@@ -56,16 +57,10 @@ const MakeOffer = () => {
     console.log("Form Submitted!");
   };
 
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-    setToken(userInfo?.token || null);
-    setuserType(userInfo?.userType || null);
-  }, []);
-
   return (
     <>
-      {token ? (
-        userType === 'BoatRenter' ? 
+      {user.token ? (
+        user.userType === 'BoatRenter' ? 
         <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
           <h1 className="heading mb-5">Publish a Custom Offer</h1>
@@ -177,7 +172,7 @@ const MakeOffer = () => {
       </div>
       : 
         <WelcomeCard 
-        title ='Please create a renter account to book this boat'
+        title ='Please create a renter account to make an offer'
         />
       ) :
         (

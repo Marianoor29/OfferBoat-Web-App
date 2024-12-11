@@ -1,7 +1,8 @@
+import { UserContext } from "@/context/UserContext";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import LocationSearchBox from "./Helper/LocationSearch";
 
@@ -14,23 +15,11 @@ interface Props {
 
 const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) => {
   const [open, setOpen] = useState(false);
-  const [userType, setUserType] = useState<string | null>(null);
-  const [token, setToken] = useState<string | null>(null);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const userInfo = localStorage.getItem("userInfo");
-    if (userInfo) {
-      const parsedInfo = JSON.parse(userInfo);
-      setUserType(parsedInfo.userType);
-      setToken(parsedInfo.token);
-    }
-  }, []);
+  const { user, clearUser } = useContext(UserContext)!;
 
   const handleLogout = () => {
-    localStorage.removeItem("userInfo");
-    setUserType(null);
-    setToken(null);
+    clearUser();
     window.location.href = "/auth/login";
   };
 
@@ -45,7 +34,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
           <Image
             src="/images/logo.png"
             alt="Offerboat - Boat Rentals & Yacht Charters"
-            layout="fill"
+            fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
         </Link>
@@ -58,9 +47,8 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
           <Image
             src="/images/logoHat.png"
             alt="Offerboat - Boat Rentals & Yacht Charters"
-            layout="fill"
+            fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-
           />
         </Link>
 
@@ -103,9 +91,9 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                       Offers
                     </Link>
                   </li>
-                  {token && (
+                  {user.token && (
                     <>
-                      {userType === "BoatOwner" ? (
+                      {user.userType === "BoatOwner" ? (
                         <>
                           <li>
                             <Link
@@ -127,7 +115,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                           </li>
                         </>
                       ) :
-                        userType === "BoatRenter" && (
+                      user.userType === "BoatRenter" && (
                           <>
                             <li>
                               <Link
@@ -184,7 +172,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
             </li>
           </ul>
           {/* Render different menus based on authentication */}
-          {token && !location ? (
+          {user.token && !location ? (
             <div className="relative">
               {/* Profile Picture */}
               <button
@@ -192,7 +180,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                 className="flex items-center focus:outline-none mr-5"
               >
                 <Image
-                  src="/images/a4.jpeg"
+                  src={user.profilePicture || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
                   alt="Offerboat - Your Budget, Our Boats"
                   className="w-8 h-8 rounded-full"
                   width={32}
@@ -203,7 +191,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
               {/* Profile Dropdown */}
               {profileMenuOpen && (
                 <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg w-48">
-                  <p className="pl-3 ">Hi Maria</p>
+                  <p className="pl-3 ">Hi {user.firstName}</p>
                   <ul className="py-2">
                     <li>
                       <Link
@@ -214,7 +202,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                         View Profile
                       </Link>
                     </li>
-                    {userType === "BoatOwner" && (
+                    {user.userType === "BoatOwner" && (
                       <>
                         <li>
                           <Link
@@ -227,7 +215,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                         </li>
                       </>
                     )}
-                    {userType === "BoatRenter" && (
+                    {user.userType === "BoatRenter" && (
                       <>
                         <li>
                           <Link

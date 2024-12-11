@@ -1,9 +1,11 @@
 import { FaGoogle, FaApple } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '@/firebaseConfig';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { setCookie } from 'nookies';
+import { UserContext } from '@/context/UserContext';
 
 const SignUp = () => {
   const router = useRouter();
@@ -16,7 +18,8 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [passwordMatchError, setPasswordMatchError] = useState('');
-
+  const { setUser } = useContext(UserContext)!;
+  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setIsMac(/Mac/.test(window.navigator.platform));
@@ -54,7 +57,12 @@ const SignUp = () => {
         email: email,
         password: password,
       });
-      localStorage.setItem('userData', JSON.stringify(response.data.userdata));
+      setCookie(null, 'userData', JSON.stringify(
+        response.data.userdata
+      ), {
+        maxAge: 60 * 60,
+        path: '/',
+      });
       router.push('/auth/email-verification');
     } catch (error: any) {
       const errorMessage = error.response?.data?.error || 'An error occurred';
@@ -73,14 +81,22 @@ const SignUp = () => {
       const response = await axios.post('https://www.offerboats.com/google', {
         token: firebaseIdToken,
       });
-      console.log("Backend Response:", response.data);
 
       const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;
       if (isNewUser) {
-        localStorage.setItem('userData', JSON.stringify({firstName: firstName, lastName : lastName, email: email, profilePicture: profilePicture, type: 'googleSignup'}));
+        setCookie(null, 'userData', JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          profilePicture,
+          type: 'googleSignup',
+        }), {
+          maxAge: 60 * 60,
+          path: '/',
+        });
         router.push('/auth/choose-user-type');
       } else {
-        localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
+        setUser({ token, userType });
         window.location.href = "/";
       }
     } catch (error: any) {

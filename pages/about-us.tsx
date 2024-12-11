@@ -55,6 +55,7 @@ const AboutUsPage = () => {
               width={500}
               height={300}
               className="rounded-lg shadow-lg"
+              priority
             />
           </div>
         </section>
@@ -90,6 +91,7 @@ const AboutUsPage = () => {
               width={500}
               height={300}
               className="rounded-lg shadow-lg"
+              priority
             />
           </div>
         </section>
@@ -102,7 +104,7 @@ const AboutUsPage = () => {
           <Carousel
         responsive={responsive}
         infinite
-        showDots={true} // Optional: adds navigation dots
+        showDots={true} 
         containerClass="carousel-container"
         itemClass="item"
         className="rounded-lg" 
@@ -116,6 +118,7 @@ const AboutUsPage = () => {
                 width={400}
                 height={200}
                 className="rounded-lg object-cover" 
+                style={{width: "auto", height : "auto"}}
               />
             </div>
           )
@@ -141,7 +144,8 @@ const AboutUsPage = () => {
                 <Image
                   src="/images/mockup1.png"
                   alt="OfferBoat Mobile App"
-                  layout="fill"
+                  fill
+                  sizes="w-[100%] h-[100%]"
                   className="object-cover"
                 />
               </div>

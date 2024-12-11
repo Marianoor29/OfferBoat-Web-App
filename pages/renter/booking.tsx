@@ -1,6 +1,8 @@
 import WelcomeCard from "@/Components/Helper/WelcomeCard";
+import { UserContext } from "@/context/UserContext";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { parseCookies } from "nookies";
+import { useState, useEffect, useContext } from "react";
 
 interface Package {
   hours: number;
@@ -17,8 +19,7 @@ const Booking = () => {
   const router = useRouter();
   const { offer } = router.query; 
   const [BoatDetail, setBoatDetail] = useState<Offer | null>(null);
-  const [token, setToken] = useState<string | null>(null);
-  const [userType, setuserType] = useState('');
+  const { user } = useContext(UserContext)!;
 
   useEffect(() => {
     if (offer) {
@@ -52,16 +53,10 @@ const Booking = () => {
     console.log("Form Submitted!", { date, time, selectedPackage });
   };
 
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-    setToken(userInfo?.token || null);
-    setuserType(userInfo?.userType || null);
-  }, []);
-
   return (
     <>
-    {token ? (
-      userType === 'BoatRenter' ? 
+    {user.token ? (
+      user.userType === 'BoatRenter' ? 
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
         <h1 className="heading mb-5">Send Booking Request</h1>

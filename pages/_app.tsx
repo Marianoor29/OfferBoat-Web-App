@@ -1,6 +1,7 @@
 import Footer from "@/Components/Footer";
 import MobileNav from "@/Components/MobileNav";
 import Navbar from "@/Components/Navbar";
+import { UserProvider } from "@/context/UserContext";
 import "@/styles/globals.css";
 import "@/styles/styles.css";
 import type { AppProps } from "next/app";
@@ -20,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
    // Define routes where the Navbar should not appear
-   const noNavbarRoutes = ["/auth/email-verification", "/auth/choose-user-type"]; 
+   const noNavbarRoutes = ["/auth/email-verification", "/auth/choose-user-type",]; 
    const showNavbar = !noNavbarRoutes.includes(router.pathname);
  
     // Define routes where location search should be visible
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
    const showFooter = !noFooterRoutes.includes(router.pathname);
  
   return (
+    <UserProvider>
     <div className="flex flex-col min-h-screen">
    {/* Conditional Navbar Rendering */}
    {showNavbar && (
@@ -62,5 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
       )
   }
     </div>
+    </UserProvider>
+
   );
 }

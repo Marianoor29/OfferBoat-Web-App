@@ -85,9 +85,9 @@ const ImagesSelector: React.FC<ImagesSelectorProps> = ({
                   <Image
                     src={image}
                     alt="Offerboat - Your Budget, Our Boats"
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-md"
+                    fill
+                    sizes="w-[100%] h-[100%]"
+                    className="rounded-md object-cover"
                   />
                   <button
                     onClick={() => handleRemoveImage(index)} // Remove image on click

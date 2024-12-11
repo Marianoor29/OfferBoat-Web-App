@@ -3,8 +3,9 @@ import ImagesSelector from "@/Components/Helper/ImagesSelector";
 import Location from "@/Components/Helper/Location";
 import PackageSelection from "@/Components/Helper/PackageSelection";
 import WelcomeCard from "@/Components/Helper/WelcomeCard";
+import { UserContext } from "@/context/UserContext";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 const AddBoats = () => {
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
@@ -15,11 +16,10 @@ const AddBoats = () => {
   const [rule, setRule] = useState<string[]>([]);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [token, setToken] = useState<string | null>(null);
-  const [userType, setuserType] = useState('');
   const [packages, setPackages] = useState([
     { id: 1, price: "$0.00", hours: "" },
   ]);
+  const { user } = useContext(UserContext)!;
 
   const decreaseMembers = () => {
     if (numberOfPassenger > 0) {
@@ -76,16 +76,10 @@ const AddBoats = () => {
     console.log("Form Submitted!");
   };
 
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-    setToken(userInfo?.token || null);
-    setuserType(userInfo?.userType || null);
-  }, []);
-
   return (
     <>
-    {token ? (
-      userType === 'BoatOwner' ? 
+    {user.token ? (
+      user.userType === 'BoatOwner' ? 
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
         <h1 className="heading mb-5">Add Your Boat</h1>

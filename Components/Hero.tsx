@@ -53,8 +53,8 @@ const Hero = ({ setAddress, handleSearch }: Props) => {
         src="/images/a8.jpeg"
         alt="Offerboat - Boat Rentals & Yacht Charters"
         className="w-[100%] h-[100%] object-fill block lg:hidden"
-        layout="fill"
-        objectFit="cover"
+        fill
+        sizes="w-[100%] h-[100%]"
       />
     )}
       <div className="absolute z-[100] w-[100%] h-[100%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">

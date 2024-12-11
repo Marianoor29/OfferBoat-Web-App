@@ -25,9 +25,9 @@ const CustomerReviews = () => {
           <Image
             src="/images/a7.jpeg"
             alt="Offerboat - Your Budget, Our Boats"
-            layout="fill"
-            objectFit="cover" // Ensures image scales properly
-            className="rounded-lg"
+            fill
+            className="rounded-lg object-cover"
+            sizes="w-[100%] h-[100%]"
           />
           {/* Review Section */}
           <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center p-6 bg-black bg-opacity-50 rounded-lg">

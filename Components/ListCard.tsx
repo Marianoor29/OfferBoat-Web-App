@@ -59,7 +59,7 @@ const ListCard: React.FC<ListCardProps> = ({
       const displayText = isExpanded ? tripInstructions : `${tripInstructions.substring(0, truncateLength)}...`;
       return (
         <div>
-          <p className="text-sm text-gray-600 mb-2">{displayText}</p>
+          <p className="text-sm text-gray-600 mb-2">{displayText} </p>
           <button onClick={toggleExpand} className={`text-sm font-serif ${seeMoreTextColor}`}>
             {isExpanded ? "See Less" : "See More"}
           </button>

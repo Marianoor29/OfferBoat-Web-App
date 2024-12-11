@@ -1,7 +1,8 @@
 import ListCard from "@/Components/ListCard";
+import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface LatestOffersProps {
   offers: {
@@ -31,12 +32,11 @@ interface LatestOffersProps {
   setAddress: (value: string) => void;
 }
 
-const fetchOffers = async (ownerId?: string, location?: string) => {
+const fetchOffers = async (userId?: string, location?: string) => {
   try {
     let response;
-
-    if (ownerId) {
-      response = await axios.get(`https://www.offerboats.com/getAllOffers?ownerId=${ownerId}&location=${location}`);
+    if (userId !== undefined) {
+      response = await axios.get(`https://www.offerboats.com/getAllOffers?ownerId=${userId}&location=${location}`);
     } else {
       response = await axios.get(`https://www.offerboats.com/customOffersByLocation?location=${location}`);
     }
@@ -70,18 +70,21 @@ const OffersPage = ({
   const router = useRouter();
   const { address: queryAddress } = router.query;
   const [offers, setOffers] = useState<LatestOffersProps['offers']>([]);
+  const { user } = useContext(UserContext)!;
+  const userId = user._id || undefined
 
   useEffect(() => {
     if (queryAddress) {
       setAddress(queryAddress as string);
     } else {
-      setAddress("Miami");
+      setAddress("Miami, FL, USA");
     }
   }, [queryAddress, setAddress]);
 
+
   useEffect(() => {
     const loadOffers = async () => {
-      const fetchedOffers = await fetchOffers(undefined, address);
+      const fetchedOffers = await fetchOffers(userId, address);
       setOffers(fetchedOffers);
     };
   
@@ -111,7 +114,7 @@ const OffersPage = ({
               location={offer?.location}
               rating={offer?.userId?.rating}
               price={offer?.price}
-              tripInstructions={offer?.tripInstructions}
+              tripInstructions={offer?.tripInstructions || 'no instructions provided'}
               buttonTitle="Offer Your Boat"
               onPress={() => console.log(`Clicked on offer ID`)}
               onPressImage={() => console.log(`Clicked on image of offer ID`)}

@@ -1,7 +1,9 @@
 import Location from '@/Components/Helper/Location';
+import { UserContext } from '@/context/UserContext';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { destroyCookie, parseCookies, setCookie } from 'nookies';
+import React, { useContext, useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
@@ -14,16 +16,17 @@ const ChooseUserType = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | undefined>(undefined); 
-  const [userData, setUserData] = useState<any>(null);
+  const [userdata, setUserData] = useState<any>(null);
+  const { userData } = parseCookies();
+  const { setUser } = useContext(UserContext)!;
 
   // Retrieve user data from localStorage when the component mounts
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      const parsedData = JSON.parse(storedUserData);
+    if (userData) {
+      const parsedData = JSON.parse(userData);
       setUserData(parsedData);
     } else {
-      router.push('/auth/sign-up');
+      router.push('/auth/sign-up'); 
     }
   }, []);
 
@@ -95,7 +98,7 @@ const ChooseUserType = () => {
       formData.append('backImage', dataURLtoBlob(backImage), 'backImage.jpg');
     }
 
-      formData.append('email', userData?.email);
+      formData.append('email', userdata?.email);
   
         const uploadResponse = await axios.post(`https://www.offerboats.com/uploadDocuments`, formData, {
           headers: {
@@ -109,31 +112,24 @@ const ChooseUserType = () => {
       }
   
       const payload = {
-        email: userData?.email,
+        email: userdata?.email,
         userType: selectedType,
         phoneNumber,
-        firstName: userData?.firstName,
-        lastName: userData?.lastName,
-        password: userData?.password,
+        firstName: userdata?.firstName,
+        lastName: userdata?.lastName,
+        password: userdata?.password,
         rating: 0,
         termsAndPolicies: termsConditions,
-        profilePicture: userData?.type === 'googleSignup' ? userData?.profilePicture : undefined,
+        profilePicture: userdata?.type === 'googleSignup' ? userdata?.profilePicture : undefined,
         location: selectedAddress
       };
   
-      const endpoint = userData?.type === 'googleSignup' ? '/web-googleSignup' : '/web-signup';
+      const endpoint = userdata?.type === 'googleSignup' ? '/web-googleSignup' : '/web-signup';
       const response = await axios.post(`https://www.offerboats.com${endpoint}`, payload);
       
       const { token } = response.data;
-      const userInfo = {
-        ...payload, 
-        token,   
-      };
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
-      localStorage.removeItem("userData");
-      // router.push({
-      //   pathname: `/`,
-      // });
+      setUser({ token, userType: selectedType  });
+      destroyCookie(null, 'userData', { path: '/' });
       window.location.href = "/";
     } catch (error:any) {
       setErrorMessage(error.message || 'Something went wrong. Please try again.');

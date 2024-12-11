@@ -1,7 +1,9 @@
 import OfferCard from "@/Components/Helper/OfferCard";
+import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { parseCookies } from "nookies";
+import { useContext, useEffect, useState } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
 import useSWR from "swr";
 
@@ -25,18 +27,17 @@ const BoatsPage = ({ address, setAddress, }: {
   const [page, setPage] = useState(1);
   const { address: queryAddress } = router.query;
   const [triggerSearch, setTriggerSearch] = useState(true);
-  const [userId, setUserId] = useState<string | null>(null);
+  const { user} = useContext(UserContext)!;
   const itemsPerPage = 20;
-
   const [dimensions, setDimensions] = useState({
     width: 0,
     height: 0,
     columnCount: 3,
   });
 
-  const swrKey = triggerSearch
-    ? `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}&userId=${userId}`
-    : null;
+  const swrKey = triggerSearch && !user._id === null
+    ? `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}&userId=${user._id}`
+    : `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`;
 
   const { data: offersData, error } = useSWR(swrKey, fetcher, {
     revalidateOnFocus: true,
@@ -100,11 +101,6 @@ const BoatsPage = ({ address, setAddress, }: {
       </div>
     );
   };
-
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-    setUserId(userInfo?._id || null);
-  }, []);
 
   return (
     <div >

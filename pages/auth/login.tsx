@@ -2,8 +2,11 @@ import { auth } from '@/firebaseConfig';
 import axios from 'axios';
 import { GoogleAuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { setCookie } from 'nookies';
 import { useEffect, useState } from 'react';
 import { FaApple, FaGoogle } from 'react-icons/fa';
+import { useContext } from "react";
+import { UserContext } from '@/context/UserContext';
 
 const Login = () => {
   const router = useRouter();
@@ -11,7 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  
+  const { setUser } = useContext(UserContext)!;
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setIsMac(/Mac/.test(window.navigator.platform));
@@ -23,9 +26,9 @@ const Login = () => {
     try {
       const response = await axios.post('https://www.offerboats.com/signin', { email, password });
       const { token, userType } = response.data;
-      localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
-      window.location.href = '/';
-      // window.location.href = userType === 'BoatRenter' ? '/renter/dashboard' : '/owner/dashboard';
+      setUser({ token, userType });
+      window.location.href = "/";
+      // router.push('/index')
     } catch (error: any) {
       setErrorMessage(error.response?.data?.error || 'An error occurred');
     }
@@ -35,25 +38,31 @@ const Login = () => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      console.log('Result:', result);
 
       // Retrieve the user's credential
       const firebaseUser = result.user;
       const firebaseIdToken = await firebaseUser.getIdToken();
 
-      console.log('Firebase Token:', firebaseIdToken);
       // Send the credential to the backend
       const response = await axios.post('https://www.offerboats.com/google', {
         token: firebaseIdToken,
       });
-      console.log("Backend Response:", response.data);
 
       const { isNewUser, firstName, lastName, email, profilePicture, token, userType } = response.data;
       if (isNewUser) {
-        localStorage.setItem('userData', JSON.stringify({firstName: firstName, lastName : lastName, email: email, profilePicture: profilePicture, type: 'googleSignup'}));
-        router.push('/auth/choose-user-type')
+        setCookie(null, 'userData', JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          profilePicture,
+          type: 'googleSignup',
+        }), {
+          maxAge: 60 * 60,
+          path: '/',
+        });
+         router.push('/auth/choose-user-type')
       } else {
-        localStorage.setItem('userInfo', JSON.stringify({ token, userType }));
+        setUser({ token, userType });
         window.location.href = "/";
       }
     } catch (error: any) {

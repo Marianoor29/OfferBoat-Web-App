@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <UserProvider>
     <div className="flex flex-col min-h-screen">
    {/* Conditional Navbar Rendering */}
-   {showNavbar && (
+   {/* {showNavbar && (
         <>
       <MobileNav nav={nav} closeNav={closeNavHandler} />
       <Navbar 
@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
         handleSearch={handleSearch} 
       />
         </>
-      )}
+      )} */}
 
       {/* Page-specific content */}
       <main className="flex-grow pt-[12vh]">

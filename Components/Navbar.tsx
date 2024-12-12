@@ -91,9 +91,9 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                       Offers
                     </Link>
                   </li>
-                  {user.token && (
+                  {user?.token && (
                     <>
-                      {user.userType === "BoatOwner" ? (
+                      {user?.userType === "BoatOwner" ? (
                         <>
                           <li>
                             <Link
@@ -115,7 +115,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                           </li>
                         </>
                       ) :
-                      user.userType === "BoatRenter" && (
+                      user?.userType === "BoatRenter" && (
                           <>
                             <li>
                               <Link
@@ -172,7 +172,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
             </li>
           </ul>
           {/* Render different menus based on authentication */}
-          {user.token && !location ? (
+          {user?.token && !location ? (
             <div className="relative">
               {/* Profile Picture */}
               <button
@@ -180,7 +180,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                 className="flex items-center focus:outline-none mr-5"
               >
                 <Image
-                  src={user.profilePicture || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
+                  src={user?.profilePicture || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
                   alt="Offerboat - Your Budget, Our Boats"
                   className="w-8 h-8 rounded-full"
                   width={32}
@@ -191,7 +191,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
               {/* Profile Dropdown */}
               {profileMenuOpen && (
                 <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg w-48">
-                  <p className="pl-3 ">Hi {user.firstName}</p>
+                  <p className="pl-3 ">Hi {user?.firstName} Guest</p>
                   <ul className="py-2">
                     <li>
                       <Link
@@ -202,7 +202,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                         View Profile
                       </Link>
                     </li>
-                    {user.userType === "BoatOwner" && (
+                    {user?.userType === "BoatOwner" && (
                       <>
                         <li>
                           <Link
@@ -215,7 +215,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                         </li>
                       </>
                     )}
-                    {user.userType === "BoatRenter" && (
+                    {user?.userType === "BoatRenter" && (
                       <>
                         <li>
                           <Link

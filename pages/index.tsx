@@ -1,16 +1,17 @@
+"use client";
 import AddBoatBanner from "@/Components/Helper/AddBoatBanner";
 import MakeOfferBanner from "@/Components/Helper/MakeOfferBanner";
 import Hero from "@/Components/Hero";
 import LatestBoats from "@/Components/LatestBoats";
 import LatestOffers from "@/Components/LatestOffers";
 import TopDestination from "@/Components/TopDestination";
+import { UserContext } from "@/context/UserContext";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { parseCookies } from 'nookies';
 import { useContext, useEffect, useState } from "react";
-import { setCookie, parseCookies, destroyCookie } from 'nookies';
-import { UserContext } from "@/context/UserContext";
 
 const HomePage = () => {
   const router = useRouter();
@@ -41,27 +42,27 @@ const HomePage = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //     const fetchOffers = async () => {
-  //       try {
-  //        const response = await axios.get(`https://www.offerboats.com/latest-customOffers`);
+  useEffect(() => {
+      const fetchOffers = async () => {
+        try {
+         const response = await axios.get(`https://www.offerboats.com/latest-customOffers`);
       
-  //         const offers = response.data.offers;
-  //         const sortedOffers = offers.sort((a: any, b: any) => {
-  //           const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-  //           const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-  //           return dateB - dateA;
-  //         });
+          const offers = response.data.offers;
+          const sortedOffers = offers.sort((a: any, b: any) => {
+            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return dateB - dateA;
+          });
       
-  //         setOffers(sortedOffers);
-  //       } catch (error) {
-  //         console.error("Error fetching offers:", error);
-  //         return [];
-  //       }
-  //     };
+          setOffers(sortedOffers);
+        } catch (error) {
+          console.error("Error fetching offers:", error);
+          return [];
+        }
+      };
 
-  //   fetchOffers();
-  // }, []);
+    fetchOffers();
+  }, []);
 
   useEffect(() => {
       const fetchListings = async () => {
@@ -89,9 +90,9 @@ const HomePage = () => {
     router.push("/boats");
   };
 
-  // const handleSeeMoreOffers = () => {
-  //   router.push("/offers");
-  // };
+  const handleSeeMoreOffers = () => {
+    router.push("/offers");
+  };
 
   const handleSearch = () => {
     if (address.trim()) {
@@ -150,7 +151,7 @@ const HomePage = () => {
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <MakeOfferBanner onClick={handleMakeOffer}/>
       </div>
-      {/* <LatestOffers offers={[...offers, ]} onSeeMore={handleSeeMoreOffers} /> */}
+      <LatestOffers offers={offers} onSeeMore={handleSeeMoreOffers} />
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <AddBoatBanner onClick={handleAddBoat}/>
       </div>

@@ -36,23 +36,23 @@ const LatestOffers = ({
       <h1 className="heading lg:text-[25px] md:text-[21px] text-[15px]">Latest Offers in Miami</h1>
       <p className="text-center font-serif">Boat owners can find relevant offers and send their boats that meet the conditions, along with a proposed price for consideration.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem] items-center w-[96%] mx-auto mt-[2rem]">
-      {offers.map((offer, index) => (
+      {offers?.map((offer, index) => (
            <ListCard
            key={index}
-           userImage={offer.userId.profilePicture}
-           renterName={`${offer.userId.firstName} ${offer.userId.lastName}`}
-           date={offer.date}
-           time={offer.time}
-           hours={offer.hours}
-           captain={offer.captain}
-           passengers={offer.numberOfPassenger}
-           location={offer.location}
-           rating={offer.userId.rating}
-           price={offer.price}
-           tripInstructions={offer.tripInstructions}
+           userImage={offer?.userId.profilePicture}
+           renterName={`${offer?.userId?.firstName} ${offer?.userId?.lastName}`}
+           date={offer?.date}
+           time={offer?.time}
+           hours={offer?.hours}
+           captain={offer?.captain}
+           passengers={offer?.numberOfPassenger}
+           location={offer?.location}
+           rating={offer?.userId?.rating}
+           price={offer?.price}
+           tripInstructions={offer?.tripInstructions}
            buttonTitle="Offer Your Boat"
-           onPress={offer.onPress}
-           onPressImage={offer.onPressImage}
+           onPress={offer?.onPress}
+           onPressImage={offer?.onPressImage}
          />
         ))}
       </div>

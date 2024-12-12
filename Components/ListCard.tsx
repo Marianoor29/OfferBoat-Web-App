@@ -55,8 +55,8 @@ const ListCard: React.FC<ListCardProps> = ({
   };
 
   const renderTripInstructions = () => {
-    if (tripInstructions.length > truncateLength) {
-      const displayText = isExpanded ? tripInstructions : `${tripInstructions.substring(0, truncateLength)}...`;
+    if (tripInstructions?.length > truncateLength) {
+      const displayText = isExpanded ? tripInstructions : `${tripInstructions?.substring(0, truncateLength)}...`;
       return (
         <div>
           <p className="text-sm text-gray-600 mb-2">{displayText} </p>

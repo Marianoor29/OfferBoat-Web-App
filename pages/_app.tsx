@@ -1,3 +1,4 @@
+"use client";
 import Footer from "@/Components/Footer";
 import MobileNav from "@/Components/MobileNav";
 import Navbar from "@/Components/Navbar";

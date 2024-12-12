@@ -191,7 +191,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
               {/* Profile Dropdown */}
               {profileMenuOpen && (
                 <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg w-48">
-                  <p className="pl-3 ">Hi {user?.firstName} Guest</p>
+                  <p className="pl-3 ">Hi {user?.firstName || 'There'} </p>
                   <ul className="py-2">
                     <li>
                       <Link

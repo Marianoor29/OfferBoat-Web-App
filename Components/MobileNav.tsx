@@ -1,7 +1,7 @@
+import { UserContext } from "@/context/UserContext";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
-import { parseCookies } from "nookies";
-import React, { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 
@@ -12,22 +12,12 @@ interface Props {
 
 const MobileNav = ({ nav, closeNav }: Props) => {
   const [openExplore, setOpenExplore] = useState(false);
-  const [userType, setUserType] = useState<string | null>(null);
-  const [token, setToken] = useState<string | null>(null);
   const navAnimation = nav ? "translate-x-0" : "translate-x-[-100%]";
+  const { user, clearUser } = useContext(UserContext)!;
 
   const handleLinkClick = () => {
     closeNav(); 
   };
-
-  useEffect(() => {
-    const { userInfo } = parseCookies();
-    if (userInfo) {
-      const parsedData = JSON.parse(userInfo);
-      setToken(parsedData.token);
-      setUserType(parsedData.userType);
-    }
-  }, []);
 
   return (
     <div
@@ -69,9 +59,9 @@ const MobileNav = ({ nav, closeNav }: Props) => {
                     Offers
                   </Link>
                 </li>
-                {token && (
+                {user?.token && (
                     <>
-                      {userType === "BoatOwner" ? (
+                      {user?.userType === "BoatOwner" ? (
                         <>
                           <li>
                             <Link
@@ -93,7 +83,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
                           </li>
                         </>
                       ) :
-                        userType === "BoatRenter" && (
+                      user?.userType === "BoatRenter" && (
                           <>
                             <li>
                               <Link
@@ -133,7 +123,7 @@ const MobileNav = ({ nav, closeNav }: Props) => {
         {/* Other Links */}
         <Link href="/about-us" className="nav-link-mobile"  onClick={handleLinkClick}>About Us</Link>
         <Link href="/contact" className="nav-link-mobile"  onClick={handleLinkClick}>Contact</Link>
-        {!token && (
+        {!user?.token && (
         <Link href="/auth/login" className="nav-link-mobile" onClick={handleLinkClick}>
           Sign In
         </Link>

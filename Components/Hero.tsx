@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import SearchBox from "./Helper/SearchBox";
-import LocationSearchBox from "./Helper/LocationSearch";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import LocationSearchBox from "./Helper/LocationSearch";
 
 interface Props {
   setAddress?: (address: string) => void;
@@ -14,7 +13,7 @@ const Hero = ({ setAddress, handleSearch }: Props) => {
   // Check screen size on mount and resize
   useEffect(() => {
     const checkScreenSize = () => {
-      if (window.innerWidth >= 1024) { // Consider `lg` screen size or higher
+      if (window.innerWidth >= 1024) { 
         setIsLargeScreen(true);
       } else {
         setIsLargeScreen(false);

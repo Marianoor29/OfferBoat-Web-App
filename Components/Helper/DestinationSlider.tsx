@@ -43,21 +43,21 @@ const DestinationSlider = ({ destinations, onDestinationClick }: SliderProps) =>
       responsive={responsive}
       itemClass="item"
     >
-      {destinations.map((destination) => (
+      {destinations?.map((destination) => (
         <div
           key={destination.name}
-          onClick={() => onDestinationClick(destination.name)}
+          onClick={() => onDestinationClick(destination?.name)}
           className="cursor-pointer"
         >
           <Image
-            src={destination.image}
+            src={destination?.image}
             alt='Offerboat - Your Budget, Our Boats'
             width={200}
             height={200}
             style={{height: 200, width: 200}}
             className="rounded-md mx-auto object-cover"
           />
-          <h1 className="destination__h1 text-center">{destination.name}</h1>
+          <h1 className="destination__h1 text-center">{destination?.name}</h1>
         </div>
       ))}
     </Carousel>

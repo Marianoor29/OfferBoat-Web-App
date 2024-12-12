@@ -159,13 +159,13 @@ const UpdateBoat = () => {
             <PlusIcon className="w-5" />
           </button>
         </div>
-        <div className="mb-7">
+        {/* <div className="mb-7">
           <h1 className="mb-2">Select Your Boat Images</h1>
           <ImagesSelector
             images={selectedImages}
             onImagesChange={handleImagesChange}
           />
-        </div>
+        </div> */}
         <p className="mb-7 text-red-600 text-center"> {errorMessage}</p>
         <button
           onClick={handleSubmit}

@@ -11,7 +11,7 @@ interface User {
   phoneNumber?: string | null;
   coverPicture?: string | null;
   location?: string | null;
-  rating?: string | null;
+  rating?: number;
   _id?: string | null;
 }
 
@@ -32,7 +32,7 @@ const initialState: User = {
   phoneNumber: null,
   coverPicture: null,
   location: null,
-  rating: null,
+  rating: 0,
   _id: null,
 };
 

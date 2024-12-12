@@ -1,8 +1,8 @@
 import OfferCard from "@/Components/Helper/OfferCard";
+import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
+import { useContext, useEffect, useState } from "react";
 
 type Listing = {
   ownerId: any;
@@ -16,49 +16,46 @@ type Listing = {
   createdAt: string;
 };
 
-const fetcher = async (url: string) => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-  const token = userInfo?.token;
-
-  if (!token) {
-    throw new Error("User is not authenticated");
-  }
-
-  const response = await axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
-};
 
 const Listings = () => {
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [listings, setListings] = useState<Listing[]>([])
+  const { user } = useContext(UserContext)!;
   const [dimensions, setDimensions] = useState({
     width: 0,
     height: 0,
     columnCount: 3,
   });
 
-  const swrKey = `https://www.offerboats.com/listing/ownerListings`;
+  const fetchListings = async () => {
+    try {
+      const response = await axios.get(`https://www.offerboats.com/listing/ownerListings`,{
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      });
+      if (response.data ) {
+        // Sort listings by `createdAt` in descending order
+        const sortedListings = response.data.listings.sort((a: any, b: any) => {
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          return dateB - dateA;
+        });
+        setListings(sortedListings)
+    } } 
+    catch (error) {
+      setErrorMessage(`You Don't Have Any Listings Yet!`)
+      setListings([]);
+    } 
+  };
 
-  const { data: allListing, error } = useSWR(swrKey, fetcher, {
-    revalidateOnFocus: true,
-    refreshInterval: 10000,
-    revalidateOnReconnect: true,
-    shouldRetryOnError: false,
-  });
+  useEffect(() => {
+    if (user?.token) {
+      fetchListings();
+    }
+  }, [user?.token]);
 
-  // Ensure you access the listings properly and sort them by `createdAt`
-  const listings = allListing?.listings || [];
-
-  // Sort listings by createdAt in descending order (new listings first)
-  const sortedListings = listings.sort((a: Listing, b: Listing) => {
-    const dateA = new Date(a.createdAt).getTime();
-    const dateB = new Date(b.createdAt).getTime();
-    return dateB - dateA; // Sorting in descending order
-  });
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -83,7 +80,7 @@ const Listings = () => {
   return (
     <div className="bg-white">
       {/* Render message if no listings */}
-      {sortedListings.length === 0 ? (
+      {listings.length === 0 ? (
         <div className="flex flex-col items-center">
           <p className="text-gray-800 text-center mt-4">You Don't Have Any Listings Yet!</p>
           <button
@@ -93,7 +90,7 @@ const Listings = () => {
         </div>
       ) : (
         <div className="grid gap-4 p-4" style={{ gridTemplateColumns: `repeat(${dimensions.columnCount}, 1fr)` }}>
-          {sortedListings.map((item: Listing) => (
+          {listings?.map((item: Listing) => (
             <OfferCard
               key={item._id}
               title={item.title}
@@ -101,7 +98,7 @@ const Listings = () => {
               members={item.numberOfPassengers}
               location={item.location}
               description={item.description}
-              images={item.images}
+              images={item?.images}
               onPress={() => handleOnPress(item._id)}
             />
           ))}

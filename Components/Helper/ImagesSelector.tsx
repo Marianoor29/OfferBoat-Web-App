@@ -4,22 +4,22 @@ import imageCompression from "browser-image-compression";
 import React, { useState } from "react";
 
 interface ImagesSelectorProps {
-  images?: string[];
-  onImagesChange?: (images: string[]) => void; 
+  images?: File[]; // Accept File[] instead of string[]
+  onImagesChange?: (images: File[]) => void; // Expect File[] as input
 }
 
 const ImagesSelector: React.FC<ImagesSelectorProps> = ({
   images = [],
   onImagesChange = () => null, 
 }) => {
-  const [selectedImages, setSelectedImages] = useState<string[]>(images);
+  const [selectedImages, setSelectedImages] = useState<File[]>(images); // Store File objects
   const [loading, setLoading] = useState<boolean>(false); 
 
   // Handle image selection
   const handleImageSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const newImages: string[] = [];
+      const newImages: File[] = [];
       setLoading(true);
 
       // Compress and add the selected images
@@ -27,8 +27,7 @@ const ImagesSelector: React.FC<ImagesSelectorProps> = ({
         const file = files[i];
         try {
           const compressedImage = await compressImage(file);
-          const imageUrl = URL.createObjectURL(compressedImage);
-          newImages.push(imageUrl);
+          newImages.push(compressedImage); // Store compressed file
         } catch (error) {
           console.error("Error compressing image:", error);
         }
@@ -39,7 +38,7 @@ const ImagesSelector: React.FC<ImagesSelectorProps> = ({
       setSelectedImages(updatedImages);
 
       // Call the onImagesChange function to update parent component
-      onImagesChange(updatedImages);
+      onImagesChange(updatedImages); // Pass File objects to parent
       setLoading(false);
     }
   };
@@ -48,13 +47,13 @@ const ImagesSelector: React.FC<ImagesSelectorProps> = ({
   const compressImage = async (file: File) => {
     const options = {
       maxWidthOrHeight: 800, // Set max width or height of image
-      maxSizeMB: 1, // Limit image size to 1MB
+      maxSizeMB: 2, // Limit image size to 1MB
       useWebWorker: true, // Enable web worker for performance
     };
 
     try {
       const compressedFile = await imageCompression(file, options);
-      return compressedFile;
+      return compressedFile; // Return the compressed File object
     } catch (error) {
       console.error("Error during image compression:", error);
       throw error;
@@ -65,7 +64,7 @@ const ImagesSelector: React.FC<ImagesSelectorProps> = ({
   const handleRemoveImage = (index: number) => {
     const updatedImages = selectedImages.filter((_, i) => i !== index);
     setSelectedImages(updatedImages);
-    onImagesChange(updatedImages); 
+    onImagesChange(updatedImages); // Pass updated File objects to parent
   };
 
   return (
@@ -83,7 +82,7 @@ const ImagesSelector: React.FC<ImagesSelectorProps> = ({
               {selectedImages.map((image, index) => (
                 <div key={index} className="relative lg:h-24 md:h-24 h-20 w-30">
                   <Image
-                    src={image}
+                    src={URL.createObjectURL(image)} 
                     alt="Offerboat - Your Budget, Our Boats"
                     fill
                     sizes="w-[100%] h-[100%]"

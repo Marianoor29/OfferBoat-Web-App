@@ -1,8 +1,10 @@
 import WelcomeCard from "@/Components/Helper/WelcomeCard";
 import { UserContext } from "@/context/UserContext";
+import { Moment } from 'moment';
 import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
-import { useState, useEffect, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 
 interface Package {
   hours: number;
@@ -32,8 +34,8 @@ const Booking = () => {
     }
   }, [offer]);
 
-  const [date, setDate] = useState<string>('');
-  const [time, setTime] = useState<string>('');
+  const [date, setDate] = useState<Moment | undefined>(undefined);
+  const [time, setTime] = useState<Moment | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
 
@@ -64,23 +66,25 @@ const Booking = () => {
           <>
             <div className="mb-7">
               <h1 className="mb-2">Date</h1>
-              <input
-                type="date"
-                id="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              />
+              <Datetime
+                  value={date || undefined}
+                  onChange={(date) => setDate(date as Moment)}
+                  dateFormat="DD/MM/YYYY"
+                  timeFormat={false}
+                  closeOnSelect={true}
+                  className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                />
             </div>
             <div className="mb-7">
               <h1 className="mb-2">Time</h1>
-              <input
-                type="time"
-                id="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              />
+              <Datetime
+                  value={time || undefined}
+                  onChange={(time) => setTime(time as Moment)}
+                  dateFormat={false}
+                  timeFormat="hh:mm A" // Use 12-hour format with AM/PM
+                  closeOnSelect={true}
+                  className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                />
             </div>
             <div className="mb-7">
               <h1 className="mb-2">Select Package</h1>

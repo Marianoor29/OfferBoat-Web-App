@@ -63,31 +63,31 @@ const HomePage = () => {
     fetchOffers();
   }, []);
 
-  useEffect(() => {
-      const fetchListings = async () => {
-        try {
-        const response = await axios.get(`https://www.offerboats.com/listing/latest-listings`);
+  // useEffect(() => {
+  //     const fetchListings = async () => {
+  //       try {
+  //       const response = await axios.get(`https://www.offerboats.com/listing/latest-listings`);
       
-          const offers = response.data.modifiedListings;
-          const sortedOffers = offers.sort((a: any, b: any) => {
-            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-            return dateB - dateA;
-          });
+  //         const offers = response.data.modifiedListings;
+  //         const sortedOffers = offers.sort((a: any, b: any) => {
+  //           const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+  //           const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+  //           return dateB - dateA;
+  //         });
       
-          setListing(sortedOffers);
-        } catch (error) {
-          console.error("Error fetching offers:", error);
-          return [];
-        }
-      };
+  //         setListing(sortedOffers);
+  //       } catch (error) {
+  //         console.error("Error fetching offers:", error);
+  //         return [];
+  //       }
+  //     };
 
-      fetchListings();
-  }, []);
+  //     fetchListings();
+  // }, []);
 
-  const handleSeeMoreBoats = () => {
-    router.push("/boats");
-  };
+  // const handleSeeMoreBoats = () => {
+  //   router.push("/boats");
+  // };
 
   const handleSeeMoreOffers = () => {
     router.push("/offers");
@@ -146,7 +146,7 @@ const HomePage = () => {
     <div className="">
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} />
       <TopDestination />
-      <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/>
+      {/* <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/> */}
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <MakeOfferBanner onClick={handleMakeOffer}/>
       </div>

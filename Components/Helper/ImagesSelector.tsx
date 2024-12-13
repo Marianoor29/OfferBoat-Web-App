@@ -89,7 +89,7 @@ const ImagesSelector: React.FC<ImagesSelectorProps> = ({
                     className="rounded-md object-cover"
                   />
                   <button
-                    onClick={() => handleRemoveImage(index)} // Remove image on click
+                    onClick={() => handleRemoveImage(index)} 
                     className="absolute m-1 py-1 px-1 bg-black50 rounded-md hover:bg-gray-300 focus:outline-none"
                   >
                     <TrashIcon className="text-white w-4" />

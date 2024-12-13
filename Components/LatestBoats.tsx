@@ -31,7 +31,7 @@ const LatestBoats = ({
     router.push(`/app/${_id}`);
   }
   return (
-    <div className="pt-[2rem] bg-gray-200 pb-[2rem] ">
+    <div className="pt-[2rem]  pb-[2rem] ">
       <h1 className="heading lg:text-[25px] md:text-[21px] text-[15px]">Latest Boats in Miami</h1>
       <p className="text-center font-serif">Browse available boats, book your trip and set sail with experienced captains at your service.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem] items-center w-[96%] mx-auto mt-[2rem]">

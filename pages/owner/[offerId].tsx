@@ -28,6 +28,10 @@ export default function OfferPage({ offer }: any) {
     router.push(`/owner/update-boat?offer=${encodeURIComponent(JSON.stringify(offer))}`);
   };
 
+  const handleOnUpdateBoatImages = () => {
+    router.push(`/owner/update-images?offer=${encodeURIComponent(JSON.stringify(offer))}`);
+  };
+
   return (
       <div className="pt-[1rem] p-[3rem]">
         <div className="flex relative justify-end">
@@ -39,7 +43,7 @@ export default function OfferPage({ offer }: any) {
               <FaShare />
             </button>
             <button className="flex items-center justify-center border-b border-gray-500 text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
-              onClick={() => {}}>
+              onClick={handleOnUpdateBoatImages}>
               <FaEdit />
             </button>
           </div>

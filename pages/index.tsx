@@ -144,7 +144,7 @@ const HomePage = () => {
   
   
   return (
-    <div className="">
+    <div className="bg-white">
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} />
       <TopDestination />
       <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/>

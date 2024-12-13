@@ -1,18 +1,21 @@
 import AddFeatures from "@/Components/Helper/AddFeatures";
-import ImagesSelector from "@/Components/Helper/ImagesSelector";
 import Location from "@/Components/Helper/Location";
+import Modal from "@/Components/Helper/ModelWrapper";
 import PackageSelection from "@/Components/Helper/PackageSelection";
+import { UserContext } from "@/context/UserContext";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
+import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 
 interface Offer {
+  _id: string;
   title: string;
   description: string;
   numberOfPassengers: number;
   features: string[];
   rules: string[];
-  images: string[];
   location: string;
   packages: { id: number; price: string; hours: string }[];
 }
@@ -21,14 +24,15 @@ const UpdateBoat = () => {
   const router = useRouter();
   const [offer, setOffer] = useState<Offer | undefined>();
   const [selectedAddress, setSelectedAddress] = useState<string | null>();
-  const [title, setTitle] = useState<string>(offer?.title || "");
-  const [description, setDescription] = useState<string>(offer?.description || "");
-  const [numberOfPassenger, setNumberOfPassenger] = useState<number>(offer?.numberOfPassengers || 0);
-  const [features, setFeatures] = useState<string[]>(offer?.features || []);
-  const [rule, setRule] = useState<string[]>(offer?.rules || []);
-  const [selectedImages, setSelectedImages] = useState<string[]>(offer?.images || []);
-  const [packages, setPackages] = useState<Offer['packages']>(offer?.packages || [{ id: 1, price: "$0.00", hours: "" }]);
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [numberOfPassenger, setNumberOfPassenger] = useState<number>(0);
+  const [features, setFeatures] = useState<string[]>([]);
+  const [rule, setRule] = useState<string[]>([]);
+  const [packages, setPackages] = useState<Offer['packages']>([{ id: 1, price: "$0.00", hours: "" }]);  
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { user } = useContext(UserContext)!;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const decreaseMembers = () => {
     if (numberOfPassenger > 0) {
@@ -48,10 +52,6 @@ const UpdateBoat = () => {
     );
   };
 
-  const handleImagesChange = (newImages: string[]) => {
-    setSelectedImages(newImages);
-  };
-
   // Validation function to check if all required fields are filled and images are within limit
   const validateForm = () => {
     if (
@@ -61,8 +61,6 @@ const UpdateBoat = () => {
       numberOfPassenger <= 0 ||
       features.length === 0 ||
       rule.length === 0 ||
-      selectedImages.length < 1 ||
-      selectedImages.length > 20 ||
       packages.length === 0
     ) {
       setErrorMessage("Please fill in all fields & Only 1 to 20 images are allowed.");
@@ -74,25 +72,78 @@ const UpdateBoat = () => {
   };
 
   // Handle form submission (validate and show errors if necessary)
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
-      return; // Don't submit if the form is invalid
+      return; 
     }
-
-    // Proceed with form submission (you can add your submission logic here)
-    console.log("Form Submitted!");
+      const id = offer?._id; 
+      const updatedOffer = {
+        title: title,
+        description:description,
+        rules: rule, 
+        features: features,
+        packages: packages,
+        numberOfPassengers: numberOfPassenger,
+        location: selectedAddress ,
+      };
+      try {
+  
+        const response = await axios.put(`https://www.offerboats.com/listing/editList/${id}`, updatedOffer, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user?.token}`,
+          },
+        });
+        router.push(`/owner/${id}`);
+      } catch (error: any) {
+          setErrorMessage("Failed to Update Listing, Please Try Again Later, or Check your Internet Connection!");
+      } 
   };
 
   useEffect(() => {
-    const offer = JSON?.parse(decodeURIComponent(router.query.offer as string));
-    setOffer(offer)
+    const fetchedOffer = JSON?.parse(decodeURIComponent(router.query.offer as string));
+  setOffer(fetchedOffer);
   }, [router.query.offer])
+
+  useEffect(() => {
+    if (offer) {
+      setTitle(offer.title);
+      setDescription(offer.description);
+      setNumberOfPassenger(offer.numberOfPassengers);
+      setFeatures(offer.features);
+      setRule(offer.rules);
+      setPackages(offer.packages);
+      setSelectedAddress(offer.location)
+    }
+  }, [offer]);
+  
+  const handleDelete = async () => {
+    const id = offer?._id;
+    try {
+      const response = await axios.delete(`https://www.offerboats.com/listing/deleteList/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${user?.token}`,
+        },
+      });
+      setIsModalOpen(false);
+      router.push(`/owner/listings`);
+    } catch (error) {
+      setErrorMessage('Failed to delete listing. Please try again.');
+    } 
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
-        <h1 className="heading mb-5">Update Your Boat Details</h1>
+      <div className="flex justify-between">
+        <h1 className="heading mb-5 text-center">Update Your Boat Details</h1>
+        <button className="flex items-center justify-center text-red-600 bg-white h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
+       onClick={() => setIsModalOpen(true)}>
+              <FaTrash />
+            </button>
+        </div>
         <div className="mb-7">
           <h1 className="mb-2">Select Your Location</h1>
           <Location onAddressSelect={(address: string) => setSelectedAddress(address)} placeholder={offer?.location || 'Select Your Location'} />
@@ -159,13 +210,6 @@ const UpdateBoat = () => {
             <PlusIcon className="w-5" />
           </button>
         </div>
-        {/* <div className="mb-7">
-          <h1 className="mb-2">Select Your Boat Images</h1>
-          <ImagesSelector
-            images={selectedImages}
-            onImagesChange={handleImagesChange}
-          />
-        </div> */}
         <p className="mb-7 text-red-600 text-center"> {errorMessage}</p>
         <button
           onClick={handleSubmit}
@@ -175,6 +219,15 @@ const UpdateBoat = () => {
           Update Lisitng
         </button>
       </div>
+       {/* Modal */}
+       <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Are you sure you want to delete this listing? "
+        onConfirm={handleDelete}
+      >
+        <p className="text-gray-700">All pending requests related to this listing on the custom offers, will also be deleted.</p>
+      </Modal>
     </div>
   )
 }

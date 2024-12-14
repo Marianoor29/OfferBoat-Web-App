@@ -40,63 +40,38 @@ const UpdateBoatImages = () => {
     return true;
   };
 // Function to convert old image URLs to File objects
-const convertOldImages = async (): Promise<File[]> => {
-  const promises: Promise<File>[] = [];
 
-  offer?.images.forEach((imageUrl, index) => {
-    console.log(`Fetching image: ${imageUrl}`); // Log the URL being fetched
-
-    const promise = fetch(imageUrl)
-      .then((response) => {
-        console.log(`Response status for ${imageUrl}: ${response.status}`); // Log status code
-        if (!response.ok) {
-          throw new Error(`Failed to fetch image from URL: ${imageUrl}`);
-        }
-        return response.blob(); // Convert the response to Blob
-      })
-      .then((blob) => {
-        console.log(`Successfully fetched image: ${imageUrl}`);
-        return new File([blob], `image${index}.jpg`, {
-          type: 'image/jpeg',
-        });
-      })
-      .catch((error) => {
-        console.error(`Error fetching image from ${imageUrl}:`, error);
-        throw error; // Re-throw to make sure Promise.all fails if any image fetch fails
-      });
-
-    promises.push(promise);
-  });
-
-  // Wait for all fetch requests to resolve
-  return Promise.all(promises);
+const urlToFile = async (url: any, filename: any) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch image from URL: ${url}`);
+  }
+  const blob = await response.blob();
+  return new File([blob], filename, { type: blob.type });
 };
-
 
   // Handle form submission (validate and show errors if necessary)
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-  
-    if (!validateForm()) {
-      return; // Don't submit if the form is invalid
-    }
-  
-    try {
-      const formData = new FormData();
+  const oldImages = offer?.images || []; 
+  try {
+    // Convert old image URLs to Files with names
+    const oldImagesAsFiles = await Promise.all(
+      oldImages.map((url, index) => {
+        // Extract filename from URL or generate one
+        const filename = url.split('/').pop() || `image_${index + 1}.jpeg`;
+        return urlToFile(url, filename);
+      })
+    );
+    // Combine old images (now as Files) and new selected images
+    const totalImages = [...oldImagesAsFiles, ...selectedImages];
 
-    // Get old images as File objects
-    const oldImagesAsFiles = await convertOldImages();
+    const formData = new FormData();
 
-    // Combine old images (now as files) and new images
-    const allImages = [...oldImagesAsFiles, ...selectedImages];
-
-    // Append all images to FormData
-    allImages.forEach((file) => {
-      formData.append("images", file);
+    totalImages.forEach((file: any, index) => {
+      formData.append('images', file); 
     });
-  
-      const response = await axios.put(
-        // `http://192.168.1.182:8090/listing/editListingImages/${offer?._id}`,
+
+  const response = await axios.put(
         `https://www.offerboats.com/listing/editListingImages/${offer?._id}`,
         formData,
         {
@@ -138,9 +113,9 @@ const convertOldImages = async (): Promise<File[]> => {
         <h1 className="heading mb-5">Update Your Boat Images</h1>
        {/* Display old images */}
        <h1 className="mb-2">Current Boat Images</h1>
-        <div className="mb-7 flex flex-row justify-center items-center">
+        <div className="mb-7 flex flex-row justify-start items-center">
           {offer?.images.map((image, index) => (
-            <div key={index} className="relative w-full lg:h-24 md:h-24 h-20 w-30 mr-2">
+            <div key={index} className="relative lg:h-24 md:h-24 h-20 w-[130px] mr-2">
               <Image
                 src={image}
                 alt="Offerboat - Your Budget, Our Boats"

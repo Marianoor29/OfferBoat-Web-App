@@ -110,14 +110,12 @@ const Booking = () => {
       });
 
       if (error) {
-        alert(error);
+        alert(error.message);
         return;
       }
 
       await handleSubmit(paymentIntentId);
-      alert('Payment successful, booking sent!');
     } catch (error: any) {
-      console.error('Payment error:', error.message);
       alert('Payment failed. Please try again.');
     } finally {
       setIsProcessing(false);
@@ -154,7 +152,6 @@ const Booking = () => {
         alert('Failed to send booking request. Please try again.');
       }
     } catch (error: any) {
-      console.error('Booking request error:', error.message);
       alert('Failed to send booking request. Please try again.');
     }
   };

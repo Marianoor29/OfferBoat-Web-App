@@ -180,14 +180,11 @@ const MakeOffer = () => {
       });
 
       if (error) {
-        alert(error);
+        alert(error.message);
         return;
       }
-
       await handleSubmit(paymentIntentId);
-      alert('Payment successful, booking sent!');
     } catch (error: any) {
-      console.error('Payment error:', error.message);
       alert('Payment failed. Please try again.');
     } finally {
       setIsProcessing(false);
@@ -318,7 +315,6 @@ const BookingContent = ({
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
         <h1 className="heading mb-5">Send a Custom Offer</h1>
-        <p>The offers published here will be public. Interested boat owners will respond by sending you details about their available boats. Check your "My Offers" tab for updates.</p>
         <div className="mb-7">
           <h1 className="mb-2">Date</h1>
           <Datetime

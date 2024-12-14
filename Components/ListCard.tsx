@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FaCalendar, FaClock, FaUsers } from "react-icons/fa";
 import { IoLocation, IoTimer } from "react-icons/io5";
 import { ImUserTie } from "react-icons/im";
+import Rating from "./Helper/Rating";
 
 interface ListCardProps {
   userImage?: string;
@@ -80,7 +81,7 @@ const ListCard: React.FC<ListCardProps> = ({
           </div>
           <div>
             <p className="text-lg font-serif text-gray-800">{renterName}</p>
-            <p className="text-sm text-gray-500">Rating: {rating} ⭐</p>
+           <Rating rating={rating} />
           </div>
         </div>
         <div className="text-right">
@@ -127,7 +128,6 @@ const ListCard: React.FC<ListCardProps> = ({
 
       {/* Trip Instructions */}
       <div className="mt-4">{renderTripInstructions()}</div>
-
       {/* Buttons */}
       <div className="mt-6 flex flex-col space-y-2">
         <button

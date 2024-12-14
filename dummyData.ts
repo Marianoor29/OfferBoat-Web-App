@@ -685,3 +685,4 @@ We are dedicated to providing a wide variety of boating experiences that suit al
     answer: `While most renters are eager to create great memories and enjoy their time, we recognize that there may be situations where renters do not adhere to safety rules, exhibit violent behavior, sexually harass staff, or cause damage to your boat while on the water. You can recommend the banning of renters for any of these or similar serious offenses that occur while they are on your boat. To report such behavior, please email our team at support@offerboat.com, and a member of the Offerboat team will reach out to better understand the situation. Please be aware that falsely reporting a renter without any basis may result in the permanent loss of access to the Offerboat app.`,
   },
 ]
+

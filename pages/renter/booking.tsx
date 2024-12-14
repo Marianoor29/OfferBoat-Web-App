@@ -7,6 +7,7 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import SuccessModal from "@/Components/Helper/SuccessModel";
 
 
 interface Package {
@@ -39,6 +40,7 @@ const Booking = () => {
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showCardDetails, setShowCardDetails] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (offer) {
@@ -108,7 +110,7 @@ const Booking = () => {
       });
 
       if (error) {
-        alert('Payment failed. Please try again.');
+        alert(error);
         return;
       }
 
@@ -127,8 +129,8 @@ const Booking = () => {
       userId: user._id,
       listingId: BoatDetail?._id,
       ownerId: BoatDetail?.ownerId?._id,
-      date: date,
-      time: time,
+      date: date?.format('DD-MM-YYYY'),
+      time: time?.format('hh:mm A'),
       package: selectedPackage,
       numberOfPassenger: BoatDetail?.numberOfPassengers,
       location: BoatDetail?.location,
@@ -146,8 +148,8 @@ const Booking = () => {
       });
 
       if (response.ok) {
-        alert('Booking request sent successfully!');
-        // Optionally navigate to another page or show a modal
+      setIsModalOpen(true);
+      router.push(`/trips`);
       } else {
         alert('Failed to send booking request. Please try again.');
       }
@@ -176,6 +178,8 @@ const Booking = () => {
               isProcessing={isProcessing}
               showCardDetails={showCardDetails}
               setShowCardDetails={setShowCardDetails}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
             />
           </Elements>
         ) : (
@@ -202,6 +206,8 @@ const BookingContent = ({
   isProcessing,
   showCardDetails,
   setShowCardDetails,
+  isModalOpen,
+  setIsModalOpen,
 }: any) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -315,6 +321,15 @@ const BookingContent = ({
           <p>Loading boat details...</p>
         )}
       </div>
+      <SuccessModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Booking request sent successfully!"
+      >
+        <p className="text-gray-700">
+        You will be contacted shortly, check your trips tab for more update.
+        </p>
+      </SuccessModal>
     </div>
   );
 };

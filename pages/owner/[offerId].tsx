@@ -32,6 +32,7 @@ export default function OfferPage({ offer }: any) {
     router.push(`/owner/update-images?offer=${encodeURIComponent(JSON.stringify(offer))}`);
   };
 
+
   return (
       <div className="pt-[1rem] p-[3rem]">
         <div className="flex relative justify-end">

@@ -57,9 +57,9 @@ export default function OfferPage({ offer }: any) {
       router.push(`/renter/booking?offer=${serializedOffer}`);
     };    
     
-    
     const onClickMakeOffer = () => {
-      router.push("/renter/make-offer");
+      const serializedOffer = encodeURIComponent(JSON.stringify(offer));
+      router.push(`/renter/make-list-offer?offer=${serializedOffer}`);
     };
 
   return (

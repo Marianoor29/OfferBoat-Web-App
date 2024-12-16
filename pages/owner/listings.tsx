@@ -77,6 +77,10 @@ const Listings = () => {
     router.push(`/owner/${id}`);
   };
 
+  const handleOnAddBoats = () => {
+    router.push(`/owner/add-boat`);
+  };
+
   return (
     <div className="bg-white">
       {/* Render message if no listings */}
@@ -84,7 +88,8 @@ const Listings = () => {
         <div className="flex flex-col items-center">
           <p className="text-gray-800 text-center mt-4">{errorMessage || `You Don't Have Any Listings Yet!`} </p>
           <button
-            className="bg-white text-emerald-600 px-3 py-2 rounded-lg shadow-lg hover:bg-gray-100 my-5 mx-7 font-serif">
+            className="bg-white text-emerald-600 px-3 py-2 rounded-lg shadow-lg hover:bg-gray-100 my-5 mx-7 font-serif"
+            onClick={handleOnAddBoats}>
             Add Your Boats
           </button>
         </div>

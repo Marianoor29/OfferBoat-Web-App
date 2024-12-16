@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="w-full ">
         <div className="flex justify-between items-start">
         <div>
-            <Image src="/images/logoHat.png" alt="Offerboat - Boat Rentals & Yacht Charters" width={50} height={50} className="object-contain" />
+            <Image src="/images/logoHat.png" alt="Boat Rentals & Yacht Charters" width={50} height={50} className="object-contain" />
             </div>
           <div className="w-full">    
           <h3 className="text-black text-[13px] font-bold ml-5">OfferBoat - Boat Rentals App</h3>
@@ -78,7 +78,7 @@ const Footer = () => {
           <div className="flex items-center">
           <a href="https://apps.apple.com/gb/app/offerboat-boat-rentals/id6737234901">
           <button>
-            <Image src="/images/appStore.png" alt="Offerboat - Boat Rentals & Yacht Charters"     
+            <Image src="/images/appStore.png" alt="Boat Rentals & Yacht Charters"     
             width={132}
             height={30}
             className="object-contain mx-auto mr-3" />
@@ -86,7 +86,7 @@ const Footer = () => {
             </a>
             <a href="https://play.google.com/store/apps/details?id=com.OfferBoat">
             <button >
-            <Image src="/images/googlePlay.png" alt="Offerboat - Boat Rentals & Yacht Charters"    
+            <Image src="/images/googlePlay.png" alt="Boat Rentals & Yacht Charters"    
             width={117}
             height={20}
             className="object-contain  mx-auto" />

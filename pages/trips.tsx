@@ -1,9 +1,10 @@
 import HeaderTab from "@/Components/Helper/HeaderTab";
-import TripOrders, { ORDER_STATUSES } from "@/Components/Helper/TripOrders";
+import TripOrders from "@/Components/Helper/TripOrders";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 type Trips = {
   _id: string;
@@ -19,11 +20,6 @@ type Trips = {
     location: string;
     rating: number;
   };
-  listingId: {
-    location: string;
-    title: string;
-    images: string[]
-  };
   ownerId: {
     firstName: string;
     lastName: string;
@@ -34,25 +30,17 @@ type Trips = {
   packages: {
     price: number;
   }[];
-}
+};
 
 const Trips = () => {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [bookings, setBookings] = useState<Trips[]>([])
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [bookings, setBookings] = useState<Trips[]>([]);
   const { user } = useContext(UserContext)!;
   const [selectedTopTab, setSelectedTopTab] = useState<string>("Current Trips");
-  const [currentTabArray, setCurrentTabArray] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(15);
-  const [totalPagesCurrent, setTotalPagesCurrent] = useState(0);
-  const [totalPagesPrevious, setTotalPagesPrevious] = useState(0);
-  const [dimensions, setDimensions] = useState({
-    width: 0,
-    height: 0,
-    columnCount: 3,
-  });
-  console.log(bookings, 'bookings')
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [previousPage, setPreviousPage] = useState<number>(1);
+
   const tabs = [
     { id: 1, name: "Current Trips" },
     { id: 2, name: "Previous Trips" },
@@ -60,28 +48,32 @@ const Trips = () => {
 
   const onPressTab = (state: string) => {
     setSelectedTopTab(state);
+    setCurrentPage(1);
+    setPreviousPage(1);
   };
 
   const fetchTrips = async () => {
     try {
-        const response = await axios.get(`https://www.offerboats.com/userBookings/${user._id}/${user.userType}`,{
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      });
-      console.log(response)
+      const response = await axios.get(
+        `https://www.offerboats.com/userBookings/${user._id}/${user.userType}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
       if (response.data) {
-        // Sort listings by `createdAt` in descending order
-        const sortedListings = response.data.populatedBookings.sort((a: any, b: any) => {
-          const dateA = new Date(a.createdAt).getTime();
-          const dateB = new Date(b.createdAt).getTime();
-          return dateB - dateA;
-        });
-        setBookings(sortedListings)
+        const sortedListings = response.data.populatedBookings.sort(
+          (a: any, b: any) => {
+            const dateA = new Date(a.createdAt).getTime();
+            const dateB = new Date(b.createdAt).getTime();
+            return dateB - dateA;
+          }
+        );
+        setBookings(sortedListings);
       }
-    }
-    catch (error) {
-      setErrorMessage(`You Don't Have Any Listings Yet!`)
+    } catch (error) {
+      setErrorMessage(`You Don't Have Any Bookings Yet!`);
       setBookings([]);
     }
   };
@@ -92,27 +84,50 @@ const Trips = () => {
     }
   }, [user?.token]);
 
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      const width = window.innerWidth * 0.96;
-      const height = window.innerHeight * 0.8;
-
-      let columnCount;
-      if (window.innerWidth >= 1024) columnCount = 3;
-      else if (window.innerWidth >= 768) columnCount = 2;
-      else columnCount = 1;
-      setDimensions({ width, height, columnCount });
-    };
-    window.addEventListener("resize", updateDimensions);
-    updateDimensions();
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
-
   const handleOnPress = (booking: any) => {
     const serializedOffer = encodeURIComponent(JSON.stringify(booking));
     router.push(`/trip-details?booking=${serializedOffer}`);
   };
+
+  const handleOnFindBoat = () => {
+    router.push(`/boats`);
+  };
+
+  const filterAndPaginateBookings = (statusFilters: string[], page: number) => {
+    const filteredBookings = bookings.filter((b) =>
+      statusFilters.includes(b.status)
+    );
+    const startIndex = (page - 1) * 20;
+    const endIndex = startIndex + 20;
+    return filteredBookings.slice(startIndex, endIndex);
+  };
+
+  const currentBookings = filterAndPaginateBookings(
+    ["Pending", "Accepted"],
+    currentPage
+  );
+  const previousBookings = filterAndPaginateBookings(
+    ["Completed", "Rejected"],
+    previousPage
+  );
+
+  const pendingCount = bookings.filter((b) => b.status === "Pending").length;
+
+  if (bookings.length === 0) {
+    return (
+      <div className="flex flex-col items-center">
+        <p className="text-gray-800 text-center mt-4">
+          {errorMessage || `You Don't Have Any Bookings Yet!`}
+        </p>
+        <button
+          className="bg-white text-emerald-600 px-3 py-2 rounded-lg shadow-lg hover:bg-gray-100 my-5 mx-7 font-serif"
+          onClick={handleOnFindBoat}
+        >
+          Explore Boats and Book Your First Adventure on the Water
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -122,33 +137,142 @@ const Trips = () => {
         selectedTopTab={selectedTopTab}
         selectedTabColor="bg-green-500"
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem] items-center w-[96%] mx-auto my-[2rem]">
-        {bookings.map((booking, index) => (
-          <TripOrders
-            key={booking._id}
-            date={booking.date}
-            userName={
-              user.userType === 'BoatRenter' ?
-                `${booking.ownerId.firstName} ${booking.ownerId.lastName}` :
-                `${booking.userId.firstName} ${booking.userId.lastName}`}
-            address={booking.location}
-            price={booking.packages[0].price}
-            time={booking.time}
-            userImage={
-              user.userType === 'BoatRenter' ?
-                booking.ownerId.profilePicture :
-                booking.userId.profilePicture}
-            statusView={booking.status}
-            rating={
-              user.userType === 'BoatRenter' ?
-                booking.ownerId.rating :
-                booking.userId.rating}
-            onPressDetails={() => handleOnPress(booking)}
-          />
-        ))}
-      </div>
+
+      {selectedTopTab === "Current Trips" && (
+        <div>
+          {currentBookings.length === 0 ? (
+            <div className="flex flex-col items-center">
+              <p className="text-gray-800 text-center mt-4">
+                {pendingCount === 0
+                  ? `You Don't Have Any Bookings Yet!`
+                  : "No Accepted Bookings Yet!"}
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem] items-center w-[96%] mx-auto my-[2rem]">
+              {currentBookings.map((booking, index) => (
+                <TripOrders
+                  key={booking._id}
+                  date={booking.date}
+                  userName={
+                    user.userType === "BoatRenter"
+                      ? `${booking.ownerId.firstName} ${booking.ownerId.lastName}`
+                      : `${booking.userId.firstName} ${booking.userId.lastName}`
+                  }
+                  address={booking.location}
+                  price={booking.packages[0].price}
+                  time={booking.time}
+                  userImage={
+                    user.userType === "BoatRenter"
+                      ? booking.ownerId.profilePicture
+                      : booking.userId.profilePicture
+                  }
+                  statusView={booking.status}
+                  rating={
+                    user.userType === "BoatRenter"
+                      ? booking.ownerId.rating
+                      : booking.userId.rating
+                  }
+                  onPressDetails={() => handleOnPress(booking)}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {currentBookings.length > 0 && (
+            <div className="flex justify-center mt-4">
+              <button
+                className="px-3 py-2 bg-gray-200 rounded-l-lg hover:bg-gray-300"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <button
+                className="px-3 py-2 bg-gray-200 rounded-r-lg hover:bg-gray-300"
+                onClick={() =>
+                  setCurrentPage((prev) => prev + 1)
+                }
+                disabled={
+                  currentPage * 20 >=
+                  bookings.filter((b) => ["Pending", "Accepted"].includes(b.status)).length
+                }
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {selectedTopTab === "Previous Trips" && (
+        <div>
+          {previousBookings.length === 0 ? (
+            <div className="flex flex-col items-center">
+              <p className="text-gray-800 text-center mt-4">
+                You Don't Have Any Previous Bookings Yet!
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem] items-center w-[96%] mx-auto my-[2rem]">
+              {previousBookings.map((booking, index) => (
+                <TripOrders
+                  key={booking._id}
+                  date={booking.date}
+                  userName={
+                    user.userType === "BoatRenter"
+                      ? `${booking.ownerId.firstName} ${booking.ownerId.lastName}`
+                      : `${booking.userId.firstName} ${booking.userId.lastName}`
+                  }
+                  address={booking.location}
+                  price={booking.packages[0].price}
+                  time={booking.time}
+                  userImage={
+                    user.userType === "BoatRenter"
+                      ? booking.ownerId.profilePicture
+                      : booking.userId.profilePicture
+                  }
+                  statusView={booking.status}
+                  rating={
+                    user.userType === "BoatRenter"
+                      ? booking.ownerId.rating
+                      : booking.userId.rating
+                  }
+                  onPressDetails={() => handleOnPress(booking)}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {previousBookings.length > 0 && (
+                <div className="flex gap-2 my-5 justify-center">
+                <button
+                  onClick={() => setPreviousPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={previousPage === 1}
+                  className="bg-renterBlue text-white px-2 py-2 rounded-full shadow-md hover:bg-blue-700"
+                >
+                  <FaChevronLeft size={20} color="white" />
+                </button>
+                <button
+                  onClick={() =>
+                    setPreviousPage((prev) => prev + 1)
+                  }
+                  disabled={
+                    previousPage * 20 >=
+                    bookings.filter((b) => ["Completed", "Rejected"].includes(b.status)).length
+                  }
+                  className="bg-renterBlue text-white px-2 py-2 rounded-full shadow-md hover:bg-blue-700"
+                >
+                  <FaChevronRight size={20} color="white" />
+                </button>
+              </div>
+          )}
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default Trips;

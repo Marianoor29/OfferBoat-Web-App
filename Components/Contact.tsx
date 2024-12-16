@@ -8,7 +8,7 @@ const Contact = () => {
         <div data-aos="fade-right" data-aos-delay="800">
           <Image
             src="/images/mockup4.png"
-            alt="Offerboat - Boat Rentals & Yacht Charters"
+            alt="Boat Rentals & Yacht Charters"
             width={400}
             height={200}
             className="object-contain mx-auto "

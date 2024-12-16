@@ -50,7 +50,7 @@ const Hero = ({ setAddress, handleSearch }: Props) => {
       {!isLargeScreen && (
       <Image
         src="/images/a8.jpeg"
-        alt="Offerboat - Boat Rentals & Yacht Charters"
+        alt="Boat Rentals & Yacht Charters"
         className="w-[100%] h-[100%] object-fill block lg:hidden"
         fill
         sizes="w-[100%] h-[100%]"

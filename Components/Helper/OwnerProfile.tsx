@@ -5,7 +5,7 @@ import { FaStar, FaRegStar } from 'react-icons/fa';
 const OwnerProfile = ({ offer , reviews, errorMessage} : any) => {
 
   return (
-    <div className=" justify-center items-center w-full p-4 bg-white shadow-lg rounded-lg mt-10 ">
+    <div className=" justify-center items-center w-full p-4 bg-white mt-10 ">
          {/* Owner Profile Box on the Right */}
       <div className="w-1/3 flex items-center mb-10">
         {/* Profile Picture */}

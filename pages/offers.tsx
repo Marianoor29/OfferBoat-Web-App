@@ -90,7 +90,12 @@ const OffersPage = ({
   
     loadOffers();
   }, [address]);
-  
+
+  const handleOnPress = (offer: any) => {
+    const serializedOffer = encodeURIComponent(JSON.stringify(offer));
+    router.push(`/owner/select-list?offer=${serializedOffer}`);
+  };
+
   return (
     <div className="p-1 min-h-screen">
       {!offers ? (
@@ -116,7 +121,7 @@ const OffersPage = ({
               price={offer?.price}
               tripInstructions={offer?.tripInstructions || 'no instructions provided'}
               buttonTitle="Offer Your Boat"
-              onPress={() => console.log(`Clicked on offer ID`)}
+              onPress={() => handleOnPress(offer)}
               onPressImage={() => console.log(`Clicked on image of offer ID`)}
             />
           ))}

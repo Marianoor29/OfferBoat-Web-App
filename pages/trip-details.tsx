@@ -80,9 +80,15 @@ const TripDetails = () => {
 
 
   const HandleCheckListing = (tripDetails: any) => {
-    const serializedOffer = encodeURIComponent(JSON.stringify(tripDetails));
+    const payload = {
+      ...tripDetails, 
+      type: "TripRequest", 
+    };
+
+    const serializedOffer = encodeURIComponent(JSON.stringify(payload));
     router.push(`/boat-details?tripDetails=${serializedOffer}`);
   };
+  
   // FUNCTIONS FOR ACCEPT AND REJECT BOOKINGS BY OWNER
   const updateBookingStatus = async (status: string, paymentIntentId: string) => {
     try {
@@ -236,7 +242,7 @@ const TripDetails = () => {
             {tripDetails.tripInstructions && (
               <div className="flex items-center justify-between mb-6 border-b border-gray-200 pb-6">
                 <h2 className="text-lg font-serif">Trip Instructions</h2>
-                <h2 className="text-lg font-serif">{tripDetails.tripInstructions}</h2>
+                <h2 className="text-lg font-serif ml-10">{tripDetails.tripInstructions}</h2>
               </div>
             )}
 
@@ -268,13 +274,13 @@ const TripDetails = () => {
                 <div className="flex justify-between">
                   <button
                     onClick={handleAccept}
-                    className="w-full my-5 py-4 bg-ownerGreen text-white rounded-md hover:bg-emerald-500 focus:outline-none"
+                    className="w-[50%] my-5 py-4 bg-ownerGreen text-white rounded-md hover:bg-emerald-500 focus:outline-none"
                   >
                     Accept
                   </button>
                   <button
                     onClick={handleReject}
-                    className="w-full my-5 py-4 bg-red-600 text-white rounded-md hover:bg-red-500 focus:outline-none"
+                    className="w-[50%] ml-5 my-5 py-4 bg-red-600 text-white rounded-md hover:bg-red-500 focus:outline-none"
                   >
                     Reject
                   </button>
@@ -291,7 +297,9 @@ const TripDetails = () => {
                 Check Boat Details
               </button>
             ) : (
-              <h1 className="text-red-600">'Boat not available'</h1>
+              user.userType === "BoatOwner" ?
+              <h1 className="text-red-600 text-center mt-5">'You Deleted This Listing'</h1> :
+              <h1 className="text-red-600 text-center mt-5">'Boat not available'</h1>
             )
             }
           </div>

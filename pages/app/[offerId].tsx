@@ -3,10 +3,12 @@ import PackageCard from '@/Components/Helper/PackageCard';
 import PhotosSlider from '@/Components/Helper/PhotosSlider';
 import Head from 'next/head';
 import axios from 'axios';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FeaturesSection from '@/Components/Helper/FeaturesBox';
-import { FaHeart, FaShare } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaShare } from 'react-icons/fa';
 import { useRouter } from 'next/router';
+import { UserContext } from '@/context/UserContext';
+import ShareModal from '@/Components/Helper/ShareModal';
 
 export async function getServerSideProps(context: { params: { offerId: any; }; }) {
   const { offerId } = context.params;
@@ -22,10 +24,16 @@ export async function getServerSideProps(context: { params: { offerId: any; }; }
 }
 
 export default function OfferPage({ offer }: any) {
+  const pageUrl = `https://www.offerboat.com/app/${offer._id}`;
+  const pageTitle = offer.title;
   const router = useRouter();
   const [reviews, setReviews] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const { user } = useContext(UserContext)!;
+
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -52,15 +60,69 @@ export default function OfferPage({ offer }: any) {
     ? offer.description
     : offer.description.slice(0, 1000);
 
-    const onClickBookNow = () => {
-      const serializedOffer = encodeURIComponent(JSON.stringify(offer));
-      router.push(`/renter/booking?offer=${serializedOffer}`);
-    };    
-    
-    const onClickMakeOffer = () => {
-      const serializedOffer = encodeURIComponent(JSON.stringify(offer));
-      router.push(`/renter/make-list-offer?offer=${serializedOffer}`);
+  const onClickBookNow = () => {
+    const serializedOffer = encodeURIComponent(JSON.stringify(offer));
+    router.push(`/renter/booking?offer=${serializedOffer}`);
+  };
+
+  const onClickMakeOffer = () => {
+    const serializedOffer = encodeURIComponent(JSON.stringify(offer));
+    router.push(`/renter/make-list-offer?offer=${serializedOffer}`);
+  };
+
+  const toggleSave = async () => {
+    const endpoint = isSaved ? `https://www.offerboats.com/listing/removeSavedListing` : `https://www.offerboats.com/listing/addSavedListing`;
+
+    try {
+      const response = await axios.post(endpoint, {
+        userId: user._id,
+        listingId: offer._id,
+      });
+
+      if (response.status === 200) {
+        setIsSaved(!isSaved);
+      } else {
+        console.log('Error toggling save status:', response.data.message);
+      }
+    } catch (error: any) {
+      console.log('Error toggling save status:', error.message);
+    }
+  };
+
+  const OnClickSave = () => {
+    if (user.token) {
+      toggleSave()
+    } else {
+      router.push(`/auth/login`)
+    }
+  }
+
+  useEffect(() => {
+    const checkIfSaved = async () => {
+      if (user.token) {
+      try {
+        const response = await axios.get(`https://www.offerboats.com/listing/isSaved`, {
+          params: {
+            userId: user._id,
+            listingId: offer._id,
+          },
+        });
+  
+        if (response.status === 200) {
+          setIsSaved(response.data.isSaved);
+        } else {
+          console.log('Failed to check saved status:', response.data.message);
+        }
+      } catch (error:any) {
+        console.log('Error checking saved status:', error.message);
+      }
     };
+    }
+    checkIfSaved();
+  }, [offer._id, user._id]);
+
+  const openShareModal = () => setIsShareModalOpen(true);
+  const closeShareModal = () => setIsShareModalOpen(false);
 
   return (
     <>
@@ -77,12 +139,17 @@ export default function OfferPage({ offer }: any) {
           {/* PhotosSlider */}
           <PhotosSlider images={offer.images} height="h-[20rem] sm:h-[24rem] md:h-[28rem] lg:h-[36rem]" />
           <div className="absolute flex flex-row w-[8rem] p-[1rem] justify-between ">
-          <div className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl">
-            <FaShare />
-          </div>
-          <div className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl">
-            <FaHeart />
-          </div>
+           {/* Sharing Options */}
+            <div className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
+             onClick={openShareModal}>
+              <FaShare />
+            </div>
+            <div className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
+              onClick={OnClickSave}>
+              {isSaved ?
+                <FaHeart /> :
+                <FaRegHeart /> }
+            </div>
           </div>
         </div>
         {/* Main Content */}
@@ -122,7 +189,6 @@ export default function OfferPage({ offer }: any) {
               <FeaturesSection features={offer.features} title='Features' />
               <FeaturesSection features={offer.rules} title='Things To Know' />
             </div>
-
             {/* Owner Profile */}
             <OwnerProfile offer={offer} reviews={reviews} errorMessage={errorMessage} />
           </div>
@@ -130,6 +196,15 @@ export default function OfferPage({ offer }: any) {
           {/* Right Content */}
           <PackageCard offer={offer} onClickBookNow={onClickBookNow} onClickMakeOffer={onClickMakeOffer} />
         </div>
+            {/* Share Modal */}
+        <ShareModal
+          isOpen={isShareModalOpen}
+          onClose={closeShareModal}
+          pageUrl={pageUrl}
+          pageTitle={pageTitle}
+          location={offer.location}
+          src={offer.images[0]}
+        />
       </div>
     </>
   );

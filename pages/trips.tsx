@@ -181,27 +181,27 @@ const Trips = () => {
 
           {/* Pagination */}
           {currentBookings.length > 0 && (
-            <div className="flex justify-center mt-4">
-              <button
-                className="px-3 py-2 bg-gray-200 rounded-l-lg hover:bg-gray-300"
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </button>
-              <button
-                className="px-3 py-2 bg-gray-200 rounded-r-lg hover:bg-gray-300"
-                onClick={() =>
+                <div className="flex gap-2 my-5 justify-center">
+                <button
+                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                   disabled={currentPage === 1}
+                  className="bg-renterBlue text-white px-2 py-2 rounded-full shadow-md hover:bg-blue-700"
+                >
+                  <FaChevronLeft size={20} color="white" />
+                </button>
+                <button
+                 onClick={() =>
                   setCurrentPage((prev) => prev + 1)
                 }
                 disabled={
                   currentPage * 20 >=
                   bookings.filter((b) => ["Pending", "Accepted"].includes(b.status)).length
                 }
-              >
-                Next
-              </button>
-            </div>
+                  className="bg-renterBlue text-white px-2 py-2 rounded-full shadow-md hover:bg-blue-700"
+                >
+                  <FaChevronRight size={20} color="white" />
+                </button>
+              </div>
           )}
         </div>
       )}

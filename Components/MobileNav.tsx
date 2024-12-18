@@ -81,6 +81,15 @@ const MobileNav = ({ nav, closeNav }: Props) => {
                               Add Listing
                             </Link>
                           </li>
+                          <li>
+                            <Link
+                              href="/owner/submitted-boats"
+                              className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                              onClick={handleLinkClick}
+                            >
+                              Submitted Boats
+                            </Link>
+                          </li>
                         </>
                       ) :
                       user?.userType === "BoatRenter" && (

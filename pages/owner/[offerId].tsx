@@ -1,6 +1,7 @@
 import FeaturesSection from '@/Components/Helper/FeaturesBox';
 import PackageCard from '@/Components/Helper/PackageCard';
 import PhotosSlider from '@/Components/Helper/PhotosSlider';
+import ShareModal from '@/Components/Helper/ShareModal';
 import { useRouter } from 'next/router';
 import { useState } from "react";
 import { FaEdit, FaShare } from 'react-icons/fa';
@@ -17,8 +18,11 @@ export async function getServerSideProps(context: { params: { offerId: any; }; }
 }
 
 export default function OfferPage({ offer }: any) {
+  const pageUrl = `https://www.offerboat.com/app/${offer._id}`;
+  const pageTitle = offer.title;
   const router = useRouter();
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const descriptionToShow = showFullDescription
     ? offer.description
@@ -32,6 +36,8 @@ export default function OfferPage({ offer }: any) {
     router.push(`/owner/update-images?offer=${encodeURIComponent(JSON.stringify(offer))}`);
   };
 
+  const openShareModal = () => setIsShareModalOpen(true);
+  const closeShareModal = () => setIsShareModalOpen(false);
 
   return (
       <div className="pt-[1rem] p-[3rem]">
@@ -40,7 +46,8 @@ export default function OfferPage({ offer }: any) {
               <PhotosSlider images={offer.images}
                 height="h-[20rem] sm:h-[24rem] md:h-[28rem] lg:h-[36rem]" />
           <div className="absolute flex flex-row w-[8rem] p-[1rem] justify-between ">
-            <button className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl">
+            <button className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
+             onClick={openShareModal}>
               <FaShare />
             </button>
             <button className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
@@ -94,6 +101,15 @@ export default function OfferPage({ offer }: any) {
           {/* Right Content */}
           <PackageCard offer={offer} buttons={false} />
         </div>
+          {/* Share Modal */}
+          <ShareModal
+          isOpen={isShareModalOpen}
+          onClose={closeShareModal}
+          pageUrl={pageUrl}
+          pageTitle={pageTitle}
+          location={offer.location}
+          src={offer.images[0]}
+        />
       </div>
   );
 }

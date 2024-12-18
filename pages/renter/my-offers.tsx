@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
 interface CustomOffer {
+  _id: any;
   createdAt: string | number | Date;
   userId: string;
   location: string;
@@ -50,8 +51,9 @@ const Offers = () => {
     }
   }, [user?._id]);
 
-const onPress = () => {
-  router.push("/renter/custom-offers");
+const onPress = (offer: any) => {
+  const serializedOffer = encodeURIComponent(JSON.stringify(offer));
+  router.push(`/renter/custom-offers?offer=${serializedOffer}`);
 }
     return (
       <div className="min-h-screen bg-white py-4">
@@ -75,8 +77,7 @@ const onPress = () => {
                  price={offer?.price}
                  tripInstructions={offer?.tripInstructions}
                  buttonTitle="Check Details"
-                 onPress={onPress}
-                 onPressImage={onPress}
+                 onPress={() => onPress(offer)}
                />
               ))}
             </div>

@@ -235,8 +235,9 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                             Transactions
                           </Link>
                         </li>
-
-                        <li>
+                      </>
+                    )}
+                     <li>
                           <Link
                             href="/renter/favorites"
                             className="block px-4 py-2 hover:bg-gray-100 text-sm"
@@ -245,8 +246,6 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                             Favorites
                           </Link>
                         </li>
-                      </>
-                    )}
                     <li>
                       <Link
                         href="/reviews"

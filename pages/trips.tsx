@@ -85,8 +85,10 @@ const Trips = () => {
   }, [user?.token]);
 
   const handleOnPress = (booking: any) => {
-    const serializedOffer = encodeURIComponent(JSON.stringify(booking));
-    router.push(`/trip-details?booking=${serializedOffer}`);
+    router.push({
+      pathname: '/trip-details',
+      query: { booking: encodeURIComponent(JSON.stringify(booking)) },
+  });
   };
 
   const handleOnFindBoat = () => {

@@ -2,7 +2,7 @@ import Location from '@/Components/Helper/Location';
 import { UserContext } from '@/context/UserContext';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { destroyCookie, parseCookies, setCookie } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
 import React, { useContext, useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
@@ -198,7 +198,6 @@ const ChooseUserType = () => {
             className="block py-4 px-4 w-full rounded-lg text-sm text-gray-900 border focus:outline-none"
           />
         </div>
-
 
         {/* Select Your Location */}
         <div className="mt-5">

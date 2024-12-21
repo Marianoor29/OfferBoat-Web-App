@@ -103,8 +103,11 @@ const UpdateBoat = () => {
   };
 
   useEffect(() => {
-    const fetchedOffer = JSON?.parse(decodeURIComponent(router.query.offer as string));
-  setOffer(fetchedOffer);
+    if (router.query.offer) {
+  const safeOffer = decodeURIComponent(router.query.offer as string);
+  const parsedOffer = JSON.parse(safeOffer);
+  setOffer(parsedOffer);
+    }
   }, [router.query.offer])
 
   useEffect(() => {

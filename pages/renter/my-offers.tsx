@@ -52,8 +52,10 @@ const Offers = () => {
   }, [user?._id]);
 
 const onPress = (offer: any) => {
-  const serializedOffer = encodeURIComponent(JSON.stringify(offer));
-  router.push(`/renter/custom-offers?offer=${serializedOffer}`);
+  router.push({
+    pathname: '/renter/custom-offers',
+    query: { offer: encodeURIComponent(JSON.stringify(offer)) },
+});
 }
     return (
       <div className="min-h-screen bg-white py-4">

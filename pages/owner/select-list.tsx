@@ -53,7 +53,8 @@ const SelectListing = () => {
   useEffect(() => {
     if (offer) {
       try {
-        const parsedOffer = JSON.parse(decodeURIComponent(offer as string));
+        const safeOffer = decodeURIComponent(offer as string);
+      const parsedOffer = JSON.parse(safeOffer);
         setDetails(parsedOffer);
       } catch (error) {
         console.error("Error parsing offer:", error);

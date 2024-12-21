@@ -29,11 +29,17 @@ export default function OfferPage({ offer }: any) {
     : offer.description.slice(0, 1000);
 
   const handleOnUpdateBoat = () => {
-    router.push(`/owner/update-boat?offer=${encodeURIComponent(JSON.stringify(offer))}`);
+    router.push({
+      pathname: '/owner/update-boat',
+      query: { offer: encodeURIComponent(JSON.stringify(offer)) },
+  });
   };
 
   const handleOnUpdateBoatImages = () => {
-    router.push(`/owner/update-images?offer=${encodeURIComponent(JSON.stringify(offer))}`);
+    router.push({
+      pathname: '/owner/update-images',
+      query: { offer: encodeURIComponent(JSON.stringify(offer)) },
+  });
   };
 
   const openShareModal = () => setIsShareModalOpen(true);

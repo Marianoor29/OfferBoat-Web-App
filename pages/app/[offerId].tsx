@@ -61,13 +61,17 @@ export default function OfferPage({ offer }: any) {
     : offer.description.slice(0, 1000);
 
   const onClickBookNow = () => {
-    const serializedOffer = encodeURIComponent(JSON.stringify(offer));
-    router.push(`/renter/booking?offer=${serializedOffer}`);
+    router.push({
+      pathname: '/renter/booking',
+      query: { offer: encodeURIComponent(JSON.stringify(offer)) },
+  });
   };
 
   const onClickMakeOffer = () => {
-    const serializedOffer = encodeURIComponent(JSON.stringify(offer));
-    router.push(`/renter/make-list-offer?offer=${serializedOffer}`);
+    router.push({
+      pathname: '/renter/make-list-offer',
+      query: { offer: encodeURIComponent(JSON.stringify(offer)) },
+  });
   };
 
   const toggleSave = async () => {

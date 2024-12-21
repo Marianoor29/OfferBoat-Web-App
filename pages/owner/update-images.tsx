@@ -20,8 +20,6 @@ const UpdateBoatImages = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useContext(UserContext)!;
 
-// console.log(offer?.images, 'offer')
-
   const handleFilesChange = (files: File[]) => {
     setSelectedImages(files);
   };
@@ -91,12 +89,12 @@ const urlToFile = async (url: any, filename: any) => {
       );
     }
   };
-  
-  
+   
   useEffect(() => {
     if (router.query.offer) {
-      const offer = JSON?.parse(decodeURIComponent(router.query.offer as string));
-      setOffer(offer);
+      const safeOffer = decodeURIComponent(router.query.offer as string);
+      const parsedOffer = JSON.parse(safeOffer);
+      setOffer(parsedOffer);
     }
   }, [router.query.offer]);
   

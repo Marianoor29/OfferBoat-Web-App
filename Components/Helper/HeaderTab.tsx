@@ -21,7 +21,7 @@ const HeaderTab = ({
   BtnContainer,
 }: HeaderTabProps) => {
   return (
-    <div className={`flex space-x-4 bg-renterBlue50 py-3 px-3 shadow-md ${mainContainer}`}>
+    <div className={`flex space-x-4 bg-blue-950 py-3 px-3 shadow-md ${mainContainer}`}>
       {tabs.map((item, index) => (
         <button
           key={index}

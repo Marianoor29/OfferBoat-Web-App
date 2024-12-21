@@ -41,17 +41,19 @@ const Booking = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [showCardDetails, setShowCardDetails] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (offer) {
-      try {
-        const parsedOffer = JSON.parse(decodeURIComponent(offer as string));
-        setBoatDetail(parsedOffer);
-      } catch (error) {
-        console.error("Error parsing offer:", error);
-      }
+  
+useEffect(() => {
+  if (offer) {
+    try {
+      const safeOffer = decodeURIComponent(offer as string);
+      const parsedOffer = JSON.parse(safeOffer);
+      setBoatDetail(parsedOffer);
+    } catch (error) {
+      console.error("Error parsing offer:", error, "Original offer:", offer);
     }
-  }, [offer]);
+  }
+}, [offer]);
+
 
   const validateForm = () => {
     if (!date || !time || !selectedPackage) {

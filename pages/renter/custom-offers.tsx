@@ -56,7 +56,8 @@ const CustomOffers = () => {
   useEffect(() => {
     if (offer) {
       try {
-        const parsedOffer = JSON.parse(decodeURIComponent(offer as string));
+        const safeOffer = decodeURIComponent(offer as string);
+        const parsedOffer = JSON.parse(safeOffer);
         setDetails(parsedOffer);
       } catch (error) {
         console.error("Error parsing offer:", error);
@@ -94,7 +95,10 @@ const CustomOffers = () => {
       type: "BoatRequest",
     };
   
-    router.push(`/boat-details?tripDetails=${encodeURIComponent(JSON.stringify(payload))}`);
+    router.push({
+      pathname: '/boat-details',
+      query: { tripDetails: encodeURIComponent(JSON.stringify(payload)) },
+  });
   };
   
   return (
@@ -104,7 +108,10 @@ const CustomOffers = () => {
         <div className="flex items-center">
           <div className="w-12 h-12 rounded-full overflow-hidden mr-4 cursor-pointer">
             <Image src={user.profilePicture || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
-              alt="Offerboat - Your Budget, Our Boats" width={48} height={48} className="object-cover" />
+                alt="Offerboat - Your Budget, Our Boats"
+                className="w-12 h-12 rounded-full"
+                width={40}
+                height={40}/>
           </div>
           <div>
             <p className="text-lg font-serif text-gray-800">{user?.firstName} {user?.lastName}</p>

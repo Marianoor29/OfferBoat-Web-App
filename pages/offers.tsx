@@ -92,8 +92,10 @@ const OffersPage = ({
   }, [address]);
 
   const handleOnPress = (offer: any) => {
-    const serializedOffer = encodeURIComponent(JSON.stringify(offer));
-    router.push(`/owner/select-list?offer=${serializedOffer}`);
+    router.push({
+      pathname: '/owner/select-list',
+      query: { offer: encodeURIComponent(JSON.stringify(offer)) },
+  });
   };
 
   return (

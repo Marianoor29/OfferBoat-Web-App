@@ -1,8 +1,6 @@
 import CustomerReviews from "@/Components/Helper/CustomerReviews";
 import { RiDoubleQuotesL, RiDoubleQuotesR } from "react-icons/ri";
 import Image from "next/image";
-import Reviews from "@/Components/Reviews";
-import PhotosSlider from "@/Components/Helper/PhotosSlider";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 

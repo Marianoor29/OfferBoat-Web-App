@@ -1,9 +1,10 @@
+"use client";
 import { UserContext } from "@/context/UserContext";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-
+import { useRouter } from "next/navigation";
 
 interface Props {
   nav: boolean;
@@ -14,9 +15,11 @@ const MobileNav = ({ nav, closeNav }: Props) => {
   const [openExplore, setOpenExplore] = useState(false);
   const navAnimation = nav ? "translate-x-0" : "translate-x-[-100%]";
   const { user, clearUser } = useContext(UserContext)!;
+  const router = useRouter();
 
-  const handleLinkClick = () => {
+   const handleNavigation = (path: string) => {
     closeNav(); 
+    router.push(path); 
   };
 
   return (
@@ -42,86 +45,80 @@ const MobileNav = ({ nav, closeNav }: Props) => {
             <div className="top-full left-0 mt-2 w-48">
               <ul className="py-2">
                 <li>
-                  <Link
-                    href="/boats"
+                <button
                     className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
-                    onClick={handleLinkClick}
+                    onClick={() => handleNavigation("/boats")}
                   >
                     Boats
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <Link
-                    href="/offers"
+                <button
                     className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
-                    onClick={handleLinkClick}
+                    onClick={() => handleNavigation("/offers")}
                   >
                     Offers
-                  </Link>
+                  </button>
                 </li>
                 {user?.token && (
                     <>
                       {user?.userType === "BoatOwner" ? (
                         <>
                           <li>
-                            <Link
-                              href="/owner/listings"
-                              className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
-                              onClick={handleLinkClick}
-                            >
-                              Listings
-                            </Link>
+                          <button
+                            className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
+                            onClick={() => handleNavigation("/owner/listings")}
+                          >
+                            Listings
+                          </button>
                           </li>
                           <li>
-                            <Link
-                              href="/owner/add-boat"
-                              className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
-                              onClick={handleLinkClick}
-                            >
-                              Add Listing
-                            </Link>
+                          <button
+                            className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
+                            onClick={() => handleNavigation("/owner/add-boat")}
+                          >
+                            Add Listing
+                          </button>
                           </li>
                           <li>
-                            <Link
-                              href="/owner/submitted-boats"
-                              className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                              onClick={handleLinkClick}
-                            >
-                              Submitted Boats
-                            </Link>
+                          <button
+                            className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
+                            onClick={() =>
+                              handleNavigation("/owner/submitted-boats")
+                            }
+                          >
+                            Submitted Boats
+                          </button>
                           </li>
                         </>
                       ) :
                       user?.userType === "BoatRenter" && (
                           <>
                             <li>
-                              <Link
-                                href="/renter/make-offer"
-                                className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
-                                onClick={handleLinkClick}
-                              >
-                                Make Offer
-                              </Link>
+                            <button
+                              className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
+                              onClick={() => handleNavigation("/renter/make-offer")}
+                            >
+                              Make Offer
+                            </button>
                             </li>
                             <li>
-                              <Link
-                                href="/renter/my-offers"
-                                className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
-                                onClick={handleLinkClick}
-                              >
-                                My Offer
-                              </Link>
+                            <button
+                              className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
+                              onClick={() => handleNavigation("/renter/my-offers")}
+                            >
+                              My Offers
+                            </button>
                             </li>
                           </>
                         )}
                       <li>
-                        <Link
-                          href="/trips"
-                          className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
-                          onClick={handleLinkClick}
-                        >
-                          Trips
-                        </Link>
+                      <button
+                        className="block px-4 py-2 text-white hover:bg-gray-700 text-sm"
+                        onClick={() => handleNavigation("/trips")}
+                      >
+                        Trips
+                      </button>
                       </li>
                     </>
                   )}
@@ -130,12 +127,25 @@ const MobileNav = ({ nav, closeNav }: Props) => {
           )}
         </div>
         {/* Other Links */}
-        <Link href="/about-us" className="nav-link-mobile"  onClick={handleLinkClick}>About Us</Link>
-        <Link href="/contact" className="nav-link-mobile"  onClick={handleLinkClick}>Contact</Link>
+        <button
+          className="nav-link-mobile"
+          onClick={() => handleNavigation("/about-us")}
+        >
+          About Us
+        </button>
+        <button
+          className="nav-link-mobile"
+          onClick={() => handleNavigation("/contact")}
+        >
+          Contact
+        </button>
         {!user?.token && (
-        <Link href="/auth/login" className="nav-link-mobile" onClick={handleLinkClick}>
-          Sign In
-        </Link>
+        <button
+        className="nav-link-mobile"
+        onClick={() => handleNavigation("/auth/login")}
+      >
+        Sign In
+      </button>
         )}
       </div>
 

@@ -1,10 +1,12 @@
+"use client";
+
 import { UserContext } from "@/context/UserContext";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import Link from "next/link";
 import { useContext, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import LocationSearchBox from "./Helper/LocationSearch";
+import { useRouter } from "next/navigation"; // Import from next/navigation
 
 interface Props {
   openNav: () => void;
@@ -14,21 +16,28 @@ interface Props {
 }
 
 const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) => {
+  const router = useRouter(); 
   const [open, setOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { user, clearUser } = useContext(UserContext)!;
 
   const handleLogout = () => {
     clearUser();
-    window.location.href = "/auth/login";
+    router.push("/auth/login"); 
+  };
+
+  const navigate = (path: string) => {
+    router.push(path); 
+    setOpen(false)
+    setProfileMenuOpen(false)
   };
 
   return (
-    <div className="w-[100%] bg-white fixed top-0 left-0 right-0 z-[2000] shadow-lg ">
+    <div className="w-[100%] bg-white fixed top-0 left-0 right-0 z-[2000] shadow-lg">
       <div className="flex w-[95%] mx-auto items-center justify-between h-[12vh]">
         {/* Logo for large screens */}
-        <Link
-          href="/"
+        <div
+          onClick={() => navigate("/")}
           className="relative w-[70px] h-[70px] lg:w-[150px] lg:h-[40px] cursor-pointer object-contain mb-3 mt-3 lg:block hidden"
         >
           <Image
@@ -36,12 +45,12 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
             alt="Boat Rentals & Yacht Charters"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-        </Link>
+          />
+        </div>
 
         {/* Logo for small screens */}
-        <Link
-          href="/"
+        <div
+          onClick={() => navigate("/")}
           className="relative w-[70px] h-[70px] cursor-pointer object-contain mb-3 mt-3 lg:hidden"
         >
           <Image
@@ -50,7 +59,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-        </Link>
+        </div>
 
         {location && (
           <LocationSearchBox setAddress={setAddress} onSearch={handleSearch} />
@@ -58,102 +67,52 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
 
         <div className="flex justify-between items-center lg:space-x-12 md:space-x-12 relative">
           {/* Explore with Dropdown */}
-          <div className="relative ">
+          <div className="relative">
             <button
               type="button"
               className="drop-nav-link lg:flex lg:flex-row justify-between items-center"
               onClick={() => setOpen((prev) => !prev)}
             >
               Explore
-              <span className="ml-2 ">
-                {open ? <FaChevronUp /> : <FaChevronDown />}
-              </span>
+              <span className="ml-2">{open ? <FaChevronUp /> : <FaChevronDown />}</span>
             </button>
             {/* Dropdown */}
             {open && (
               <div className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-lg w-48">
                 <ul className="py-2">
-                  <li>
-                    <Link
-                      href="/boats"
-                      className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                      onClick={() => setOpen(false)}
-                    >
-                      Boats
-                    </Link>
+                  <li onClick={() => navigate("/boats")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    Boats
                   </li>
-                  <li>
-                    <Link
-                      href="/offers"
-                      className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                      onClick={() => setOpen(false)}
-                    >
-                      Offers
-                    </Link>
+                  <li onClick={() => navigate("/offers")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    Offers
                   </li>
                   {user?.token && (
                     <>
-                      {user?.userType === "BoatOwner" ? (
+                      {user?.userType === "BoatOwner" && (
                         <>
-                          <li>
-                            <Link
-                              href="/owner/listings"
-                              className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                              onClick={() => setOpen(false)}
-                            >
-                              Listings
-                            </Link>
+                          <li onClick={() => navigate("/owner/listings")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                            Listings
                           </li>
-                          <li>
-                            <Link
-                              href="/owner/add-boat"
-                              className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                              onClick={() => setOpen(false)}
-                            >
-                              Add Listing
-                            </Link>
+                          <li onClick={() => navigate("/owner/add-boat")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                            Add Listing
                           </li>
-                          <li>
-                            <Link
-                              href="/owner/submitted-boats"
-                              className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                              onClick={() => setOpen(false)}
-                            >
-                              Submitted Boats
-                            </Link>
+                          <li onClick={() => navigate("/owner/submitted-boats")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                            Submitted Boats
                           </li>
                         </>
-                      ) :
-                      user?.userType === "BoatRenter" && (
-                          <>
-                            <li>
-                              <Link
-                                href="/renter/make-offer"
-                                className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                                onClick={() => setOpen(false)}
-                              >
-                                Make Offer
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                href="/renter/my-offers"
-                                className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                                onClick={() => setOpen(false)}
-                              >
-                                My Offer
-                              </Link>
-                            </li>
-                          </>
-                        )}
-                      <li>
-                        <Link
-                          href="/trips"
-                          className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                          onClick={() => setOpen(false)}
-                        >
-                          Trips
-                        </Link>
+                      )}
+                      {user?.userType === "BoatRenter" && (
+                        <>
+                          <li onClick={() => navigate("/renter/make-offer")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                            Make Offer
+                          </li>
+                          <li onClick={() => navigate("/renter/my-offers")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                            My Offer
+                          </li>
+                        </>
+                      )}
+                      <li onClick={() => navigate("/trips")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                        Trips
                       </li>
                     </>
                   )}
@@ -161,25 +120,17 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
               </div>
             )}
           </div>
+
           {/* About us & Contact Page */}
-          <ul className="py-2 flex justify-between items-center space-x-12 ">
-            <li>
-              <Link
-                href="/about-us"
-                className="nav-link"
-              >
-                AboutUs
-              </Link>
+          <ul className="py-2 flex justify-between items-center space-x-12">
+            <li onClick={() => navigate("/about-us")} className="nav-link">
+              About Us
             </li>
-            <li>
-              <Link
-                href="/contact"
-                className="nav-link"
-              >
-                Contact
-              </Link>
+            <li onClick={() => navigate("/contact")} className="nav-link">
+              Contact
             </li>
           </ul>
+
           {/* Render different menus based on authentication */}
           {user?.token && !location ? (
             <div className="relative">
@@ -189,7 +140,10 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                 className="flex items-center focus:outline-none mr-5"
               >
                 <Image
-                  src={user?.profilePicture || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
+                  src={
+                    user?.profilePicture ||
+                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  }
                   alt="Offerboat - Your Budget, Our Boats"
                   className="w-8 h-8 rounded-full"
                   width={32}
@@ -200,74 +154,31 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
               {/* Profile Dropdown */}
               {profileMenuOpen && (
                 <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg w-48">
-                  <p className="pl-3 ">Hi {user?.firstName || 'There'} </p>
+                  <p className="pl-3">Hi {user?.firstName || "There"}</p>
                   <ul className="py-2">
-                    <li>
-                      <Link
-                        href="/profile"
-                        className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                        onClick={() => setProfileMenuOpen(false)}
-                      >
-                        View Profile
-                      </Link>
+                    <li onClick={() => navigate("/profile")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                      View Profile
                     </li>
-                    {/* {user?.userType === "BoatOwner" && (
-                      <>
-                        <li>
-                          <Link
-                            href="/dashboard"
-                            className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                            onClick={() => setProfileMenuOpen(false)}
-                          >
-                          Dashboard
-                          </Link>
-                        </li>
-                      </>
-                    )} */}
                     {user?.userType === "BoatRenter" && (
                       <>
-                        <li>
-                          <Link
-                            href="/renter/transaction"
-                            className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                            onClick={() => setProfileMenuOpen(false)}
-                          >
-                            Transactions
-                          </Link>
+                        <li onClick={() => navigate("/renter/transaction")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                          Transactions
                         </li>
                       </>
                     )}
-                     <li>
-                          <Link
-                            href="/renter/favorites"
-                            className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                            onClick={() => setProfileMenuOpen(false)}
-                          >
-                            Favorites
-                          </Link>
-                        </li>
-                    <li>
-                      <Link
-                        href="/reviews"
-                        className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                        onClick={() => setProfileMenuOpen(false)}
-                      >
-                        Reviews
-                      </Link>
+                    <li onClick={() => navigate("/renter/favorites")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                      Favorites
                     </li>
-                    <li>
-                      <Link
-                        href="/account-settings"
-                        className="block px-4 py-2 hover:bg-gray-100 text-sm"
-                        onClick={() => setProfileMenuOpen(false)}
-                      >
-                        Account Settings
-                      </Link>
+                    <li onClick={() => navigate("/reviews")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                      Reviews
+                    </li>
+                    <li onClick={() => navigate("/account-settings")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                      Account Settings
                     </li>
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer "
                       >
                         Logout
                       </button>
@@ -277,16 +188,13 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
               )}
             </div>
           ) : (
-            <Link href="/auth/login" className="nav-link">
+            <button onClick={() => navigate("/auth/login")} className="nav-link">
               SignIn
-            </Link>
+            </button>
           )}
 
           {/* Hamburger Icon */}
-          <Bars3Icon
-            onClick={openNav}
-            className="w-[2rem] lg:hidden h-[2rem] text-blue-800 font-bold"
-          />
+          <Bars3Icon onClick={openNav} className="w-[2rem] lg:hidden h-[2rem] text-blue-800 font-bold" />
         </div>
       </div>
     </div>

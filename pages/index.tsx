@@ -9,7 +9,7 @@ import { UserContext } from "@/context/UserContext";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { parseCookies } from 'nookies';
 import { useContext, useEffect, useState } from "react";
 

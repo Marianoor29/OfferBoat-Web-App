@@ -1,4 +1,4 @@
-const App = () => {
+const MyAppPage = () => {
     return(
         <div>
             <h1>App</h1>
@@ -6,4 +6,4 @@ const App = () => {
     )
 }
 
-export default App;
+export default MyAppPage;

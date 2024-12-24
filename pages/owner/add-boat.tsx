@@ -1,3 +1,4 @@
+'use client';
 import AddFeatures from "@/Components/Helper/AddFeatures";
 import ImagesSelector from "@/Components/Helper/ImagesSelector";
 import Location from "@/Components/Helper/Location";
@@ -6,7 +7,7 @@ import WelcomeCard from "@/Components/Helper/WelcomeCard";
 import { UserContext } from "@/context/UserContext";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 
 const AddBoats = () => {

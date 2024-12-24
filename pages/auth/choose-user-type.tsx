@@ -1,7 +1,8 @@
+'use client';
 import Location from '@/Components/Helper/Location';
 import { UserContext } from '@/context/UserContext';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { destroyCookie, parseCookies } from 'nookies';
 import React, { useContext, useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-number-input';

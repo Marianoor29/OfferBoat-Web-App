@@ -1,8 +1,9 @@
+'use client';
 import HeaderTab from "@/Components/Helper/HeaderTab";
 import TripOrders from "@/Components/Helper/TripOrders";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"; 
 import { useContext, useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 

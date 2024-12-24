@@ -1,9 +1,10 @@
-import { FaGoogle, FaApple } from 'react-icons/fa';
+'use client';
+import { FaGoogle,} from 'react-icons/fa';
 import { useContext, useEffect, useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '@/firebaseConfig';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { setCookie } from 'nookies';
 import { UserContext } from '@/context/UserContext';
 

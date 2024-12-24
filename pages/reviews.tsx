@@ -1,6 +1,7 @@
+'use client';
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 import { UserContext } from "@/context/UserContext";
 import ReviewDetailCard from "@/Components/ReviewDetailCard";
 import Pagination from "@/Components/Helper/Pagination";

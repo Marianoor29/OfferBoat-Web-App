@@ -1,8 +1,8 @@
+'use client';
 import OfferCard from "@/Components/Helper/OfferCard";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
+import { useSearchParams, useRouter } from 'next/navigation'; 
 import { useContext, useEffect, useState } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
 import useSWR from "swr";
@@ -24,8 +24,9 @@ const BoatsPage = ({ address, setAddress, }: {
   setAddress: (value: string) => void;  
 }) => {
   const router = useRouter();
+  const searchParams = useSearchParams(); 
   const [page, setPage] = useState(1);
-  const { address: queryAddress } = router.query;
+  const queryAddress = searchParams.get('address'); 
   const [triggerSearch, setTriggerSearch] = useState(true);
   const { user} = useContext(UserContext)!;
   const itemsPerPage = 20;

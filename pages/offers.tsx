@@ -1,8 +1,10 @@
+'use client';
 import ListCard from "@/Components/ListCard";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useSearchParams, } from 'next/navigation'; 
 import { useContext, useEffect, useState } from "react";
+import { useRouter } from 'next/router'; 
 
 interface LatestOffersProps {
   offers: {
@@ -68,7 +70,8 @@ const OffersPage = ({
   setAddress,
 }: LatestOffersProps) => {
   const router = useRouter();
-  const { address: queryAddress } = router.query;
+  const searchParams = useSearchParams(); 
+  const queryAddress = searchParams.get('address'); 
   const [offers, setOffers] = useState<LatestOffersProps['offers']>([]);
   const { user } = useContext(UserContext)!;
   const userId = user._id || undefined

@@ -1,7 +1,6 @@
 "use client";
 import { UserContext } from "@/context/UserContext";
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import Link from "next/link";
 import { useContext, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useRouter } from "next/navigation";

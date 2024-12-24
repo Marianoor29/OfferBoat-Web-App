@@ -1,7 +1,8 @@
+'use client';
 import OfferCard from "@/Components/Helper/OfferCard";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 type Listing = {

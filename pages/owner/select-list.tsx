@@ -1,8 +1,9 @@
+'use client';
 import CurrencyInput from "@/Components/Helper/CurrencyInput";
 import OfferCard from "@/Components/Helper/OfferCard";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter , useSearchParams} from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 type Offer = {
@@ -40,7 +41,8 @@ type Listing = {
 
 const SelectListing = () => {
   const router = useRouter();
-  const { offer } = router.query;
+  const searchParams = useSearchParams(); 
+  const offer = searchParams.get('offer'); 
   const [offerDetails, setDetails] = useState<Offer | null>(null);
   const [boats, setBoats] = useState<Listing[]>([]);
   const [errorMessage, setErrorMessage] = useState("");

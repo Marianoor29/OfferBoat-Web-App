@@ -1,14 +1,14 @@
+'use client';
 import FeaturesSection from '@/Components/Helper/FeaturesBox';
-import Modal from '@/Components/Helper/ModelWrapper';
 import OwnerProfile from '@/Components/Helper/OwnerProfile';
 import PaymentModal from '@/Components/Helper/PaymentModel';
 import PhotosSlider from '@/Components/Helper/PhotosSlider';
 import ShareModal from '@/Components/Helper/ShareModal';
 import { UserContext } from '@/context/UserContext';
-import { Elements, useElements, useStripe } from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from "react";
 import { FaShare } from 'react-icons/fa';
 
@@ -60,7 +60,8 @@ const stripePromise = loadStripe("pk_live_51OmnJVGd0YHQCab54RHORWLcVVFe6fnqoTER5
 
 const BoatDetails = ()  => {
     const router = useRouter();
-    const { tripDetails } = router.query;
+    const searchParams = new URLSearchParams(window.location.search);
+    const tripDetails = searchParams.get('tripDetails');
     const [listingDetails, setDetails] = useState<Listing | null>(null);
     const [showFullDescription, setShowFullDescription] = useState(false);
     const [reviews, setReviews] = useState([]);

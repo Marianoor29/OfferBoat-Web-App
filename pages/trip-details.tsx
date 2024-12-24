@@ -1,3 +1,4 @@
+'use client';
 import Rating from "@/Components/Helper/Rating";
 import SuccessModal from "@/Components/Helper/SuccessModel";
 import { ORDER_STATUSES } from "@/Components/Helper/TripOrders";
@@ -5,6 +6,7 @@ import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useSearchParams, } from 'next/navigation'; 
 import { useContext, useEffect, useState } from "react";
 import { FaCalendarDays, FaLocationDot } from "react-icons/fa6";
 
@@ -51,7 +53,8 @@ type Trips = {
 
 const TripDetails = () => {
   const router = useRouter();
-  const { booking } = router.query;
+  const searchParams = useSearchParams(); 
+  const booking = searchParams.get('booking'); 
   const [tripDetails, setDetails] = useState<Trips | null>(null);
   const [bookingStatus, setBookingStatus] = useState(tripDetails?.status || 'Accepted');
   const { user } = useContext(UserContext)!;

@@ -1,3 +1,4 @@
+'use client';
 import CurrencyInput from "@/Components/Helper/CurrencyInput";
 import HourSelector from "@/Components/Helper/HourSelector";
 import SuccessModal from "@/Components/Helper/SuccessModel";
@@ -7,7 +8,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { Moment } from 'moment';
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
@@ -69,7 +70,8 @@ const stripePromise = loadStripe("pk_live_51OmnJVGd0YHQCab54RHORWLcVVFe6fnqoTER5
 
 const MakeOffer = () => {
   const router = useRouter();
-  const { offer } = router.query;
+  const searchParams = useSearchParams(); 
+  const offer = searchParams.get('offer'); 
   const [instruction, setInstruction] = useState<string>('')
   const [numberOfPassenger, setNumberOfPassenger] = useState<number>(0);
   const [BoatDetail, setBoatDetail] = useState<Offer | null>(null);

@@ -1,6 +1,6 @@
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FaRegStar, FaStar, FaStarHalf } from "react-icons/fa";
 
 type ReviewItemProps = {

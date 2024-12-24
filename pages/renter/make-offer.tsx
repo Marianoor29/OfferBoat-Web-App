@@ -1,3 +1,4 @@
+'use client';
 import CurrencyInput from "@/Components/Helper/CurrencyInput";
 import HourSelector from "@/Components/Helper/HourSelector";
 import Location from "@/Components/Helper/Location";
@@ -5,7 +6,7 @@ import WelcomeCard from "@/Components/Helper/WelcomeCard";
 import { UserContext } from "@/context/UserContext";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import { Moment } from 'moment';
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';

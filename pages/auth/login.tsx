@@ -1,12 +1,12 @@
+'use client';
+import { UserContext } from '@/context/UserContext';
 import { auth } from '@/firebaseConfig';
 import axios from 'axios';
-import { GoogleAuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth';
-import { useRouter } from 'next/router';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 import { setCookie } from 'nookies';
-import { useEffect, useState } from 'react';
-import { FaApple, FaGoogle } from 'react-icons/fa';
-import { useContext } from "react";
-import { UserContext } from '@/context/UserContext';
+import { useContext, useEffect, useState } from 'react';
+import { FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
   const router = useRouter();

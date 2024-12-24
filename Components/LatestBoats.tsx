@@ -1,7 +1,8 @@
+'use client';
 import React from "react";
 import OfferCard from "./Helper/OfferCard";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface LatestBoatsProps {
   boats: {

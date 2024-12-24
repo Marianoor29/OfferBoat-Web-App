@@ -1,6 +1,7 @@
+'use client';
 import React from "react";
 import DestinationSlider from "./Helper/DestinationSlider";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const destinations = [
   { name: "Miami", image: "/images/miami.jpg" },

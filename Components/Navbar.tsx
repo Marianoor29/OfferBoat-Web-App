@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useContext, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import LocationSearchBox from "./Helper/LocationSearch";
-import { useRouter } from "next/navigation"; // Import from next/navigation
+import { useRouter } from "next/navigation"; 
 
 interface Props {
   openNav: () => void;

@@ -1,3 +1,4 @@
+'use client';
 import AddFeatures from "@/Components/Helper/AddFeatures";
 import Location from "@/Components/Helper/Location";
 import Modal from "@/Components/Helper/ModelWrapper";
@@ -5,7 +6,7 @@ import PackageSelection from "@/Components/Helper/PackageSelection";
 import { UserContext } from "@/context/UserContext";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter , useSearchParams} from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
@@ -22,6 +23,7 @@ interface Offer {
 
 const UpdateBoat = () => {
   const router = useRouter();
+  const searchParams = useSearchParams(); 
   const [offer, setOffer] = useState<Offer | undefined>();
   const [selectedAddress, setSelectedAddress] = useState<string | null>();
   const [title, setTitle] = useState<string>("");
@@ -103,12 +105,12 @@ const UpdateBoat = () => {
   };
 
   useEffect(() => {
-    if (router.query.offer) {
-  const safeOffer = decodeURIComponent(router.query.offer as string);
+    if (searchParams.get('offer')) {
+  const safeOffer = decodeURIComponent(searchParams.get('offer') as string);
   const parsedOffer = JSON.parse(safeOffer);
   setOffer(parsedOffer);
     }
-  }, [router.query.offer])
+  }, [searchParams.get('offer')])
 
   useEffect(() => {
     if (offer) {

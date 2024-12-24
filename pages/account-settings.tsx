@@ -1,9 +1,10 @@
+'use client';
 import HeaderTab from "@/Components/Helper/HeaderTab";
 import Location from "@/Components/Helper/Location";
 import SuccessModal from "@/Components/Helper/SuccessModel";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { parseCookies } from "nookies";
 import { useContext, useState } from "react";
 import PhoneInput from 'react-phone-number-input';

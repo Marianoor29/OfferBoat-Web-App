@@ -1,7 +1,8 @@
+'use client';
 import WelcomeCard from "@/Components/Helper/WelcomeCard";
 import { UserContext } from "@/context/UserContext";
 import { Moment } from 'moment';
-import { useRouter } from "next/router";
+import { useSearchParams, useRouter} from 'next/navigation'; 
 import { useContext, useEffect, useState } from "react";
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
@@ -31,7 +32,8 @@ const stripePromise = loadStripe("pk_live_51OmnJVGd0YHQCab54RHORWLcVVFe6fnqoTER5
 
 const Booking = () => {
   const router = useRouter();
-  const { offer } = router.query;
+  const searchParams = useSearchParams(); 
+  const offer = searchParams.get('offer'); 
   const [BoatDetail, setBoatDetail] = useState<Offer | null>(null);
   const { user } = useContext(UserContext)!;
   const [date, setDate] = useState<Moment | undefined>(undefined);

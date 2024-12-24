@@ -1,3 +1,4 @@
+'use client';
 import Modal from "@/Components/Helper/ModelWrapper";
 import OfferCard from "@/Components/Helper/OfferCard";
 import Rating from "@/Components/Helper/Rating";
@@ -5,6 +6,7 @@ import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useSearchParams,} from 'next/navigation'; 
 import { useContext, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
@@ -47,7 +49,8 @@ type Offer = {
 
 const CustomOffers = () => {
   const router = useRouter();
-  const { offer } = router.query;
+  const searchParams = useSearchParams(); 
+  const offer = searchParams.get('offer'); 
   const { user } = useContext(UserContext)!;
   const [offerDetails, setDetails] = useState<Offer | null>(null);
   const [boatListing, setBoatListing] = useState<BoatListing[]>([]);

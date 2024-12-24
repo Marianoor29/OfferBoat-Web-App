@@ -1,8 +1,9 @@
+'use client';
 import Modal from "@/Components/Helper/ModelWrapper";
 import ListCard from "@/Components/ListCard";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 interface Offers {

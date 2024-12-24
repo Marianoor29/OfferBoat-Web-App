@@ -1,6 +1,6 @@
-import { PlusIcon, TrashIcon } from "@heroicons/react/16/solid";
-import Image from "next/image";
+import { TrashIcon } from "@heroicons/react/16/solid";
 import imageCompression from "browser-image-compression";
+import Image from "next/image";
 import React, { useState } from "react";
 
 interface ImagesSelectorProps {

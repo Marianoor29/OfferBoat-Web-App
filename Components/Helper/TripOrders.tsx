@@ -1,7 +1,6 @@
 import Image from "next/image";
-import React from "react";
-import { FaCalendar, FaCalendarCheck, FaClock, FaTimes } from "react-icons/fa";
-import { FaCalendarDays, FaLocationDot, FaLocationPin } from "react-icons/fa6";
+import { FaClock } from "react-icons/fa";
+import { FaCalendarDays, FaLocationDot } from "react-icons/fa6";
 import Rating from "./Rating";
 
 type TripOrdersProps = {

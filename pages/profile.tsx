@@ -1,9 +1,10 @@
+'use client';
 import Rating from "@/Components/Helper/Rating";
 import SuccessModal from "@/Components/Helper/SuccessModel";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 import { useContext, useState } from "react";
 import { FaCameraRetro } from "react-icons/fa";
 import { RiUserSettingsFill } from "react-icons/ri";

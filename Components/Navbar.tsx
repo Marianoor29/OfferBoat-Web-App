@@ -211,7 +211,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                         View Profile
                       </Link>
                     </li>
-                    {user?.userType === "BoatOwner" && (
+                    {/* {user?.userType === "BoatOwner" && (
                       <>
                         <li>
                           <Link
@@ -223,7 +223,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
                           </Link>
                         </li>
                       </>
-                    )}
+                    )} */}
                     {user?.userType === "BoatRenter" && (
                       <>
                         <li>

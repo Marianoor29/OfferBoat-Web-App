@@ -18,9 +18,7 @@ const HomePage = () => {
   const [offers, setOffers] = useState<[]>([]);
   const [listing, setListing] = useState<[]>([]);
   const [address, setAddress] = useState<string>(""); 
-  const [userId, setUserId] = useState('');
   const { updateUser } = useContext(UserContext)!;
-
   
   useEffect(() => {
     AOS.init({
@@ -133,7 +131,6 @@ const HomePage = () => {
   
         // Include the token explicitly when updating the user
         updateUser({ ...userResponse.data, token: tokenFromCookie });
-        setUserId(userResponse.data._id);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -141,7 +138,6 @@ const HomePage = () => {
   
     fetchOwnerData();
   }, []);
-  
   
   return (
     <div className="bg-white">

@@ -8,7 +8,7 @@ import { UserContext } from '@/context/UserContext';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useContext, useEffect, useState } from "react";
 import { FaShare } from 'react-icons/fa';
 
@@ -60,7 +60,7 @@ const stripePromise = loadStripe("pk_live_51OmnJVGd0YHQCab54RHORWLcVVFe6fnqoTER5
 
 const BoatDetails = ()  => {
     const router = useRouter();
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = useSearchParams(); 
     const tripDetails = searchParams.get('tripDetails');
     const [listingDetails, setDetails] = useState<Listing | null>(null);
     const [showFullDescription, setShowFullDescription] = useState(false);

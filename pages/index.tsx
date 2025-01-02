@@ -142,7 +142,7 @@ const HomePage = () => {
   return (
     <div className="bg-white">
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} />
-      <TopDestination />
+      {/* <TopDestination />
       <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/>
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <MakeOfferBanner onClick={handleMakeOffer}/>
@@ -150,7 +150,7 @@ const HomePage = () => {
       <LatestOffers offers={offers} onSeeMore={handleSeeMoreOffers} />
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <AddBoatBanner onClick={handleAddBoat}/>
-      </div>
+      </div> */}
     </div>
   );
 };

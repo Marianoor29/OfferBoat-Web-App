@@ -22,6 +22,7 @@ const EmailVerification = () => {
       router.push('/auth/sign-up'); 
     }
   }, []);
+ console.log(verificationCode.toString(), code)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

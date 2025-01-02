@@ -6,8 +6,6 @@ import LatestBoats from "@/Components/LatestBoats";
 import LatestOffers from "@/Components/LatestOffers";
 import TopDestination from "@/Components/TopDestination";
 import { UserContext } from "@/context/UserContext";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { parseCookies } from 'nookies';
@@ -19,26 +17,6 @@ const HomePage = () => {
   const [listing, setListing] = useState<[]>([]);
   const [address, setAddress] = useState<string>(""); 
   const { updateUser } = useContext(UserContext)!;
-  
-  // useEffect(() => {
-  //   AOS.init({
-  //     disable: false,
-  //     startEvent: "DOMContentLoaded",
-  //     initClassName: "aos-init",
-  //     animatedClassName: "aos-animate",
-  //     useClassNames: false,
-  //     disableMutationObserver: false,
-  //     debounceDelay: 50,
-  //     throttleDelay: 99,
-  //     offset: 120,
-  //     delay: 0,
-  //     duration: 1000,
-  //     easing: "ease",
-  //     once: true,
-  //     mirror: false,
-  //     anchorPlacement: "top-bottom",
-  //   });
-  // }, []);
 
   useEffect(() => {
       const fetchOffers = async () => {

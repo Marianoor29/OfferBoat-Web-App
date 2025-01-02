@@ -37,8 +37,7 @@ const nextConfig = {
       },
     ],
   },
-  reactStrictMode: false,
   pageExtensions: ['tsx', 'js', 'ts', 'jsx'], 
 }
 
-module.exports = nextConfig
+export default nextConfig;

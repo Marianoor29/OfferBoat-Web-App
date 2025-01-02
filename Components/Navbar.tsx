@@ -132,7 +132,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
           </ul>
 
           {/* Render different menus based on authentication */}
-          {user?.token && !location ? (
+          {user?.token ? (
             <div className="relative">
               {/* Profile Picture */}
               <button

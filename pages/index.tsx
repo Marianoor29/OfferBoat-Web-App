@@ -13,8 +13,8 @@ import { useContext, useEffect, useState } from "react";
 
 const HomePage = () => {
   const router = useRouter();
-  const [offers, setOffers] = useState<[]>([]);
-  const [listing, setListing] = useState<[]>([]);
+  const [offers, setOffers] = useState<any[]>([]);
+  const [listing, setListing] = useState<any[]>([]);
   const [address, setAddress] = useState<string>(""); 
   const { updateUser } = useContext(UserContext)!;
 
@@ -33,7 +33,6 @@ const HomePage = () => {
           setOffers(sortedOffers);
         } catch (error) {
           console.error("Error fetching offers:", error);
-          return [];
         }
       };
 
@@ -55,7 +54,6 @@ const HomePage = () => {
           setListing(sortedOffers);
         } catch (error) {
           console.error("Error fetching offers:", error);
-          return [];
         }
       };
 

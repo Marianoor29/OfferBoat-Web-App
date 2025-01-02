@@ -18,47 +18,47 @@ const HomePage = () => {
   const [address, setAddress] = useState<string>(""); 
   const { updateUser } = useContext(UserContext)!;
 
-  useEffect(() => {
-      const fetchOffers = async () => {
-        try {
-         const response = await axios.get(`https://www.offerboats.com/latest-customOffers`);
+  // useEffect(() => {
+  //     const fetchOffers = async () => {
+  //       try {
+  //        const response = await axios.get(`https://www.offerboats.com/latest-customOffers`);
       
-          const offers = response.data.offers;
-          const sortedOffers = offers.sort((a: any, b: any) => {
-            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-            return dateB - dateA;
-          });
+  //         const offers = response.data.offers;
+  //         const sortedOffers = offers.sort((a: any, b: any) => {
+  //           const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+  //           const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+  //           return dateB - dateA;
+  //         });
       
-          setOffers(sortedOffers);
-        } catch (error) {
-          console.error("Error fetching offers:", error);
-        }
-      };
+  //         setOffers(sortedOffers);
+  //       } catch (error) {
+  //         console.error("Error fetching offers:", error);
+  //       }
+  //     };
 
-    fetchOffers();
-  }, []);
+  //   fetchOffers();
+  // }, []);
 
-  useEffect(() => {
-      const fetchListings = async () => {
-        try {
-        const response = await axios.get(`https://www.offerboats.com/listing/latest-listings`);
+  // useEffect(() => {
+  //     const fetchListings = async () => {
+  //       try {
+  //       const response = await axios.get(`https://www.offerboats.com/listing/latest-listings`);
       
-          const offers = response.data.modifiedListings;
-          const sortedOffers = offers.sort((a: any, b: any) => {
-            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-            return dateB - dateA;
-          });
+  //         const offers = response.data.modifiedListings;
+  //         const sortedOffers = offers.sort((a: any, b: any) => {
+  //           const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+  //           const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+  //           return dateB - dateA;
+  //         });
       
-          setListing(sortedOffers);
-        } catch (error) {
-          console.error("Error fetching offers:", error);
-        }
-      };
+  //         setListing(sortedOffers);
+  //       } catch (error) {
+  //         console.error("Error fetching offers:", error);
+  //       }
+  //     };
 
-      fetchListings();
-  }, []);
+  //     fetchListings();
+  // }, []);
 
   const handleSeeMoreBoats = () => {
     router.push("/boats");
@@ -119,11 +119,11 @@ const HomePage = () => {
     <div className="bg-white">
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} /> 
       <TopDestination />
-      <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/>
+      {/* <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/> */}
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <MakeOfferBanner onClick={handleMakeOffer}/>
       </div>
-      <LatestOffers offers={offers} onSeeMore={handleSeeMoreOffers} />
+      {/* <LatestOffers offers={offers} onSeeMore={handleSeeMoreOffers} /> */}
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <AddBoatBanner onClick={handleAddBoat}/>
       </div>

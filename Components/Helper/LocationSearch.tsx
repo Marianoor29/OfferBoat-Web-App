@@ -16,7 +16,10 @@ const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: any, onSearch
     setAddress(address); 
     onSearch(); 
   };
-  if (!isLoaded) return <div>Loading Google Maps...</div>;
+  
+  if (!isLoaded) {
+    return <div>Loading Google Maps...</div>;
+  }
   return (
     <div className="flex items-center gap-[1rem] lg:w-[50%] md:w-[50%] w-[70%] pl-5 justify-between">
       <div className="flex items-center space-x-6 w-full">

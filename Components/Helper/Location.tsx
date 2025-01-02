@@ -19,9 +19,10 @@ const Location = ({ onAddressSelect , placeholder = "Please select your location
     setLocalAddress(address); 
     onAddressSelect(address); 
   };
-  
-  if (!isLoaded) return <div>Loading Google Maps...</div>;
 
+   if (!isLoaded) {
+    return <div>Loading Google Maps...</div>;
+  }
   return (
       <div className="flex items-center p-4 border rounded-lg cursor-pointer">
         <div className="w-full">

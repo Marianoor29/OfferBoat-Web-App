@@ -20,25 +20,25 @@ const HomePage = () => {
   const [address, setAddress] = useState<string>(""); 
   const { updateUser } = useContext(UserContext)!;
   
-  useEffect(() => {
-    AOS.init({
-      disable: false,
-      startEvent: "DOMContentLoaded",
-      initClassName: "aos-init",
-      animatedClassName: "aos-animate",
-      useClassNames: false,
-      disableMutationObserver: false,
-      debounceDelay: 50,
-      throttleDelay: 99,
-      offset: 120,
-      delay: 0,
-      duration: 1000,
-      easing: "ease",
-      once: true,
-      mirror: false,
-      anchorPlacement: "top-bottom",
-    });
-  }, []);
+  // useEffect(() => {
+  //   AOS.init({
+  //     disable: false,
+  //     startEvent: "DOMContentLoaded",
+  //     initClassName: "aos-init",
+  //     animatedClassName: "aos-animate",
+  //     useClassNames: false,
+  //     disableMutationObserver: false,
+  //     debounceDelay: 50,
+  //     throttleDelay: 99,
+  //     offset: 120,
+  //     delay: 0,
+  //     duration: 1000,
+  //     easing: "ease",
+  //     once: true,
+  //     mirror: false,
+  //     anchorPlacement: "top-bottom",
+  //   });
+  // }, []);
 
   useEffect(() => {
       const fetchOffers = async () => {
@@ -141,8 +141,8 @@ const HomePage = () => {
   
   return (
     <div className="bg-white">
-      <Hero  handleSearch={handleSearch}  setAddress={setAddress} />
-      {/* <TopDestination />
+      <Hero  handleSearch={handleSearch}  setAddress={setAddress} /> 
+      <TopDestination />
       <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/>
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <MakeOfferBanner onClick={handleMakeOffer}/>
@@ -150,7 +150,7 @@ const HomePage = () => {
       <LatestOffers offers={offers} onSeeMore={handleSeeMoreOffers} />
       <div className="flex pt-[2rem] bg-white pb-[2rem] items-center justify-center ">
       <AddBoatBanner onClick={handleAddBoat}/>
-      </div> */}
+      </div>
     </div>
   );
 };

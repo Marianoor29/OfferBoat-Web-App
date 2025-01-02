@@ -9,9 +9,8 @@ export default function  Document() {
         
          {/* Google Maps API Script */}
         <script
-          src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig&libraries=places`}
+          src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig&libraries=places&loading=async`}
           async
-          defer
         ></script>
       </Head>
       <body className="font-primary">

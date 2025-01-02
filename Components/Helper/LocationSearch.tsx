@@ -1,3 +1,4 @@
+import { useLoadGoogleMapsAPI } from "@/pages/api/useLoadGoogleMapsAPI";
 import { useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -5,6 +6,7 @@ import PlacesAutocomplete from "react-places-autocomplete";
 // LocationSearchBox component now accepts `setAddress` and `onSearch` as props
 const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: any, onSearch: any}) => {
   const [address, setLocalAddress] = useState("");
+  const isLoaded = useLoadGoogleMapsAPI("AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig", ["places"]);
 
   const handleChange = (value: string) => {
     setLocalAddress(value); 
@@ -14,7 +16,7 @@ const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: any, onSearch
     setAddress(address); 
     onSearch(); 
   };
-
+  if (!isLoaded) return <div>Loading Google Maps...</div>;
   return (
     <div className="flex items-center gap-[1rem] lg:w-[50%] md:w-[50%] w-[70%] pl-5 justify-between">
       <div className="flex items-center space-x-6 w-full">

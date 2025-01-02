@@ -1,3 +1,4 @@
+import { useLoadGoogleMapsAPI } from "@/pages/api/useLoadGoogleMapsAPI";
 import { useState } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 
@@ -8,6 +9,7 @@ interface LocationProps {
 
 const Location = ({ onAddressSelect , placeholder = "Please select your location"}: LocationProps) => {
   const [address, setLocalAddress] = useState("");
+  const isLoaded = useLoadGoogleMapsAPI("AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig", ["places"]);
 
   const handleChange = (value: string) => {
     setLocalAddress(value);
@@ -17,6 +19,8 @@ const Location = ({ onAddressSelect , placeholder = "Please select your location
     setLocalAddress(address); 
     onAddressSelect(address); 
   };
+  
+  if (!isLoaded) return <div>Loading Google Maps...</div>;
 
   return (
       <div className="flex items-center p-4 border rounded-lg cursor-pointer">

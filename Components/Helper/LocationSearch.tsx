@@ -28,7 +28,7 @@ const LocationSearchBox = ({ setAddress, onSearch }: LocationSearchBoxProps) => 
   };
   if (!isClient) return null;
   return (
-    <div className="flex items-center lg:w-[50%] md:w-[50%] w-[60%] pl-5 justify-between">
+    <div className="flex items-center lg:w-[50%] md:w-[50%] w-[76%] pl-5 justify-between">
       <div className="flex items-center space-x-4 w-full">
         <div className="w-full">
           <GooglePlacesAutocomplete

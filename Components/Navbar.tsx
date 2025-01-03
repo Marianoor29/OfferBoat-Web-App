@@ -2,10 +2,17 @@
 import { UserContext } from "@/context/UserContext";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import { useContext, useState } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { useContext, useEffect, useState } from "react";
+import { FaBell, FaChevronDown, FaChevronUp, FaShip,} from "react-icons/fa";
 import LocationSearchBox from "./Helper/LocationSearch";
 import { useRouter } from "next/navigation"; 
+import { FaCircleDollarToSlot, FaCircleUser, FaMoneyCheckDollar } from "react-icons/fa6";
+import { IoBoatSharp, IoCreate, IoLogOut } from "react-icons/io5";
+import { MdPlaylistAddCheckCircle, MdReviews } from "react-icons/md";
+import { PiListFill, PiHeartFill, PiListPlusFill } from "react-icons/pi";
+import { GrTransaction } from "react-icons/gr";
+import { RiUserSettingsFill } from "react-icons/ri";
+import axios from "axios";
 
 interface Props {
   openNav: () => void;
@@ -20,17 +27,38 @@ const Navbar = ({ openNav, location = false, profile = true, setAddress, handleS
   const [open, setOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { user, clearUser } = useContext(UserContext)!;
+  const [numberOfNotifications, setNumberOfNotifications] = useState(0);
 
   const handleLogout = () => {
     clearUser();
     router.push("/auth/login"); 
   };
-
+console.log(numberOfNotifications, 'numberOfNotifications')
   const navigate = (path: string) => {
     router.push(path); 
     setOpen(false)
     setProfileMenuOpen(false)
   };
+
+  const fetchNumberOfNotifications = async () => {
+    try {
+      const response = await axios.get(`https://www.offerboats.com/notification/countUnreadNotifications/${user._id}`);
+      if (response.status === 200) {
+        setNumberOfNotifications(response.data.count);
+      } else {
+        console.log('Failed to fetch notification count:', response.status);
+      }
+    } catch (error) {
+      console.log('Error fetching notification count:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (user._id) {
+      console.log('call')
+    fetchNumberOfNotifications()
+    }
+  },[user._id])
 
   return (
     <div className="w-[100%] bg-white fixed top-0 left-0 right-0 z-[2000] shadow-lg">
@@ -80,38 +108,52 @@ const Navbar = ({ openNav, location = false, profile = true, setAddress, handleS
             {open && (
               <div className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-lg w-48">
                 <ul className="py-2">
-                  <li onClick={() => navigate("/boats")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                  <li onClick={() => navigate("/boats")} 
+                  className="items-center flex-row flex px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                     <FaShip className="mr-2 text-black" />
                     Boats
                   </li>
-                  <li onClick={() => navigate("/offers")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                  <li onClick={() => navigate("/offers")} 
+                  className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                 <FaMoneyCheckDollar className="mr-2 text-black" />
                     Offers
                   </li>
                   {user?.token && (
                     <>
                       {user?.userType === "BoatOwner" && (
                         <>
-                          <li onClick={() => navigate("/owner/listings")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                          <li onClick={() => navigate("/owner/listings")} 
+                          className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                            <PiListFill className="mr-2 text-black" /> 
                             Listings
                           </li>
-                          <li onClick={() => navigate("/owner/add-boat")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                          <li onClick={() => navigate("/owner/add-boat")} 
+                          className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                            <PiListPlusFill className="mr-2 text-black" />
                             Add Listing
                           </li>
-                          <li onClick={() => navigate("/owner/submitted-boats")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                          <li onClick={() => navigate("/owner/submitted-boats")} 
+                          className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                            <IoBoatSharp className="mr-2 text-black" />
                             Submitted Boats
                           </li>
                         </>
                       )}
                       {user?.userType === "BoatRenter" && (
                         <>
-                          <li onClick={() => navigate("/renter/make-offer")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                          <li onClick={() => navigate("/renter/make-offer")} 
+                          className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                          <IoCreate  className="mr-2 text-black" />
                             Make Offer
                           </li>
-                          <li onClick={() => navigate("/renter/my-offers")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                          <li onClick={() => navigate("/renter/my-offers")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                          <FaCircleDollarToSlot className="mr-2 text-black" />
                             My Offer
                           </li>
                         </>
                       )}
-                      <li onClick={() => navigate("/trips")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                      <li onClick={() => navigate("/trips")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                      <MdPlaylistAddCheckCircle className="mr-2 text-black" />
                         Trips
                       </li>
                     </>
@@ -134,6 +176,9 @@ const Navbar = ({ openNav, location = false, profile = true, setAddress, handleS
           {/* Render different menus based on authentication */}
           {user?.token && profile ? (
             <div className="relative">
+              <div className="absolute right-2 -top-1 w-5 h-5 rounded-full bg-red-600 justify-center items-center flex">
+               <p className="text-white text-xs">{numberOfNotifications}</p> 
+              </div>
               {/* Profile Picture */}
               <button
                 onClick={() => setProfileMenuOpen((prev) => !prev)}
@@ -156,30 +201,40 @@ const Navbar = ({ openNav, location = false, profile = true, setAddress, handleS
                 <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg w-48">
                   <p className="pl-3">Hi {user?.firstName || "There"}</p>
                   <ul className="py-2">
-                    <li onClick={() => navigate("/profile")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <li onClick={() => navigate("/profile")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <FaCircleUser className="mr-2 text-black" />
                       View Profile
+                    </li>
+                    <li onClick={() => navigate("/notification")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <FaBell className="mr-2 text-black" />
+                      Notifications
                     </li>
                     {user?.userType === "BoatRenter" && (
                       <>
-                        <li onClick={() => navigate("/renter/transaction")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                        <li onClick={() => navigate("/renter/transaction")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                        <GrTransaction className="mr-2 text-black" />
                           Transactions
                         </li>
                       </>
                     )}
-                    <li onClick={() => navigate("/renter/favorites")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <li onClick={() => navigate("/renter/favorites")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <PiHeartFill className="mr-2 text-black" />
                       Favorites
                     </li>
-                    <li onClick={() => navigate("/reviews")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <li onClick={() => navigate("/reviews")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <MdReviews className="mr-2 text-black" />
                       Reviews
                     </li>
-                    <li onClick={() => navigate("/account-settings")} className="block px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <li onClick={() => navigate("/account-settings")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <RiUserSettingsFill className="mr-2 text-black" />
                       Account Settings
                     </li>
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer "
+                        className="items-center flex-row flex  w-full text-left px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer "
                       >
+                      <IoLogOut className="mr-2 text-black" />
                         Logout
                       </button>
                     </li>
@@ -188,11 +243,13 @@ const Navbar = ({ openNav, location = false, profile = true, setAddress, handleS
               )}
             </div>
           ) : (
-            <button onClick={() => navigate("/auth/login")} className="nav-link">
-              SignIn
-            </button>
+           <></>
           )}
-
+        {!user.token && (
+           <button onClick={() => navigate("/auth/login")} className="nav-link">
+           SignIn
+         </button>
+        )}
           {/* Hamburger Icon */}
           <Bars3Icon onClick={openNav} className="w-[2rem] lg:hidden h-[2rem] text-blue-800 font-bold" />
         </div>

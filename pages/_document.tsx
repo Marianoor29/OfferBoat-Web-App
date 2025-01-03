@@ -8,10 +8,10 @@ export default function  Document() {
         <meta httpEquiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups" />
         <meta httpEquiv="Cross-Origin-Embedder-Policy" content="unsafe-none" />
      {/* Google Maps API Script */}
-     <Script
+     {/* <Script
           src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig&libraries=places&loading=async&callback=Function.prototype`}
           strategy="afterInteractive"
-        />
+        /> */}
       </Head>
       <body className="font-primary">
         <Main />

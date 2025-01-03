@@ -1,6 +1,6 @@
-import { useLoadGoogleMapsAPI } from "@/pages/api/useLoadGoogleMapsAPI";
-import { useState } from "react";
-import PlacesAutocomplete from "react-places-autocomplete";
+// import { useLoadGoogleMapsAPI } from "@/pages/api/useLoadGoogleMapsAPI";
+// import { useState } from "react";
+// import PlacesAutocomplete from "react-places-autocomplete";
 
 interface LocationProps {
   onAddressSelect: (address: string) => void;
@@ -8,24 +8,24 @@ interface LocationProps {
 }
 
 const Location = ({ onAddressSelect , placeholder = "Please select your location"}: LocationProps) => {
-  const [address, setLocalAddress] = useState("");
-  const isLoaded = useLoadGoogleMapsAPI("AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig", ["places"]);
+  // const [address, setLocalAddress] = useState("");
+  // const isLoaded = useLoadGoogleMapsAPI("AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig", ["places"]);
 
-  const handleChange = (value: string) => {
-    setLocalAddress(value);
-  };
+  // const handleChange = (value: string) => {
+  //   setLocalAddress(value);
+  // };
 
-  const handleSelect = (address: string) => {
-    setLocalAddress(address); 
-    onAddressSelect(address); 
-  };
+  // const handleSelect = (address: string) => {
+  //   setLocalAddress(address); 
+  //   onAddressSelect(address); 
+  // };
 
-   if (!isLoaded) {
-    return <div>Loading Google Maps...</div>;
-  }
+  //  if (!isLoaded) {
+  //   return <div>Loading Google Maps...</div>;
+  // }
   return (
       <div className="flex items-center p-4 border rounded-lg cursor-pointer">
-        <div className="w-full">
+        {/* <div className="w-full">
           <PlacesAutocomplete
             value={address}
             onChange={handleChange} 
@@ -68,7 +68,7 @@ const Location = ({ onAddressSelect , placeholder = "Please select your location
               </div>
             )}
           </PlacesAutocomplete>
-        </div>
+        </div> */}
       </div>
   );
 };

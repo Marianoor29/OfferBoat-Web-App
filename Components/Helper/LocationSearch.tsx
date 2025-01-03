@@ -1,28 +1,28 @@
-import { useLoadGoogleMapsAPI } from "@/pages/api/useLoadGoogleMapsAPI";
-import { useState } from "react";
-import { IoMdSearch } from "react-icons/io";
-import PlacesAutocomplete from "react-places-autocomplete";
+// import { useLoadGoogleMapsAPI } from "@/pages/api/useLoadGoogleMapsAPI";
+// import { useState } from "react";
+// import { IoMdSearch } from "react-icons/io";
+// import PlacesAutocomplete from "react-places-autocomplete";
 
 // LocationSearchBox component now accepts `setAddress` and `onSearch` as props
 const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: any, onSearch: any}) => {
-  const [address, setLocalAddress] = useState("");
-  const isLoaded = useLoadGoogleMapsAPI("AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig", ["places"]);
+  // const [address, setLocalAddress] = useState("");
+  // const isLoaded = useLoadGoogleMapsAPI("AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig", ["places"]);
 
-  const handleChange = (value: string) => {
-    setLocalAddress(value); 
-  };
+  // const handleChange = (value: string) => {
+  //   setLocalAddress(value); 
+  // };
 
-  const handleSearch = () => {
-    setAddress(address); 
-    onSearch(); 
-  };
+  // const handleSearch = () => {
+  //   setAddress(address); 
+  //   onSearch(); 
+  // };
   
-  if (!isLoaded) {
-    return <div>Loading Google Maps...</div>;
-  }
+  // if (!isLoaded) {
+  //   return <div>Loading Google Maps...</div>;
+  // }
   return (
     <div className="flex items-center gap-[1rem] lg:w-[50%] md:w-[50%] w-[70%] pl-5 justify-between">
-      <div className="flex items-center space-x-6 w-full">
+      {/* <div className="flex items-center space-x-6 w-full">
         <div className="w-full">
           <PlacesAutocomplete
             value={address}
@@ -72,7 +72,7 @@ const LocationSearchBox = ({ setAddress, onSearch }: { setAddress: any, onSearch
         className="relative rounded-lg lg:inline-flex items-center justify-center px-4 py-4 overflow-hidden font-medium group bg-renterBlue hover:opacity-70 text-white "
       >
      <IoMdSearch />
-      </button>
+      </button> */}
     </div>
   );
 };

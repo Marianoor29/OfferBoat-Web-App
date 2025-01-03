@@ -10,11 +10,12 @@ import { useRouter } from "next/navigation";
 interface Props {
   openNav: () => void;
   location: boolean;
+  profile: boolean;
   setAddress: (address: string) => void;
   handleSearch: () => void;
 }
 
-const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) => {
+const Navbar = ({ openNav, location = false, profile = true, setAddress, handleSearch }: Props) => {
   const router = useRouter(); 
   const [open, setOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -131,7 +132,7 @@ const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) 
           </ul>
 
           {/* Render different menus based on authentication */}
-          {user?.token ? (
+          {user?.token && profile ? (
             <div className="relative">
               {/* Profile Picture */}
               <button

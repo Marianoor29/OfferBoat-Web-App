@@ -45,6 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
               location={showLocationSearch}
               setAddress={setAddress}
               handleSearch={handleSearch}
+              profile={!showLocationSearch}
             />
           </>
         )}

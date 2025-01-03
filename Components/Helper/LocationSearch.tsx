@@ -12,7 +12,7 @@ const LocationSearchBox = ({ setAddress, onSearch }: LocationSearchBoxProps) => 
   const [value, setValue] = useState<{ label: string; value: { place_id: string } } | null>(null);
 
   useEffect(() => {
-    setIsClient(true); // Component is now rendering on the client
+    setIsClient(true); 
   }, []);
 
   const handleSearch = async () => {
@@ -28,8 +28,8 @@ const LocationSearchBox = ({ setAddress, onSearch }: LocationSearchBoxProps) => 
   };
   if (!isClient) return null;
   return (
-    <div className="flex items-center gap-[1rem] lg:w-[50%] md:w-[50%] w-[70%] pl-5 justify-between">
-      <div className="flex items-center space-x-6 w-full">
+    <div className="flex items-center lg:w-[50%] md:w-[50%] w-[60%] pl-5 justify-between">
+      <div className="flex items-center space-x-4 w-full">
         <div className="w-full">
           <GooglePlacesAutocomplete
             apiKey="AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig"

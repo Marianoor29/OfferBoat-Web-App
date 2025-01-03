@@ -1,5 +1,4 @@
 "use client";
-
 import { UserContext } from "@/context/UserContext";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import Image from "next/image";
@@ -11,8 +10,8 @@ import { useRouter } from "next/navigation";
 interface Props {
   openNav: () => void;
   location: boolean;
-  setAddress?: (address: string) => void;
-  handleSearch?: () => void;
+  setAddress: (address: string) => void;
+  handleSearch: () => void;
 }
 
 const Navbar = ({ openNav, location = false, setAddress, handleSearch }: Props) => {

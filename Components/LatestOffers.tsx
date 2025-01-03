@@ -32,7 +32,7 @@ const LatestOffers = ({
   onSeeMore
 }:LatestOffersProps) => {
   return (
-    <div className="pt-[2rem] pb-[2rem]  ">
+    <div className="pt-[2rem] pb-[2rem]">
       <h1 className="heading lg:text-[25px] md:text-[21px] text-[15px]">Latest Offers in Miami</h1>
       <p className="text-center font-serif">Boat owners can find relevant offers and send their boats that meet the conditions, along with a proposed price for consideration.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem] items-center w-[96%] mx-auto mt-[2rem]">

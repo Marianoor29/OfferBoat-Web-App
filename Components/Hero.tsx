@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import LocationSearchBox from "./Helper/LocationSearch";
+import dynamic from "next/dynamic";
 
 interface Props {
-  setAddress?: (address: string) => void;
-  handleSearch?: () => void;
+  setAddress: (address: string) => void;
+  handleSearch: () => void;
 }
 
-const Hero = ({ setAddress, handleSearch }: Props) => {
+const LocationSearchBox = dynamic(() => import("./Helper/LocationSearch"), { ssr: false });
+
+export default function Hero({ setAddress, handleSearch }: Props) {
   const [isLargeScreen, setIsLargeScreen] = useState<boolean>(false);
 
   // Check screen size on mount and resize
@@ -77,5 +79,3 @@ const Hero = ({ setAddress, handleSearch }: Props) => {
     </div>
   );
 };
-
-export default Hero;

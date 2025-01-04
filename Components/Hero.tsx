@@ -53,7 +53,7 @@ export default function Hero({ setAddress, handleSearch }: Props) {
       <Image
         src="/images/a8.jpeg"
         alt="Boat Rentals & Yacht Charters"
-        className="w-[100%] h-[100%] object-fill block lg:hidden"
+        className="w-[100%] h-[100%] object-cover block lg:hidden"
         fill
         sizes="w-[100%] h-[100%]"
       />

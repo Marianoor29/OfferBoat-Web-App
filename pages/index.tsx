@@ -10,13 +10,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { parseCookies } from 'nookies';
 import { useContext, useEffect, useState } from "react";
+import NotificationSetup from "@/Components/NotificationSetup"
 
 const HomePage = () => {
   const router = useRouter();
   const [offers, setOffers] = useState<any[]>([]);
   const [listing, setListing] = useState<any[]>([]);
   const [address, setAddress] = useState<string>(""); 
-  const { updateUser } = useContext(UserContext)!;
+  const { updateUser, user } = useContext(UserContext)!;
 
   useEffect(() => {
       const fetchOffers = async () => {
@@ -117,6 +118,7 @@ const HomePage = () => {
   
   return (
     <div className="bg-white">
+      <NotificationSetup userId={user?._id}/> 
       <Hero  handleSearch={handleSearch}  setAddress={setAddress} /> 
       <TopDestination />
       <LatestBoats boats={listing} onSeeMore={handleSeeMoreBoats}/>

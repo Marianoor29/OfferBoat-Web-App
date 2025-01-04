@@ -1,5 +1,6 @@
-import { initializeApp,} from "firebase/app";
+import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getMessaging } from 'firebase/messaging';
 
 const firebaseConfig = {
   apiKey: "AIzaSyARDiLS2HWcnvPB15M87l-8uLgu2KqKdNk",
@@ -14,5 +15,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+let messaging; 
 
-export { app, auth };
+// Initialize messaging only on the client
+if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+  messaging = getMessaging(app);
+}
+
+export { app, auth, messaging };

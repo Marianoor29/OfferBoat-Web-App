@@ -12,6 +12,7 @@ import { MdPlaylistAddCheckCircle, MdReviews } from "react-icons/md";
 import { PiListFill, PiHeartFill, PiListPlusFill } from "react-icons/pi";
 import { GrTransaction } from "react-icons/gr";
 import { RiUserSettingsFill } from "react-icons/ri";
+import { SiHelpdesk } from "react-icons/si";
 import axios from "axios";
 
 interface Props {
@@ -220,6 +221,10 @@ console.log(numberOfNotifications, 'numberOfNotifications')
                     <li onClick={() => navigate("/renter/favorites")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
                     <PiHeartFill className="mr-2 text-black" />
                       Favorites
+                    </li>
+                    <li onClick={() => navigate("/get-help")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
+                    <SiHelpdesk className="mr-2 text-black" />
+                      Get Help
                     </li>
                     <li onClick={() => navigate("/reviews")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
                     <MdReviews className="mr-2 text-black" />

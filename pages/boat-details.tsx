@@ -72,7 +72,7 @@ const BoatDetails = ()  => {
     const { user } = useContext(UserContext)!;
     const pageUrl = listingDetails?.type === "TripRequest" ? `https://www.offerboat.com/app/${listingDetails.listingId._id}` : `https://www.offerboat.com/app/${listingDetails?._id}`;
     const pageTitle =listingDetails?.type === "TripRequest" ? listingDetails.listingId.title : listingDetails?.title;
-
+console.log(tripDetails, 'tripDetails')
     const descriptionToShow = showFullDescription
       ? listingDetails?.listingId?.description
       : listingDetails?.listingId?.description?.slice(0, 1000);

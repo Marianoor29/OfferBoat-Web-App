@@ -36,7 +36,7 @@ const PhotosSlider: React.FC<PhotosSliderProps> = ({ images , height = "h-64", w
         containerClass="carousel-container"
         itemClass="item"
       >
-        {images.map((src, index) => (
+        {images.map((src:any, index) => (
          <div key={index} className={`${width} relative ${height}`}>
             <Image
               src={src}

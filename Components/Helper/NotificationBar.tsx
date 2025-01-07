@@ -38,7 +38,7 @@ const NotificationBar: FC<Props> = ({
   return (
     <div
       onClick={handleClick}
-      className={`flex items-center p-4 rounded-md cursor-pointer transition ${status ? "bg-blue-200" : "bg-gray-100"
+      className={`flex items-center p-4 rounded-md cursor-pointer transition ${status ? "bg-gray-100" : "bg-gray-200"
         } hover:shadow-md mb-1`}
     >
       <div className="w-12 h-12 flex-shrink-0 rounded-full overflow-hidden">
@@ -52,7 +52,7 @@ const NotificationBar: FC<Props> = ({
           />
         )}
       </div>
-      <div className="flex-1 ml-4">
+      <div className="flex-1 ml-4 overflow-hidden">
         <h3 className="text-lg font-semibold truncate">{title}</h3>
         <p className="text-sm text-gray-600 line-clamp-2">{body}</p>
         <div className="flex justify-between text-xs text-gray-500 mt-2">

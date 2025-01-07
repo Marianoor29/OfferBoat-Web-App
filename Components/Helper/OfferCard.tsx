@@ -28,31 +28,31 @@ const OfferCard: React.FC<OfferCardProps> = ({
   ButtonColor = 'bg-renterBlue',
   blockedView = false,
 }) => {
-  const [wordLimit, setWordLimit] = useState(4);
+  // const [wordLimit, setWordLimit] = useState(4);
   // Helper function to truncate text after a given word limit
-  const truncateText = (text: string, wordLimit: number) => {
-    const words = text.split(' ');
-    if (words.length <= wordLimit) return text;
-    return words.slice(0, wordLimit).join(' ') + '...';
-  };
+  // const truncateText = (text: string, wordLimit: number) => {
+  //   const words = text.split(' ');
+  //   if (words.length <= wordLimit) return text;
+  //   return words.slice(0, wordLimit).join(' ') + '...';
+  // };
 
-  useEffect(() => {
-    const updateWordLimit = () => {
-      const width = window.innerWidth;
-      if (width >= 1024) setWordLimit(6);
-      else if (width >= 768) setWordLimit(6);
-      else setWordLimit(8);
-    };
+  // useEffect(() => {
+  //   const updateWordLimit = () => {
+  //     const width = window.innerWidth;
+  //     if (width >= 1024) setWordLimit(6);
+  //     else if (width >= 768) setWordLimit(6);
+  //     else setWordLimit(8);
+  //   };
 
-    // Initial check
-    updateWordLimit();
+  //   // Initial check
+  //   updateWordLimit();
 
-    // Add resize listener
-    window.addEventListener('resize', updateWordLimit);
+  //   // Add resize listener
+  //   window.addEventListener('resize', updateWordLimit);
 
-    // Cleanup listener
-    return () => window.removeEventListener('resize', updateWordLimit);
-  }, []);
+  //   // Cleanup listener
+  //   return () => window.removeEventListener('resize', updateWordLimit);
+  // }, []);
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden w-[96%] md:w-[98%] lg:w-[98%] mx-auto my-2 relative">
@@ -91,15 +91,15 @@ const OfferCard: React.FC<OfferCardProps> = ({
             </div>
 
             {/* Title and Description */}
-            <div className="flex-1 ">
+            <div className="flex-1 overflow-hidden">
               <h4 className="text-m font-serif text-black truncate">
-                {truncateText(title || '', wordLimit)}
+                {title}
               </h4>
               <p className="text-black text-sm truncate ">
-                {truncateText(description || '', wordLimit)}
+                {description}
               </p>
-              <p className="text-gray-400 text-sm">
-                {truncateText(location || '', wordLimit)}
+              <p className="text-gray-400 text-sm ">
+                {location} 
               </p>
             </div>
           </div>

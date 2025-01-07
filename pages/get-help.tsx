@@ -72,10 +72,10 @@ const GetHelp = ({ }) => {
             <p className="text-sm text-gray-500">{user?.email}</p>
           </div>
         </div>
-        <div ref={flatListRef} className="flex-grow overflow-y-auto bg-gray-100 p-4">
+        <div ref={flatListRef} className="flex-grow overflow-y-auto bg-gray-100 p-4 rounded-lg">
           {[...messages].map((item, index) => (
             item.messageText.map((messageItem:any, msgIndex:any) => (
-              <div key={`${item._id}-${msgIndex}`} className={`mb-2 p-2 rounded ${messageItem.sender === 'user' ? 'bg-blue-100 text-right' : 'bg-blue-200'}`}>
+              <div key={`${item._id}-${msgIndex}`} className={`mb-2 p-2 rounded-lg ${messageItem.sender === 'user' ? 'bg-gray-200 text-right' : 'bg-gray-200'}`}>
                 <p>{messageItem.message}</p>
                 <p className="text-xs text-gray-500">{new Date(messageItem.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
               </div>

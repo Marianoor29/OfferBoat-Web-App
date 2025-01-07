@@ -37,7 +37,7 @@ const ReviewSlider = ({Reviews = ReviewsList}) => {
       {Reviews.map((review: { profilePicture: string; firstName: string; lastName: string; userType: string; reviewText: string; }, index: React.Key | null | undefined) => (
         <ClientReview
           key={index}
-          profilePicture={review.profilePicture}
+          profilePicture={review?.profilePicture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
           firstName={review.firstName}
           lastName={review.lastName}
           userType={review.userType}

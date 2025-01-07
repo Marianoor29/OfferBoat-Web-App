@@ -34,6 +34,7 @@ export default function OfferPage({ offer }: any) {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const { user } = useContext(UserContext)!;
 
+  console.log(offer, 'offer')
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -141,7 +142,7 @@ export default function OfferPage({ offer }: any) {
       <div className="pt-[1rem] p-[2rem]">
         <div className="flex relative justify-end">
           {/* PhotosSlider */}
-          <PhotosSlider images={offer.images} height="h-[20rem] sm:h-[24rem] md:h-[28rem] lg:h-[36rem]" />
+          <PhotosSlider images={offer?.images} height="h-[20rem] sm:h-[24rem] md:h-[28rem] lg:h-[36rem]" />
           <div className="absolute flex flex-row w-[8rem] p-[1rem] justify-between ">
            {/* Sharing Options */}
             <div className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
@@ -207,7 +208,7 @@ export default function OfferPage({ offer }: any) {
           pageUrl={pageUrl}
           pageTitle={pageTitle}
           location={offer.location}
-          src={offer.images[0]}
+          src={offer?.images[0]}
         />
       </div>
     </>

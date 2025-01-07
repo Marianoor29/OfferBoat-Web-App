@@ -3,7 +3,7 @@ import ReviewSlider from "./ReviewSlider";
 import { FaStar, FaRegStar } from 'react-icons/fa';
 
 const OwnerProfile = ({ offer , reviews, errorMessage} : any) => {
-
+console.log(reviews, 'reviews')
   return (
     <div className=" justify-center items-center w-full p-4 bg-white mt-10 ">
          {/* Owner Profile Box on the Right */}
@@ -12,7 +12,7 @@ const OwnerProfile = ({ offer , reviews, errorMessage} : any) => {
         <div className="flex items-center ">
           <div className="flex justify-center items-center rounded-full w-[100px] h-[100px] mx-auto ">
             <Image
-              src={offer.ownerId.profilePicture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+              src={offer?.ownerId?.profilePicture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
               alt="Offerboat - Your Budget, Our Boats"
               className="w-24 h-24 rounded-full"
               width={200}

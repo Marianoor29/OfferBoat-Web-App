@@ -34,7 +34,7 @@ const Navbar = ({ openNav, location = false, profile = true, setAddress, handleS
     clearUser();
     router.push("/auth/login"); 
   };
-console.log(numberOfNotifications, 'numberOfNotifications')
+
   const navigate = (path: string) => {
     router.push(path); 
     setOpen(false)
@@ -177,7 +177,8 @@ console.log(numberOfNotifications, 'numberOfNotifications')
           {/* Render different menus based on authentication */}
           {user?.token && profile ? (
             <div className="relative">
-              <div className="absolute right-2 -top-1 w-5 h-5 rounded-full bg-red-600 justify-center items-center flex">
+              <div onClick={() => navigate("/notification")}
+              className="absolute right-2 -top-1 w-5 h-5 rounded-full bg-red-600 justify-center items-center flex cursor-pointer">
                <p className="text-white text-xs">{numberOfNotifications}</p> 
               </div>
               {/* Profile Picture */}
@@ -209,6 +210,9 @@ console.log(numberOfNotifications, 'numberOfNotifications')
                     <li onClick={() => navigate("/notification")} className="items-center flex-row flex  px-4 py-2 hover:bg-gray-100 text-sm cursor-pointer ">
                     <FaBell className="mr-2 text-black" />
                       Notifications
+                      <div className="ml-10 w-5 h-5 rounded-full bg-red-600 justify-center items-center flex">
+                      <p className="text-white text-xs">{numberOfNotifications}</p> 
+                   </div>
                     </li>
                     {user?.userType === "BoatRenter" && (
                       <>

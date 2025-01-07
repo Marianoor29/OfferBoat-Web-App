@@ -64,6 +64,7 @@ const TripDetails = () => {
   const [rating, onRatingChange] = useState<number>(0);
   const [existingReview, setExistingReview] = useState<any>(null);
 
+console.log(booking, 'booking')
   const handleBadgeText =
     bookingStatus === ORDER_STATUSES.PENDING
       ? "text-red-500"

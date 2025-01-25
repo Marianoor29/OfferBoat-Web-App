@@ -1,10 +1,12 @@
 'use client';
 import AddFeatures from "@/Components/Helper/AddFeatures";
+import BoatCategoryDropdown from "@/Components/Helper/BoatCategoryDropDown";
 import ImagesSelector from "@/Components/Helper/ImagesSelector";
 import Location from "@/Components/Helper/Location";
 import PackageSelection from "@/Components/Helper/PackageSelection";
 import WelcomeCard from "@/Components/Helper/WelcomeCard";
 import { UserContext } from "@/context/UserContext";
+import { BoatCategories, BoatLength, BoatManufacturer } from "@/dummyData";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -20,6 +22,9 @@ const AddBoats = () => {
   const [rule, setRule] = useState<string[]>([]);
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [boatCategory, setBoatCategory] = useState<string >('');
+  const [boatManufacturer, setBoatManufacturer] = useState<string >('');
+  const [lengthRange, setLengthRange] = useState<string >('');
   const [packages, setPackages] = useState([
     { id: 1, price: "$0.00", hours: "" },
   ]);
@@ -86,7 +91,10 @@ const AddBoats = () => {
       features: features,
       images: selectedImages,
       rules: rule,
-      ownerId: user?._id || ''
+      ownerId: user?._id || '',
+      boatCategory: boatCategory,
+      boatManufacturer: boatManufacturer,
+      lengthRange: lengthRange,
     };
 
     try {
@@ -96,6 +104,9 @@ const AddBoats = () => {
       formData.append('description', newOffer.description);
       formData.append('numberOfPassengers', newOffer.numberOfPassengers);
       formData.append('ownerId', newOffer.ownerId);
+      formData.append('boatCategory', newOffer.boatCategory);
+      formData.append('boatManufacturer', newOffer.boatManufacturer);
+      formData.append('lengthRange', newOffer.lengthRange);
       newOffer.packages.forEach((pkg, index) => {
         formData.append(`packages[${index}][hours]`, pkg.hours);
         formData.append(`packages[${index}][price]`, pkg.price);
@@ -126,6 +137,16 @@ const AddBoats = () => {
       } catch (error: any) {
         setErrorMessage("Failed to Create Listing, Please Try Again Later, or Check your Internet Connection!");
       };
+    };
+
+    const handleCategorySelect = (value: string) => {
+      setBoatCategory(value);
+    };
+    const handleLengthSelect = (value: string) => {
+      setLengthRange(value);
+    };
+    const handleManufacturerSelect = (value: string) => {
+      setBoatManufacturer(value);
     };
 
     return (
@@ -179,6 +200,33 @@ const AddBoats = () => {
                   <h1 className="mb-2">Add Rules</h1>
                   <AddFeatures features={rule} setFeatures={setRule} placeholder="Add Rules" />
                 </div>
+                <div className="mb-7">
+                  <h1 className="mb-2">Boat Category</h1>
+                  <BoatCategoryDropdown
+                  categories={BoatCategories}
+                  onSelect={handleCategorySelect}
+                  title={"Select a Boat Category"}
+                  selectedValue={boatCategory}
+                  />
+                  </div>
+                <div className="mb-7">
+                  <h1 className="mb-2">Boat Length</h1>
+                  <BoatCategoryDropdown
+                  categories={BoatLength}
+                  onSelect={handleLengthSelect}
+                  title={"Select a Boat Length"}
+                  selectedValue={lengthRange}
+                  />
+                  </div>
+                <div className="mb-7">
+                  <h1 className="mb-2">Boat Manufacturer</h1>
+                  <BoatCategoryDropdown
+                  categories={BoatManufacturer}
+                  onSelect={handleManufacturerSelect}
+                  title={"Select a Boat Manufacturer"}
+                  selectedValue={boatManufacturer}
+                  />
+                  </div>
                 <div className="flex items-center justify-center space-x-12 mb-7">
                   {/* Minus Button */}
                   <button

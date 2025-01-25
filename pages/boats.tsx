@@ -36,9 +36,7 @@ const BoatsPage = ({ address, setAddress, }: {
     columnCount: 3,
   });
 
-  const swrKey = triggerSearch && !user._id === null
-    ? `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}&userId=${user._id}`
-    : `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`;
+  const swrKey = triggerSearch  &&  `https://www.offerboats.com/listing/listingsWithLocation?location=${address}&limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}&userId=${user?._id || undefined}`
 
   const { data: offersData, error } = useSWR(swrKey, fetcher, {
     revalidateOnFocus: true,

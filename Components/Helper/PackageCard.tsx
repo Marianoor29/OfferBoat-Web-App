@@ -2,7 +2,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 
 const PackageCard = ({ offer, buttons = true , onClickBookNow, onClickMakeOffer}: any) => {
   return (
-    <div className="bg-white shadow-xl rounded-xl overflow-hidden md:w-[50%] lg:w-[40%] p-4 mt-10 h-fit ">
+    <div className="bg-white rounded-xl overflow-hidden md:w-[50%] lg:w-[40%] p-4 mt-10 h-fit ">
       <h1 className="heading text-[20px] mb-5 mt-5">PACKAGES</h1>
       {offer.packages.map((item: any, index:any) => {
         return (

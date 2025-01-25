@@ -9,6 +9,7 @@ import { FaHeart, FaRegHeart, FaShare } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
 import ShareModal from '@/Components/Helper/ShareModal';
+import BoatDetail from '@/Components/Helper/BoatDetails';
 
 export async function getServerSideProps(context: { params: { offerId: any; }; }) {
   const { offerId } = context.params;
@@ -65,14 +66,14 @@ export default function OfferPage({ offer }: any) {
     router.push({
       pathname: '/renter/booking',
       query: { offer: encodeURIComponent(JSON.stringify(offer)) },
-  });
+    });
   };
 
   const onClickMakeOffer = () => {
     router.push({
       pathname: '/renter/make-list-offer',
       query: { offer: encodeURIComponent(JSON.stringify(offer)) },
-  });
+    });
   };
 
   const toggleSave = async () => {
@@ -105,23 +106,23 @@ export default function OfferPage({ offer }: any) {
   useEffect(() => {
     const checkIfSaved = async () => {
       if (user.token) {
-      try {
-        const response = await axios.get(`https://www.offerboats.com/listing/isSaved`, {
-          params: {
-            userId: user._id,
-            listingId: offer._id,
-          },
-        });
-  
-        if (response.status === 200) {
-          setIsSaved(response.data.isSaved);
-        } else {
-          console.log('Failed to check saved status:', response.data.message);
+        try {
+          const response = await axios.get(`https://www.offerboats.com/listing/isSaved`, {
+            params: {
+              userId: user._id,
+              listingId: offer._id,
+            },
+          });
+
+          if (response.status === 200) {
+            setIsSaved(response.data.isSaved);
+          } else {
+            console.log('Failed to check saved status:', response.data.message);
+          }
+        } catch (error: any) {
+          console.log('Error checking saved status:', error.message);
         }
-      } catch (error:any) {
-        console.log('Error checking saved status:', error.message);
-      }
-    };
+      };
     }
     checkIfSaved();
   }, [offer._id, user._id]);
@@ -144,16 +145,16 @@ export default function OfferPage({ offer }: any) {
           {/* PhotosSlider */}
           <PhotosSlider images={offer?.images} height="h-[20rem] sm:h-[24rem] md:h-[28rem] lg:h-[36rem]" />
           <div className="absolute flex flex-row w-[8rem] p-[1rem] justify-between ">
-           {/* Sharing Options */}
+            {/* Sharing Options */}
             <div className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
-             onClick={openShareModal}>
+              onClick={openShareModal}>
               <FaShare />
             </div>
             <div className="flex items-center justify-center text-white bg-black50 h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
               onClick={OnClickSave}>
               {isSaved ?
                 <FaHeart /> :
-                <FaRegHeart /> }
+                <FaRegHeart />}
             </div>
           </div>
         </div>
@@ -177,6 +178,11 @@ export default function OfferPage({ offer }: any) {
                     </button>
                   )}
                 </p>
+                <BoatDetail
+                  Length={offer?.lengthRange || 'Not Mention'}
+                  Model={offer?.boatManufacturer || "Not Mention"}
+                  Category={offer?.boatCategory || "Not Mention"}
+                />
                 <a
                   href={`https://www.google.com/maps?q=${encodeURIComponent(offer.location)}`}
                   target="_blank"
@@ -201,7 +207,7 @@ export default function OfferPage({ offer }: any) {
           {/* Right Content */}
           <PackageCard offer={offer} onClickBookNow={onClickBookNow} onClickMakeOffer={onClickMakeOffer} />
         </div>
-            {/* Share Modal */}
+        {/* Share Modal */}
         <ShareModal
           isOpen={isShareModalOpen}
           onClose={closeShareModal}

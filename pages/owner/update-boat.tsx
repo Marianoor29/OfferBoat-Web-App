@@ -1,12 +1,14 @@
 'use client';
 import AddFeatures from "@/Components/Helper/AddFeatures";
+import BoatCategoryDropdown from "@/Components/Helper/BoatCategoryDropDown";
 import Location from "@/Components/Helper/Location";
 import Modal from "@/Components/Helper/ModelWrapper";
 import PackageSelection from "@/Components/Helper/PackageSelection";
 import { UserContext } from "@/context/UserContext";
+import { BoatCategories, BoatLength, BoatManufacturer } from "@/dummyData";
 import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import axios from "axios";
-import { useRouter , useSearchParams} from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
@@ -18,12 +20,15 @@ interface Offer {
   features: string[];
   rules: string[];
   location: string;
+  boatCategory: string;
+  boatManufacturer: string;
+  lengthRange: string;
   packages: { id: number; price: string; hours: string }[];
 }
 
 const UpdateBoat = () => {
   const router = useRouter();
-  const searchParams = useSearchParams(); 
+  const searchParams = useSearchParams();
   const [offer, setOffer] = useState<Offer | undefined>();
   const [selectedAddress, setSelectedAddress] = useState<string | null>();
   const [title, setTitle] = useState<string>("");
@@ -31,10 +36,13 @@ const UpdateBoat = () => {
   const [numberOfPassenger, setNumberOfPassenger] = useState<number>(0);
   const [features, setFeatures] = useState<string[]>([]);
   const [rule, setRule] = useState<string[]>([]);
-  const [packages, setPackages] = useState<Offer['packages']>([{ id: 1, price: "$0.00", hours: "" }]);  
+  const [packages, setPackages] = useState<Offer['packages']>([{ id: 1, price: "$0.00", hours: "" }]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { user } = useContext(UserContext)!;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [boatCategory, setBoatCategory] = useState<string>(offer?.boatCategory || 'Other');
+  const [boatManufacturer, setBoatManufacturer] = useState<string>(offer?.boatManufacturer || 'Other');
+  const [lengthRange, setLengthRange] = useState<string>(offer?.lengthRange || '3 inches');
 
   const decreaseMembers = () => {
     if (numberOfPassenger > 0) {
@@ -60,6 +68,9 @@ const UpdateBoat = () => {
       !selectedAddress ||
       !title ||
       !description ||
+      !boatCategory ||
+      !boatManufacturer ||
+      !lengthRange ||
       numberOfPassenger <= 0 ||
       features.length === 0 ||
       rule.length === 0 ||
@@ -78,37 +89,40 @@ const UpdateBoat = () => {
     e.preventDefault();
 
     if (!validateForm()) {
-      return; 
+      return;
     }
-      const id = offer?._id; 
-      const updatedOffer = {
-        title: title,
-        description:description,
-        rules: rule, 
-        features: features,
-        packages: packages,
-        numberOfPassengers: numberOfPassenger,
-        location: selectedAddress ,
-      };
-      try {
-  
-        const response = await axios.put(`https://www.offerboats.com/listing/editList/${id}`, updatedOffer, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user?.token}`,
-          },
-        });
-        router.push(`/owner/${id}`);
-      } catch (error: any) {
-          setErrorMessage("Failed to Update Listing, Please Try Again Later, or Check your Internet Connection!");
-      } 
+    const id = offer?._id;
+    const updatedOffer = {
+      title: title,
+      description: description,
+      rules: rule,
+      features: features,
+      packages: packages,
+      numberOfPassengers: numberOfPassenger,
+      location: selectedAddress,
+      boatCategory: boatCategory,
+      boatManufacturer: boatManufacturer,
+      lengthRange: lengthRange,
+    };
+    try {
+
+      const response = await axios.put(`https://www.offerboats.com/listing/editList/${id}`, updatedOffer, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user?.token}`,
+        },
+      });
+      router.push(`/owner/${id}`);
+    } catch (error: any) {
+      setErrorMessage("Failed to Update Listing, Please Try Again Later, or Check your Internet Connection!");
+    }
   };
 
   useEffect(() => {
     if (searchParams.get('offer')) {
-  const safeOffer = decodeURIComponent(searchParams.get('offer') as string);
-  const parsedOffer = JSON.parse(safeOffer);
-  setOffer(parsedOffer);
+      const safeOffer = decodeURIComponent(searchParams.get('offer') as string);
+      const parsedOffer = JSON.parse(safeOffer);
+      setOffer(parsedOffer);
     }
   }, [searchParams.get('offer')])
 
@@ -119,11 +133,15 @@ const UpdateBoat = () => {
       setNumberOfPassenger(offer.numberOfPassengers);
       setFeatures(offer.features);
       setRule(offer.rules);
-      setPackages(offer.packages);
-      setSelectedAddress(offer.location)
+      setBoatCategory(offer?.boatCategory )
+      setBoatManufacturer(offer?.boatManufacturer)
+      setLengthRange(offer?.lengthRange)
+      setPackages(offer.packages)
+      setSelectedAddress(offer.location);
     }
   }, [offer]);
   
+
   const handleDelete = async () => {
     const id = offer?._id;
     try {
@@ -136,18 +154,28 @@ const UpdateBoat = () => {
       router.push(`/owner/listings`);
     } catch (error) {
       setErrorMessage('Failed to delete listing. Please try again.');
-    } 
+    }
+  };
+
+  const handleCategorySelect = (value: string) => {
+    setBoatCategory(value);
+  };
+  const handleLengthSelect = (value: string) => {
+    setLengthRange(value);
+  };
+  const handleManufacturerSelect = (value: string) => {
+    setBoatManufacturer(value);
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="flex flex-col w-full max-w-3xl p-8 space-y-6 my-5 bg-white rounded-lg shadow-lg">
-      <div className="flex justify-between">
-        <h1 className="heading mb-5 text-center">Update Your Boat Details</h1>
-        <button className="flex items-center justify-center text-red-600 bg-white h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
-       onClick={() => setIsModalOpen(true)}>
-              <FaTrash />
-            </button>
+        <div className="flex justify-between">
+          <h1 className="heading mb-5 text-center">Update Your Boat Details</h1>
+          <button className="flex items-center justify-center text-red-600 bg-white h-[2.5rem] w-[2.5rem] rounded-3xl shadow-3xl"
+            onClick={() => setIsModalOpen(true)}>
+            <FaTrash />
+          </button>
         </div>
         <div className="mb-7">
           <h1 className="mb-2">Select Your Location</h1>
@@ -193,6 +221,33 @@ const UpdateBoat = () => {
           <h1 className="mb-2">Add Rules</h1>
           <AddFeatures features={rule} setFeatures={setRule} placeholder="Add Rules" />
         </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Boat Category</h1>
+          <BoatCategoryDropdown
+            categories={BoatCategories}
+            onSelect={handleCategorySelect}
+            title={"Select a Boat Category"}
+            selectedValue={offer?.boatCategory}
+          />
+        </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Boat Length</h1>
+          <BoatCategoryDropdown
+            categories={BoatLength}
+            onSelect={handleLengthSelect}
+            title={"Select a Boat Length"}
+            selectedValue={offer?.lengthRange}
+          />
+        </div>
+        <div className="mb-7">
+          <h1 className="mb-2">Boat Manufacturer</h1>
+          <BoatCategoryDropdown
+            categories={BoatManufacturer}
+            onSelect={handleManufacturerSelect}
+            title={"Select a Boat Manufacturer"}
+            selectedValue={offer?.boatManufacturer}
+          />
+        </div>
         <div className="flex items-center justify-center space-x-12 mb-7">
           {/* Minus Button */}
           <button
@@ -224,8 +279,8 @@ const UpdateBoat = () => {
           Update Lisitng
         </button>
       </div>
-       {/* Modal */}
-       <Modal
+      {/* Modal */}
+      <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Are you sure you want to delete this listing? "

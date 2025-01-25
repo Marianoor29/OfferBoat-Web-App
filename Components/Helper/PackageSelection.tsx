@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HourSelector from "./HourSelector";
 import CurrencyInput from "./CurrencyInput";
 
@@ -23,6 +23,7 @@ const PackageSelection = ({
   onHoursChange,
   hoursOptions,
 }: PackageSelectionProps) => {
+
   const handleAddPackage = () => {
     if (packages.length < 5) {
       const newId = packages.length > 0 ? packages[packages.length - 1].id + 1 : 1;
@@ -34,16 +35,24 @@ const PackageSelection = ({
     setPackages(packages.filter((pkg) => pkg.id !== id));
   };
 
+  console.log("Packages in parent component:", packages);
+
+  useEffect(() => {
+    console.log("Packages in parent component:", packages);
+},[packages])
+
   return (
     <div className="space-y-6">
-      {packages.map((pkg) => (
+      {packages?.map((pkg) => (
         <div key={pkg.id} className="p-4 bg-gray-50 rounded-lg shadow-md space-y-4">
+          {/* Debugging log */}
+          <p> Price: {pkg.price}, Hours: {pkg.hours}</p>
+
           <div className="flex flex-col">
             <label className="text-gray-700 font-medium">Price</label>
             <CurrencyInput
               value={pkg.price}
               onValueChange={(value) => onPriceChange(pkg.id, value)}
-            //   placeholder="Enter price"
             />
           </div>
 

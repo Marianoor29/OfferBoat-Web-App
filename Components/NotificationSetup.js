@@ -20,7 +20,7 @@ const NotificationSetup = ({ userId }) => {
 
             if (messaging) {
               const token = await getToken(messaging, {
-                vapidKey: 'BB4sQlWDFI_OAznOhHh4L3UcO8YP4hsOCtkj7tmNLp1bsRjpwmQHG1oeXjpfecmnoJoZ9R7yKuXmoQdt1OW-UhQ',
+                vapidKey: 'BB4sQlWDFI_OAz...........eXjpfecmnoJoZ9R7yKuXmoQdt1OW-UhQ',
                 serviceWorkerRegistration: registration,
               });
 

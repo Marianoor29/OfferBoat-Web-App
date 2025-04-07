@@ -34,7 +34,7 @@ const GOOGLE_GEOCODING_API = 'https://maps.googleapis.com/maps/api/geocode/json'
 
 // Utility function to get city and country from Google API
 async function getCityAndCountryFromGoogle(location: string) {
-  const apiKey = 'AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig';
+  const apiKey = 'A.......yDiY4TiK........jMpxxQ3Gxig';
   const url = `${GOOGLE_GEOCODING_API}?address=${encodeURIComponent(location)}&key=${apiKey}`;
 
   try {

@@ -32,7 +32,7 @@ const LocationSearchBox = ({ setAddress, onSearch }: LocationSearchBoxProps) => 
       <div className="flex items-center space-x-4 w-full">
         <div className="w-full">
           <GooglePlacesAutocomplete
-            apiKey="AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig"
+            apiKey="AIzaS..................3Gxig"
             selectProps={{
               value,
               onChange: (newValue) => setValue(newValue),

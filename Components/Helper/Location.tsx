@@ -16,7 +16,7 @@ const Location = ({ onAddressSelect, placeholder = "Please select your location"
     <div className="flex items-center p-4 border rounded-lg cursor-pointer">
       <div className="w-full">
         <GooglePlacesAutocomplete
-          apiKey="AIzaSyDiY4TiKIhXraPLCfY898nYjMpxxQ3Gxig"
+          apiKey="AIzaS/........Q3Gxig"
           selectProps={{
             placeholder: placeholder,
             onChange: handleSelect, // Callback when an address is selected
